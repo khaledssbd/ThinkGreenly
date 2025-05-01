@@ -1,6 +1,9 @@
 import React from "react";
 import { Banner } from "../components/HomeComponents/Banner";
-const page = () => {
+import { getCurrentUser } from "@/services/AuthService";
+const HomePage = async () => {
+  const user = await getCurrentUser();
+  console.log(user);
   return (
     <div>
       <Banner />
@@ -8,4 +11,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default HomePage;
