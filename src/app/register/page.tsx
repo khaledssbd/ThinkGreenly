@@ -1,8 +1,12 @@
 import RegisterForm from "@/components/modules/auth/register/RegisterForm";
-import React from "react";
+import WithSuspense from "@/Providers/LoadingProviders";
 
 const RegisterPage = () => {
-  return <RegisterForm />;
+  return (
+    <WithSuspense>
+      <RegisterForm />
+    </WithSuspense>
+  );
 };
 
 export default RegisterPage;
