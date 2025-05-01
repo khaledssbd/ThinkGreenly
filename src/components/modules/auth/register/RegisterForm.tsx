@@ -1,0 +1,106 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import React from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { registrationValidationSchema } from "./registerValidation";
+import { registerUser } from "@/services/AuthService";
+
+const RegisterForm = () => {
+  const form = useForm({
+    resolver: zodResolver(registrationValidationSchema),
+  });
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const res = await registerUser(data);
+      console.log(res);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+  return (
+    <div className="min-h-screen text-white flex justify-center items-center bg-transparent">
+      <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500">
+        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
+          Create Account
+        </h2>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel />
+                  <FormControl>
+                    <Input
+                      className="py-6"
+                      placeholder="Enter User Name"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel />
+                  <FormControl>
+                    <Input
+                      className="my-4 py-6"
+                      placeholder="Enter Email"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel />
+                  <FormControl>
+                    <Input
+                      className="py-6"
+                      placeholder="Enter Password"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="bg-green-600 mt-3">
+              Register
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </div>
+  );
+};
+
+export default RegisterForm;
