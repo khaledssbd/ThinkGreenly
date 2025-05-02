@@ -48,10 +48,3 @@ export const useUser = () => {
 };
 
 export default UserProvider;
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error("must be used in useUser");
-  }
-  return context;
-};
