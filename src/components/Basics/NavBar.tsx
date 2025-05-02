@@ -2,15 +2,42 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 // import { MdEnergySavingsLeaf } from "react-icons/md";
 import logo from "../../assets/logo.png";
 import { ModeToggle } from "../ModeToggle";
+import { useUser } from "@/context/UserContext";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { LogOut } from "lucide-react";
+import { logOut } from "@/services/AuthService";
+import { protectedRoutes } from "@/constant";
+
 const NavBar = () => {
+  const router = useRouter();
+
+  const { user, setIsLoading, isLoading } = useUser();
   const pathname = usePathname();
   //.log(pathname);
+  console.log(user);
+  const handleLogout = () => {
+    logOut();
+
+    // if (protectedRoutes.some((route) => pathname.match(route))) {
+    //   router.push("/");
+    // }
+    setIsLoading(!isLoading);
+  };
   const links = (
     <>
       <Link
@@ -49,36 +76,54 @@ const NavBar = () => {
   );
 
   return (
-    <div className="flex  items-center w-[95%] mt-6 mx-auto justify-between">
+    <div className="flex  items-center w-[90%] mt-6 mx-auto justify-between">
       <div className="font-bold ml-5  text-2xl flex gap-2 items-center">
         <Image src={logo} width={135} height={10} alt="logo" />
       </div>
-      <div className="flex gap-8 ml-30">{links}</div>
-      <div>
-        <button
-          className={
-            pathname === "/dashboard"
-              ? "border-b-2 border-dashed border-2 border-green-300 px-4 py-2"
-              : "border-4 border-green-300 px-2 py-1 border-dotted rounded-3xl"
-          }
-        >
-          <Link href="/dashboard">
-            <h1>Dashboard</h1>
+      <div className="flex gap-8 ml-12">{links}</div>
+
+      <div className="flex gap-10">
+        {user ? (
+          <>
+            {" "}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <Link href="/profile">
+                    {" "}
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="text-red-600 font-semibold cursor-pointer"
+                >
+                  Log out <LogOut className="text-red-600" />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
+        ) : (
+          <Link href="/login">
+            <button className="bg-green-500  rounded-lg px-2 py-1">
+              Login
+            </button>
           </Link>
-        </button>
-      </div>
-      <div className="">
-        <Link href="/login">
-          <button className="bg-green-500  rounded-lg px-2 py-1">Login</button>
-        </Link>
-        {/* </> */}
-        {/* )} */}
-        <Link href="register">
-          {" "}
-          <button className="bg-green-950 ml-6  rounded-lg px-2 py-1">
-            Register
-          </button>
-        </Link>
+        )}
         <ModeToggle />
       </div>
     </div>

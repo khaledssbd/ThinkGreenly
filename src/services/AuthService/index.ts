@@ -52,3 +52,8 @@ export const getCurrentUser = async () => {
     return null;
   }
 };
+
+export const logOut = async (): Promise<void> => {
+  (await cookies()).delete("accessToken");
+  (await cookies()).delete("refreshToken");
+};

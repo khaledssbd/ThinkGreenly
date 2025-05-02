@@ -17,8 +17,11 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { loginValidationSchema } from "./loginValidation";
 import { loginUser } from "@/services/AuthService";
+import Link from "next/link";
+import { useUser } from "@/context/UserContext";
 
 const LoginForm = () => {
+  const { setIsLoading } = useUser();
   const form = useForm({
     resolver: zodResolver(loginValidationSchema),
   });
@@ -31,6 +34,7 @@ const LoginForm = () => {
       const res = await loginUser(data);
       console.log(res);
       if (res.success) {
+        setIsLoading(true);
         toast.success(res?.message);
       } else {
         toast.error(res.message);
@@ -88,6 +92,12 @@ const LoginForm = () => {
             <Button type="submit" className="bg-green-600 mt-3">
               {isSubmitting ? "Logging in.." : "Log in"}
             </Button>
+            <h1 className="flex mt-8">
+              Don&apos;t Have an Account? Please
+              <Link href="/register">
+                <span className="text-green-400 ml-2">Register</span>
+              </Link>
+            </h1>
           </form>
         </Form>
       </div>

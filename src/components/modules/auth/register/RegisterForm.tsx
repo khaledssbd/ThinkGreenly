@@ -16,6 +16,7 @@ import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { registrationValidationSchema } from "./registerValidation";
 import { registerUser } from "@/services/AuthService";
+import Link from "next/link";
 
 const RegisterForm = () => {
   const form = useForm({
@@ -106,6 +107,12 @@ const RegisterForm = () => {
             <Button type="submit" className="bg-green-600 mt-3">
               {isSubmitting ? "Registering.." : "Register"}
             </Button>
+            <h1 className="mt-4">
+              Already Have an Account? Please
+              <Link href="/login">
+                <span className="text-green-700 ml-2 font-bold">Login</span>
+              </Link>
+            </h1>
           </form>
         </Form>
       </div>
