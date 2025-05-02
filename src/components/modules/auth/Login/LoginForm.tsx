@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-import { Button } from "@/components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
+'use client';
+import { Button } from '@/components/ui/button';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -9,14 +9,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { toast, Toaster } from "sonner";
-import { Input } from "@/components/ui/input";
-import React from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+} from '@/components/ui/form';
+import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
+import React from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { loginValidationSchema } from "./loginValidation";
-import { loginUser } from "@/services/AuthService";
+import { loginValidationSchema } from './loginValidation';
+import { loginUser } from '@/services/AuthService';
 
 const LoginForm = () => {
   const form = useForm({
@@ -26,7 +26,7 @@ const LoginForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
       const res = await loginUser(data);
       console.log(res);
@@ -58,7 +58,7 @@ const LoginForm = () => {
                       className="my-4 py-6"
                       placeholder="Enter Email"
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                     />
                   </FormControl>
 
@@ -77,7 +77,7 @@ const LoginForm = () => {
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                     />
                   </FormControl>
 
@@ -86,19 +86,11 @@ const LoginForm = () => {
               )}
             />
             <Button type="submit" className="bg-green-600 mt-3">
-              {isSubmitting ? "Logging in.." : "Log in"}
+              {isSubmitting ? 'Logging in..' : 'Log in'}
             </Button>
           </form>
         </Form>
       </div>
-      <Toaster
-        toastOptions={{
-          style: {
-            background: "#2ecc71",
-            border: "none",
-          },
-        }}
-      />
     </div>
   );
 };
