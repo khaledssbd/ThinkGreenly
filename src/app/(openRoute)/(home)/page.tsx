@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Banner } from "@/components/HomeComponents/Banner";
+import { Banner } from '@/components/HomeComponents/Banner';
 
 const HomePage = async () => {
   return (
@@ -9,4 +9,5 @@ const HomePage = async () => {
     </div>
   );
 };
+
 export default HomePage;

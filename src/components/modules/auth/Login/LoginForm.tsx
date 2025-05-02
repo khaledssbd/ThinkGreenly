@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
+
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -12,9 +13,7 @@ import {
 } from '@/components/ui/form';
 import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
-import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-
 import { loginValidationSchema } from './loginValidation';
 import { loginUser } from '@/services/AuthService';
 import { useUser } from '@/context/UserContext';
@@ -29,10 +28,12 @@ const LoginForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
+
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
       const res = await loginUser(data);
-      console.log(res);
+
+      // console.log(res);
       if (res.success) {
         setIsLoading(true);
         toast.success(res?.message);
@@ -43,6 +44,7 @@ const LoginForm = () => {
       console.log(err);
     }
   };
+
   return (
     <div className="min-h-screen text-white flex justify-center items-center bg-transparent">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500">
