@@ -102,13 +102,14 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
+
             <Button type="submit" className="bg-green-600 mt-3">
               {isSubmitting ? "Registering.." : "Register"}
             </Button>
           </form>
         </Form>
       </div>
-      <Toaster />
+      <Toaster richColors />
     </div>
   );
 };

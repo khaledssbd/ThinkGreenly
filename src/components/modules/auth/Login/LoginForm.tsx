@@ -91,14 +91,7 @@ const LoginForm = () => {
           </form>
         </Form>
       </div>
-      <Toaster
-        toastOptions={{
-          style: {
-            background: "#2ecc71",
-            border: "none",
-          },
-        }}
-      />
+      <Toaster richColors />
     </div>
   );
 };
