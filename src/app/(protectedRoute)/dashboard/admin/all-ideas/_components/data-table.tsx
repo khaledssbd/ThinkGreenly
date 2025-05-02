@@ -319,13 +319,13 @@ export const columns: ColumnDef<TIdea>[] = [
             <DropdownMenuItem>
               <span className="flex items-center">
                 <Edit className="mr-2 h-4 w-4" />
-                <span>Edit project</span>
+                <span>Edit idea</span>
               </span>
             </DropdownMenuItem>
             <DropdownMenuItem className="text-red-600">
               <span className="flex items-center">
                 <Trash2 className="mr-2 h-4 w-4" />
-                <span>Delete project</span>
+                <span>Delete idea</span>
               </span>
             </DropdownMenuItem>
           </DropdownMenuContent>
