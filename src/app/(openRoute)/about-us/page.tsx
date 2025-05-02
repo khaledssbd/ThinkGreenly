@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
-import begreen from '@/assets/begreen.jpg'
+import aboutbanner from '@/assets/about-usbanner.jpeg'
 
 export default function AboutUs() {
   return (
@@ -12,7 +12,7 @@ export default function AboutUs() {
       {/* Hero Section */}
       <div className="relative bg-green-50 rounded-2xl overflow-hidden mb-20">
         <Image
-          src={begreen}
+          src={aboutbanner}
           alt="Nature Background"
           layout="fill"
           objectFit="cover"
