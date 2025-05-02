@@ -1,6 +1,7 @@
-"use client";
-import { getCurrentUser } from "@/services/AuthService";
-import { IUser } from "@/types";
+'use client';
+
+import { getCurrentUser } from '@/services/AuthService';
+import { IUser } from '@/types';
 import {
   createContext,
   Dispatch,
@@ -8,12 +9,11 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
+} from 'react';
 
 interface IUserProv {
   user: IUser | null;
   isLoading: boolean;
-
   setUser: (user: IUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
@@ -42,7 +42,9 @@ export const useUser = () => {
   const context = useContext(UserContext);
 
   if (context == undefined) {
+
     throw new Error("useUser must be used within the UserProvider context");
+
   }
 
   return context;
