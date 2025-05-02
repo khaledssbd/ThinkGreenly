@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -30,7 +29,7 @@ const NavBar = () => {
         <h1>Ideas</h1>
       </Link>
       <Link
-        href="/blog"
+        href="/blogs"
         className={
           pathname === "/blog" ? "border-b-2 border-green-300" : "border-b-0"
         }
@@ -38,7 +37,7 @@ const NavBar = () => {
         <h1>Blogs</h1>
       </Link>
       <Link
-        href="/aboutus"
+        href="/about-us"
         className={
           pathname === "/aboutus" ? "border-b-2 border-green-300" : "border-b-0"
         }
