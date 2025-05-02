@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useUser } from "@/context/UserContext";
 import { usePathname, useRouter } from "next/navigation";
-import { logout } from "@/services/AuthService";
+import { logOut } from "@/services/AuthService";
 import { protectedRoutes } from "@/constants";
 
 export function NavUser() {
@@ -29,7 +29,7 @@ export function NavUser() {
     const pathname = usePathname();
 
     const handleLogout = () => {
-        logout();
+        logOut();
         setIsLoading(true);
 
         if (protectedRoutes.some((route) => pathname.match(route))) {
