@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 // import { MdEnergySavingsLeaf } from "react-icons/md";
@@ -21,10 +21,10 @@ import {
 } from "../ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { logOut } from "@/services/AuthService";
-import { protectedRoutes } from "@/constant";
+// import { protectedRoutes } from "@/constant";
 
 const NavBar = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const { user, setIsLoading, isLoading } = useUser();
   const pathname = usePathname();
@@ -89,10 +89,7 @@ const NavBar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar>
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                  />
+                  <AvatarImage src={user.image} alt="@shadcn" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>

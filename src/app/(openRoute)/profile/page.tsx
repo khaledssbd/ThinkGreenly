@@ -1,7 +1,5 @@
-import React from "react";
+import ProfileCard from "@/components/HomeComponents/ProfileCard";
 
-const ProfilePage = () => {
-  return <div>Hello Profile</div>;
-};
-
-export default ProfilePage;
+export default function ProfilePage() {
+  return <ProfileCard />;
+}
