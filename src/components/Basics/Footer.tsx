@@ -1,126 +1,70 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import logos from '@/assets/logo.png'
+import Link from "next/link";
+import logos from "@/assets/logo.png";
 
-interface MenuItem {
-    title: string;
-    links: {
-      text: string;
-      url: string;
-    }[];
-  }
-  
-  interface Footer2Props {
-    logo?: {
-      url: string;
-      src: string;
-      alt: string;
-      title: string;
-    };
-    tagline?: string;
-    menuItems?: MenuItem[];
-    copyright?: string;
-    bottomLinks?: {
-      text: string;
-      url: string;
-    }[];
-  }
-  
-  const Footer = ({
-
-    menuItems = [
-      {
-        title: "Product",
-        links: [
-          { text: "Overview", url: "#" },
-          { text: "Pricing", url: "#" },
-          { text: "Marketplace", url: "#" },
-          { text: "Features", url: "#" },
-          { text: "Integrations", url: "#" },
-          { text: "Pricing", url: "#" },
-        ],
-      },
-      {
-        title: "Company",
-        links: [
-          { text: "About", url: "#" },
-          { text: "Team", url: "#" },
-          { text: "Blog", url: "#" },
-          { text: "Careers", url: "#" },
-          { text: "Contact", url: "#" },
-          { text: "Privacy", url: "#" },
-        ],
-      },
-      {
-        title: "Resources",
-        links: [
-          { text: "Help", url: "#" },
-          { text: "Sales", url: "#" },
-          { text: "Advertise", url: "#" },
-        ],
-      },
-      {
-        title: "Social",
-        links: [
-          { text: "Twitter", url: "#" },
-          { text: "Instagram", url: "#" },
-          { text: "LinkedIn", url: "#" },
-        ],
-      },
-    ],
-    copyright = "© 2025 ThinkGreenly All rights reserved.",
-    bottomLinks = [
-      { text: "Terms and Conditions", url: "#" },
-      { text: "Privacy Policy", url: "#" },
-    ],
-  }: Footer2Props) => {
-    return (
-      <section className="py-32">
-        <div className="container mx-auto">
-          <footer>
-            <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
-              <div className="col-span-2 mb-8 lg:mb-0">
-                <div className="flex items-center gap-2 lg:justify-start">
-                  <a href="https://shadcnblocks.com">
-                    <Image src={logos} alt="logo" width={ 200} height={200}
-                    />
-                  </a>
-            
+const Footer = () => {
+  return (
+    <section className="py-16 bg-gray-100 dark:bg-gray-900">
+      <div className="container mx-auto px-4">
+        <footer>
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
+            {/* Logo & Contact Info */}
+            <div className="col-span-2 space-y-4">
+              <Link href="/">
+                <Image src={logos} alt="Sustainability Idea Hub" width={160} height={160} />
+              </Link>
+              <p className="text-muted-foreground text-sm">
+                Building a greener tomorrow through shared sustainable ideas.
+              </p>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <p>Email: support@sustainabilityhub.com</p>
+                <p>Phone: +880 1234 567 890</p>
+                <div className="flex gap-3 mt-2">
+                  <Link href="#" className="hover:text-blue-500">Facebook</Link>
+                  <Link href="#" className="hover:text-blue-400">Twitter</Link>
+                  <Link href="#" className="hover:text-blue-700">LinkedIn</Link>
                 </div>
-        
               </div>
-              {menuItems.map((section, sectionIdx) => (
-                <div key={sectionIdx}>
-                  <h3 className="mb-4 font-bold">{section.title}</h3>
-                  <ul className="space-y-4 text-muted-foreground">
-                    {section.links.map((link, linkIdx) => (
-                      <li
-                        key={linkIdx}
-                        className="font-medium hover:text-primary"
-                      >
-                        <a href={link.url}>{link.text}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
             </div>
-            <div className="mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
-              <p>{copyright}</p>
-              <ul className="flex gap-4">
-                {bottomLinks.map((link, linkIdx) => (
-                  <li key={linkIdx} className="underline hover:text-primary">
-                    <a href={link.url}>{link.text}</a>
-                  </li>
-                ))}
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="mb-4 font-semibold">Navigation</h3>
+              <ul className="space-y-2 text-muted-foreground text-sm">
+                <li><Link href="/" className="hover:text-primary">Home</Link></li>
+                <li><Link href="/ideas" className="hover:text-primary">Ideas</Link></li>
+                <li><Link href="/dashboard" className="hover:text-primary">Dashboard</Link></li>
+                <li><Link href="/about-us" className="hover:text-primary">About Us</Link></li>
+                <li><Link href="/blogs" className="hover:text-primary">Blog</Link></li>
+                <li><Link href="/" className="hover:text-primary">Contact</Link></li>
               </ul>
             </div>
-          </footer>
-        </div>
-      </section>
-    );
-  };
-  
-  export default Footer 
-  
+
+            {/* Legal Links */}
+            <div>
+              <h3 className="mb-4 font-semibold">Legal</h3>
+              <ul className="space-y-2 text-muted-foreground text-sm">
+                <li><Link href="/" className="hover:text-primary">Terms & Conditions</Link></li>
+                <li><Link href="/" className="hover:text-primary">Privacy Policy</Link></li>
+                <li><Link href="/" className="hover:text-primary">FAQ</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="mt-12 border-t pt-6 text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>© {new Date().getFullYear()} Sustainability Idea Hub. All rights reserved.</p>
+            <div className="flex gap-4">
+              <Link href="/" className="hover:underline">Terms</Link>
+              <Link href="/" className="hover:underline">Privacy</Link>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </section>
+  );
+};
+
+export default Footer;
