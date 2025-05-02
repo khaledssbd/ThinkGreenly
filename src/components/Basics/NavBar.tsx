@@ -7,6 +7,7 @@ import React from "react";
 
 // import { MdEnergySavingsLeaf } from "react-icons/md";
 import logo from "../../assets/logo.png";
+import { ModeToggle } from "../ModeToggle";
 const NavBar = () => {
   const pathname = usePathname();
   //.log(pathname);
@@ -78,6 +79,7 @@ const NavBar = () => {
             Register
           </button>
         </Link>
+        <ModeToggle />
       </div>
     </div>
   );
