@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
+"use server";
 
+import { cookies } from "next/headers";
+import { FieldValues } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
@@ -39,6 +43,11 @@ export const loginUser = async (userData: FieldValues) => {
   } catch (error: any) {
     return Error(error);
   }
+};
+
+export const logout = async () => {
+    (await cookies()).delete("accessToken");
+    (await cookies()).delete("refreshToken");
 };
 
 export const getCurrentUser = async () => {

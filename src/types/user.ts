@@ -1,6 +1,7 @@
 export interface IUser {
-  email: string;
-  role: "MEMBER" | "ADMIN";
-  iat?: number;
-  exp?: number;
+    name: string;
+    email: string;
+    role: "MEMBER" | "ADMIN";
+    iat?: number;
+    exp?: number;
 }
