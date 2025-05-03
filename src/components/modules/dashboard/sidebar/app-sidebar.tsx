@@ -54,12 +54,12 @@ export function AppSidebar({
   const adminMenu = [
     {
       title: "Manage Ideas",
-      url: "/admin/all-ideas",
+      url: "/dashboard/admin/all-ideas",
       icon: SquareChartGantt,
     },
     {
       title: "Manage Users",
-      url: "/admin/all-users",
+      url: "/dashboard/admin/all-users",
       icon: UsersRoundIcon,
     },
   ];
