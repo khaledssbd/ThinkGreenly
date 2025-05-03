@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
+import * as React from 'react';
+import Autoplay from 'embla-carousel-autoplay';
 
 import {
   Carousel,
   CarouselContent,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import onepic from "../../assets/greenWorld.jpg";
-import twopic from "../../assets/begreen.jpg";
-import Image from "next/image";
+} from '@/components/ui/carousel';
+import onepic from '@/assets/greenWorld.jpg';
+import twopic from '@/assets/begreen.jpg';
+import Image from 'next/image';
 
 export function Banner() {
   const images = [onepic, twopic];

@@ -1,13 +1,20 @@
 import logo from "@/assets/logo.png";
 import Image from "next/image";
-// import Link from "next/link";
-const Logo = () => {
+
+const icon = "/favicon.ico"
+export const Logo = () => {
     return (
         <div className="flex justify-center items-center m-4">
-            <Image src={logo} alt={"Logo"} height={56} width={56} />
-            <p className="text-2xl font-bold">ThinkGreenly</p>
+            <Image src={logo} alt={"Logo"} height={40} width={130} />
         </div>
     );
 };
 
-export default Logo;
+export const Icon = () => {
+    return (
+      <div className="flex justify-center items-center m-4">
+        <Image src={icon} alt={"Logo"} height={40} width={30} />
+      </div>
+    );
+}
+
