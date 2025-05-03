@@ -15,12 +15,14 @@ import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { loginValidationSchema } from './loginValidation';
-import { loginUser } from '@/services/AuthService';
+import { getCurrentUser, loginUser } from '@/services/AuthService';
 import { useUser } from '@/context/UserContext';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-const LoginForm = () => {
-  const { setIsLoading } = useUser();
+const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
+  const router = useRouter();
+  const { setUser } = useUser();
   const form = useForm({
     resolver: zodResolver(loginValidationSchema),
   });
@@ -32,13 +34,16 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
       const res = await loginUser(data);
-
-      // console.log(res);
-      if (res.success) {
-        setIsLoading(true);
+      if (res?.success) {
+        setUser(await getCurrentUser());
+        // setIsLoading(true);
         toast.success(res?.message);
+        router.push(redirectPath || '/');
+        // setTimeout(() => {
+        //   router.push(redirectPath || '/');
+        // }, 100);
       } else {
-        toast.error(res.message);
+        toast.error(res?.message);
       }
     } catch (err: any) {
       console.log(err);
