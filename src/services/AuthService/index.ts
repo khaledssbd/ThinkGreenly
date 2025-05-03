@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
 import { cookies } from 'next/headers';
@@ -65,7 +64,7 @@ export const getNewToken = async (refreshToken: string): Promise<any> => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/auth/refresh-token`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `${refreshToken}`,
         },
@@ -73,12 +72,12 @@ export const getNewToken = async (refreshToken: string): Promise<any> => {
     );
 
     if (!res.ok) {
-      throw new Error("Failed to refresh token");
+      throw new Error('Failed to refresh token');
     }
 
     const result = await res.json();
     return result;
   } catch (error: any) {
-    throw new Error(error?.message || "Token refresh failed");
+    throw new Error(error?.message || 'Token refresh failed');
   }
 };

@@ -1,7 +1,8 @@
-'use server'
+
+'use server';
+
 import { revalidateTag } from "next/cache";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const getAllUsers = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/users`,{
@@ -36,11 +37,10 @@ export const updateUserStatus = async (id: string, isActive: boolean) => {
     },);
 
     if (!res.ok) {
-      throw new Error("Failed to update user status");
+ throw new Error("Failed to update user status");
     }
     revalidateTag('USERS');
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error: any) {
     throw new Error(error.message);

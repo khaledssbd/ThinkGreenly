@@ -1,15 +1,15 @@
-import React from 'react'
-import CreateIdeaForm from './CreateIdeaForm'
-import { getAllCategories } from '../_action'
+import React from 'react';
+import CreateIdeaForm from './CreateIdeaForm';
+import { getAllCategories } from '../_action';
 
 const CreateIdeaModule = async () => {
-    const categories = await getAllCategories()
+  const { data: categories } = await getAllCategories();
 
   return (
     <div>
-      <CreateIdeaForm categories={categories?.data}/>
+      <CreateIdeaForm categories={categories} />
     </div>
-  )
-}
+  );
+};
 
-export default CreateIdeaModule
+export default CreateIdeaModule;

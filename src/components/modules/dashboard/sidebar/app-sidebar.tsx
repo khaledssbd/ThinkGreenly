@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import {
   ClipboardList,
   HomeIcon,
@@ -9,7 +9,7 @@ import {
   SquareChartGantt,
   UserCog,
   UsersRoundIcon,
-} from "lucide-react";
+} from 'lucide-react';
 
 import {
   Sidebar,
@@ -19,12 +19,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { NavMain } from "./nav-main";
-import { NavUser } from "./nav-user";
-import Link from "next/link";
-import { useUser } from "@/context/UserContext";
-import { Icon, Logo } from "@/assets/Logo";
+} from '@/components/ui/sidebar';
+import { NavMain } from './nav-main';
+import { NavUser } from './nav-user';
+import Link from 'next/link';
+import { useUser } from '@/context/UserContext';
+import { Icon, Logo } from '@/assets/Logo';
 
 export function AppSidebar({
   collapsed,
@@ -32,34 +32,33 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & { collapsed?: boolean }) {
   const { user } = useUser();
 
-  const icon = "/icon.png";
   const memberMenu = [
     {
-      title: "All Ideas",
-      url: "/member/all-ideas",
+      title: 'All Ideas',
+      url: '/member/all-ideas',
       icon: ClipboardList,
     },
     {
-      title: "Create Idea",
-      url: "/member/create-idea",
+      title: 'Create Idea',
+      url: '/member/create-idea',
       icon: PlusCircle,
     },
     {
-      title: "Edit Idea",
-      url: "/member/edit-idea",
+      title: 'Edit Idea',
+      url: '/member/edit-idea',
       icon: ClipboardList,
     },
   ];
 
   const adminMenu = [
     {
-      title: "Manage Ideas",
-      url: "/dashboard/admin/all-ideas",
+      title: 'Manage Ideas',
+      url: '/admin/all-ideas',
       icon: SquareChartGantt,
     },
     {
-      title: "Manage Users",
-      url: "/dashboard/admin/all-users",
+      title: 'Manage Users',
+      url: '/admin/all-users',
       icon: UsersRoundIcon,
     },
   ];
@@ -67,29 +66,31 @@ export function AppSidebar({
   const data = {
     navMain: [
       {
-        title: "Home",
-        url: "/",
+        title: 'Home',
+        url: '/',
         icon: HomeIcon,
       },
       {
-        title: "Dashboard",
+        title: 'Dashboard',
         url: `/${user?.role.toLowerCase()}`,
         icon: LayoutDashboard,
         isActive: true,
       },
       {
-        title: "Profile",
-        url: "/profile",
+        title: 'Profile',
+        url: '/profile',
         icon: UserCog,
       },
     ],
   };
 
-  if (user?.role === "ADMIN") {
+  if (user?.role === 'ADMIN') {
     data.navMain.push(...adminMenu);
-  } else if (user?.role === "MEMBER") {
+  } else if (user?.role === 'MEMBER') {
     data.navMain.push(...memberMenu);
   }
+
+  console.log({ collapsed }); // this is becoming undefined.. solve this
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -99,11 +100,7 @@ export function AppSidebar({
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  {collapsed ? (
-                    <Icon />
-                  ) : (
-                    <Logo />
-                  )}
+                  {collapsed ? <Icon /> : <Logo />}
                 </div>
               </Link>
             </SidebarMenuButton>

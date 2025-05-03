@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -46,7 +45,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
         toast.error(res?.message);
       }
     } catch (err: any) {
-      console.log(err);
+      console.error(err);
     }
   };
 

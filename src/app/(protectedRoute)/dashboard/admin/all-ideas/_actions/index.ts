@@ -1,7 +1,6 @@
 'use server';
-import { revalidateTag } from "next/cache";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { revalidateTag } from "next/cache";
 export const getAllIdeas = async () => {
   try {
 
@@ -15,10 +14,9 @@ export const getAllIdeas = async () => {
       }});
 
     if (!res.ok) {
-      throw new Error("Failed to fetch ideas");
+      throw new Error('Failed to fetch ideas');
     }
     const data = await res.json();
-    console.log(data,"all data only:");
     return data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -36,13 +34,12 @@ export const updateIdeaStatus = async (id: string, payload: {status: string, fee
       },
       body: JSON.stringify(payload),
     },);
-  console.log(res, "res from update idea status")
+    
     if (!res.ok) {
       throw new Error("Failed to update idea ");
     }
-    revalidateTag('IDE');
+    revalidateTag('IDEAS');
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error: any) {
     throw new Error(error.message);
