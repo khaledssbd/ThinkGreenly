@@ -4,7 +4,7 @@ export const getAllIdeas = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas`);
 
     if (!res.ok) {
-      throw new Error("Failed to fetch rental houses");
+      throw new Error("Failed to fetch ideas");
     }
     const data = await res.json();
     console.log(data);

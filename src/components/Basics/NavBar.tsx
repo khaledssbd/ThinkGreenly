@@ -125,15 +125,15 @@ const NavBar = () => {
             </div>
             {/* NavItems for Large Device */}
             <div className="hidden md:block text-black dark:text-green-500">
-              <div className="flex space-x-2 md:space-x-4">
+              <div className="flex space-x-2 md:space-x-8">
                 {navLinks.map(({ name, path }) => (
                   <Link
                     key={name}
                     href={path}
                     className={
                       pathname === path
-                        ? 'border-b-2 border-green-300'
-                        : 'border-b-0'
+                        ? 'border-b-2 border-green-300 dark:text-white'
+                        : 'border-b-0  dark:text-white hover:text-green-700 dark:hover:text-green-300'
                     }
                   >
                     {name}
@@ -144,6 +144,8 @@ const NavBar = () => {
             {/* <!-- Profile dropdown for Large Device --> */}
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-6">
               <div className="flex gap-10">
+                <ModeToggle />
+
                 {isLoading ? (
                   <NavbarLoadingSkeleton />
                 ) : user ? (
@@ -179,13 +181,11 @@ const NavBar = () => {
                   </>
                 ) : (
                   <Link href="/login">
-                    <button className="bg-green-500  rounded-lg px-2 py-1">
+                    <button className="bg-green-500 font-bold rounded-lg px-3 py-2">
                       Login
                     </button>
                   </Link>
                 )}
-
-                <ModeToggle />
               </div>
             </div>
           </div>

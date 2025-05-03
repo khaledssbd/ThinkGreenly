@@ -1,0 +1,94 @@
+export interface Idea {
+  id: string;
+  title: string;
+  problemStatement?: string;
+  solution?: string;
+  description?: string;
+  images: string[]; // Array of image URLs
+  isPaid: boolean;
+  price?: number; // Only present if isPaid is true
+  status: IdeaStatus;
+  feedback?: string; // Rejection reason from admin
+  categoryId?: string;
+  authorId: string;
+  isDeleted: boolean;
+  category?: Category;
+  author: User;
+  votes: Vote[];
+  comments: Comment[];
+  payments: Payment[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Related interfaces
+interface Category {
+  id: string;
+  name: string;
+  description?: string;
+  ideas?: Idea[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface User {
+  id: string;
+  // Include other user fields you need
+  name: string;
+  email: string;
+  ideas?: Idea[];
+  votes?: Vote[];
+  comments?: Comment[];
+  payments?: Payment[];
+}
+
+interface Vote {
+  id: string;
+  value: number; // e.g., 1 for upvote, -1 for downvote
+  userId: string;
+  ideaId: string;
+  user?: User;
+  idea?: Idea;
+  createdAt: Date;
+}
+
+interface Comment {
+  id: string;
+  content: string;
+  userId: string;
+  ideaId: string;
+  parentId?: string; // For nested comments
+  user?: User;
+  idea?: Idea;
+  parent?: Comment;
+  replies?: Comment[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Payment {
+  id: string;
+  amount: number;
+  userId: string;
+  ideaId: string;
+  transactionId: string;
+  status: PaymentStatus;
+  user?: User;
+  idea?: Idea;
+  createdAt: Date;
+}
+
+// Enums
+enum IdeaStatus {
+  DRAFT = 'DRAFT',
+  UNDER_REVIEW = 'UNDER_REVIEW',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+}
+
+enum PaymentStatus {
+  PENDING = 'PENDING',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  REFUNDED = 'REFUNDED',
+}
