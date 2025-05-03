@@ -32,6 +32,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { TUser } from "@/types"
+import { updateUserStatus } from "../_actions"
 
 // Define the columns for the data table
 export const columns: ColumnDef<TUser>[] = [
@@ -262,7 +263,10 @@ export const columns: ColumnDef<TUser>[] = [
             <DropdownMenuItem className="text-red-600">
               <span className="flex items-center">
                 <Trash2 className="mr-2 h-4 w-4" />
-                <span>{user.isActive ? "Deactivate user" : "Activate user"}</span>
+                <span
+                className={user.isActive ? "text-red-600 cursor-pointer" : "text-green-600 cursor-pointer"}
+                onClick={() => updateUserStatus(user.id, !user.isActive)}
+                >{user.isActive ? "Deactivate user" : "Activate user"}</span>
               </span>
             </DropdownMenuItem>
           </DropdownMenuContent>
