@@ -39,7 +39,10 @@ export const columns: ColumnDef<TIdea>[] = [
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
@@ -58,106 +61,120 @@ export const columns: ColumnDef<TIdea>[] = [
     accessorKey: "id",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-      const id = row.getValue("id") as string
+      const id = row.getValue("id") as string;
       return (
         <div className="font-mono text-xs max-w-[120px] truncate" title={id}>
           {id}
         </div>
-      )
+      );
     },
   },
   {
     accessorKey: "title",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Project Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-      const title = row.getValue("title") as string
+      const title = row.getValue("title") as string;
       return (
         <div className="font-medium max-w-[200px] truncate" title={title}>
           {title}
         </div>
-      )
+      );
     },
   },
   {
     accessorKey: "problemStatement",
     header: "Problem Statement",
     cell: ({ row }) => {
-      const problemStatement = row.getValue("problemStatement") as string
+      const problemStatement = row.getValue("problemStatement") as string;
       return (
         <div className="max-w-[200px] truncate" title={problemStatement}>
           {problemStatement}
         </div>
-      )
+      );
     },
   },
   {
     accessorKey: "solution",
     header: "Solution",
     cell: ({ row }) => {
-      const solution = row.getValue("solution") as string
+      const solution = row.getValue("solution") as string;
       return (
         <div className="max-w-[200px] truncate" title={solution}>
           {solution}
         </div>
-      )
+      );
     },
   },
   {
     accessorKey: "description",
     header: "Description",
     cell: ({ row }) => {
-      const description = row.getValue("description") as string
+      const description = row.getValue("description") as string;
       return (
         <div className="max-w-[200px] truncate" title={description}>
           {description}
         </div>
-      )
+      );
     },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as string
+      const status = row.getValue("status") as string;
 
       const statusColorMap: Record<string, string> = {
         UNDER_REVIEW: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80",
         APPROVED: "bg-green-100 text-green-800 hover:bg-green-100/80",
         REJECTED: "bg-red-100 text-red-800 hover:bg-red-100/80",
         DRAFT: "bg-blue-100 text-blue-800 hover:bg-blue-100/80",
-        
-      }
+      };
 
       return (
-        <Badge className={`${statusColorMap[status] || "bg-gray-100 text-gray-800"} font-medium`} variant="outline">
+        <Badge
+          className={`${
+            statusColorMap[status] || "bg-gray-100 text-gray-800"
+          } font-medium`}
+          variant="outline"
+        >
           {status.replace(/_/g, " ")}
         </Badge>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "isPaid",
     header: "Type",
     cell: ({ row }) => {
-      const isPaid = row.getValue("isPaid") as boolean
-      return <Badge variant={isPaid ? "default" : "outline"}>{isPaid ? "Paid" : "Free"}</Badge>
+      const isPaid = row.getValue("isPaid") as boolean;
+      return (
+        <Badge variant={isPaid ? "default" : "outline"}>
+          {isPaid ? "Paid" : "Free"}
+        </Badge>
+      );
     },
   },
   {
@@ -172,75 +189,95 @@ export const columns: ColumnDef<TIdea>[] = [
           Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-      const price = Number.parseFloat(row.getValue("price"))
-      const isPaid = row.getValue("isPaid") as boolean
+      const price = Number.parseFloat(row.getValue("price"));
+      const isPaid = row.getValue("isPaid") as boolean;
 
-      if (!isPaid) return <div className="text-right">Free</div>
+      if (!isPaid) return <div className="text-right">Free</div>;
 
       // Format the price as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(price)
+      }).format(price);
 
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
     accessorKey: "feedback",
     header: "Feedback",
     cell: ({ row }) => {
-      const feedback = row.getValue("feedback") as string | null
+      const feedback = row.getValue("feedback") as string | null;
       return (
         <div className="max-w-[200px] truncate" title={feedback || ""}>
           {feedback || "No feedback"}
         </div>
-      )
+      );
     },
   },
   {
-    accessorKey: "categoryId",
-    header: "Category ID",
-    cell: ({ row }) => {
-      const categoryId = row.getValue("categoryId") as string
+    id: "category",
+    accessorFn: (row) => row.category.name,
+    header: ({ column }) => {
       return (
-        <div className="font-mono text-xs max-w-[120px] truncate" title={categoryId}>
-          {categoryId}
-        </div>
-      )
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const categoryName = row.original.category.name;
+      return <div>{categoryName}</div>;
     },
   },
   {
-    accessorKey: "authorId",
-    header: "Author ID",
-    cell: ({ row }) => {
-      const authorId = row.getValue("authorId") as string
+    id: "author",
+    accessorFn: (row) => row.author.name,
+    header: ({ column }) => {
       return (
-        <div className="font-mono text-xs max-w-[120px] truncate" title={authorId}>
-          {authorId}
-        </div>
-      )
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Author
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const authorName = row.original.author.name;
+      return <div>{authorName}</div>;
     },
   },
   {
     accessorKey: "isDeleted",
     header: "Deleted",
     cell: ({ row }) => {
-      const isDeleted = row.getValue("isDeleted") as boolean
-      return <Badge variant={isDeleted ? "destructive" : "outline"}>{isDeleted ? "Deleted" : "Active"}</Badge>
+      const isDeleted = row.getValue("isDeleted") as boolean;
+      return (
+        <Badge variant={isDeleted ? "destructive" : "outline"}>
+          {isDeleted ? "Deleted" : "Active"}
+        </Badge>
+      );
     },
   },
   {
     accessorKey: "images",
     header: "Image",
     cell: ({ row }) => {
-      const images = row.getValue("images") as string[]
+      const images = row.getValue("images") as string[];
 
       if (!images || images.length === 0) {
-        return <div className="text-center text-muted-foreground">No image</div>
+        return (
+          <div className="text-center text-muted-foreground">No image</div>
+        );
       }
 
       return (
@@ -254,7 +291,7 @@ export const columns: ColumnDef<TIdea>[] = [
             />
           </div>
         </div>
-      )
+      );
     },
     enableSorting: false,
   },
@@ -262,37 +299,43 @@ export const columns: ColumnDef<TIdea>[] = [
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Created
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"))
-      return <div>{date.toLocaleDateString()}</div>
+      const date = new Date(row.getValue("createdAt"));
+      return <div>{date.toLocaleDateString()}</div>;
     },
   },
   {
     accessorKey: "updatedAt",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Updated
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("updatedAt"))
-      return <div>{date.toLocaleDateString()}</div>
+      const date = new Date(row.getValue("updatedAt"));
+      return <div>{date.toLocaleDateString()}</div>;
     },
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const project = row.original
+      const project = row.original;
 
       return (
         <DropdownMenu>
@@ -304,7 +347,9 @@ export const columns: ColumnDef<TIdea>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(project.id)}>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(project.id)}
+            >
               <span className="flex items-center">
                 <span className="mr-2">Copy ID</span>
               </span>
@@ -330,10 +375,10 @@ export const columns: ColumnDef<TIdea>[] = [
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];
 
 interface DataTableProps {
   data: TIdea[]
