@@ -127,6 +127,7 @@ const NavBar = () => {
             <div className="hidden md:block text-black dark:text-green-500">
               <div className="flex space-x-2 md:space-x-8">
                 {navLinks.map(({ name, path }) => (
+                  <div className="relative group"    key={name}>
                   <Link
                     key={name}
                     href={path}
@@ -138,6 +139,8 @@ const NavBar = () => {
                   >
                     {name}
                   </Link>
+                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-green-300 transition-all duration-300 group-hover:w-full"></span>
+                  </div>
                 ))}
               </div>
             </div>
