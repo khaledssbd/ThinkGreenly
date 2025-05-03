@@ -1,10 +1,27 @@
+import AllIdeas from '@/components/modules/Ideas/AllIdeas';
+import Pagination from '@/components/Pagination';
+import { getAllIdeas } from '@/services/Idea';
 
-const IdeasPage = () => {
-       return (
-              <div>
-                     Hii
-              </div>
-       );
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+const AllIdeasPage = async ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
+  const query = await searchParams;
+  const { data: ideas, meta } = await getAllIdeas(
+    query.page as string,
+    '12',
+    query
+  );
+
+  return (
+    <div>
+      <AllIdeas ideas={ideas} />
+      <Pagination page={Number(query.page)} totalPage={meta?.totalPage} />
+    </div>
+  );
 };
 
-export default IdeasPage;
+export default AllIdeasPage;
