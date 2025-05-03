@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import Image from "next/image";
-import { CalendarDays, Tag, User } from "lucide-react";
-import { Badge } from "../ui/badge";
-import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import Image from 'next/image';
+import { CalendarDays, Tag, User } from 'lucide-react';
+import { Badge } from '../ui/badge';
+import Link from 'next/link';
 
 const IdeaHomeCards = ({ idea }: { idea: any }) => {
   return (

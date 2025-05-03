@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // get all Ideas
 export const getAllIdeas = async (
   page?: string,
@@ -19,16 +18,13 @@ export const getAllIdeas = async (
   if (query?.isRented) {
     params.append('isRented', query?.isRented.toString());
   }
-// console.log(`?limit=${limit}&page=${page}&${params}`);
+
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/ideas`,
-      {
-        next: {
-          tags: ['IDEA'],
-        },
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/ideas`, {
+      next: {
+        tags: ['IDEA'],
+      },
+    });
 
     const result = await res.json();
     return result;

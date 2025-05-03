@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { getAllIdeas } from "@/services/Idea";
-import IdeaHomeCards from "./IdeaHomeCards";
+import { getAllIdeas } from '@/services/Idea';
+import IdeaHomeCards from './IdeaHomeCards';
 
 const IdeaHome = async () => {
   const { data: ideas } = await getAllIdeas();
-  console.log("ideas", ideas);
+  console.log('ideas', ideas);
   return (
     <div>
       <section className="text-center py-12 px-4">
