@@ -3,10 +3,10 @@ import IdeaHomeCards from './IdeaHomeCards';
 
 const IdeaHome = async () => {
   const { data: ideas } = await getAllIdeas();
-  console.log('ideas', ideas);
+
   return (
-    <div>
-      <section className="text-center py-12 px-4">
+    <div className="flex flex-col justify-center items-center">
+      <section className="text-center py-12">
         <h2 className="text-4xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
           Featured Sustainability Ideas
         </h2>
@@ -16,7 +16,7 @@ const IdeaHome = async () => {
           between.
         </p>
       </section>
-      <div className="max-w-[1250px] mx-auto flex gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-5 gap-10">
         {ideas.map((idea: any, idx: number) => (
           <IdeaHomeCards key={idx} idea={idea}></IdeaHomeCards>
         ))}
