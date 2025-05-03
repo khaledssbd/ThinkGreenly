@@ -1,9 +1,6 @@
 export const protectedRoutes = [
-    "/landlord",
-    "/landlord/:page",
-    "/tenant",
-    "/tenant/:page",
-    "/admin",
-    "/admin/:page",
-    "/profile",
+  '/profile',
+  '/profile/:page*',
+  '/dashboard',
+  '/dashboard/:page*',
 ];
