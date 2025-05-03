@@ -32,7 +32,7 @@ type author = {
   updatedAt: string;
 };
 
-type category = {
+export type category = {
   id: string;
   name: string;
   createdAt: string;
