@@ -1,7 +1,6 @@
 'use server';
 
 import { getValidToken } from '@/lib/getValidToken';
-import { getValidToken } from "@/lib/getValidToken";
 
 export const getAllIdeas = async () => {
   try {
@@ -20,10 +19,8 @@ export const getAllIdeas = async () => {
     }
 
     const data = await res.json();
-      throw new Error("Failed to fetch ideas");
-    }
-    const data = await res.json();
     return data;
   } catch (error: any) {
     throw new Error(error.message);
   }
+};
