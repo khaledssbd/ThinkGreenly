@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export * from "./user";
 export type TIdea = {
   id: string;
