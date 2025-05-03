@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -9,15 +9,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast } from 'sonner';
-import { Input } from '@/components/ui/input';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { loginValidationSchema } from './loginValidation';
-import { getCurrentUser, loginUser } from '@/services/AuthService';
-import { useUser } from '@/context/UserContext';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/form";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { loginValidationSchema } from "./loginValidation";
+import { getCurrentUser, loginUser } from "@/services/AuthService";
+import { useUser } from "@/context/UserContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
   const router = useRouter();
@@ -30,14 +30,14 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = async data => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await loginUser(data);
       if (res?.success) {
         setUser(await getCurrentUser());
         // setIsLoading(true);
         toast.success(res?.message);
-        router.push(redirectPath || '/');
+        router.push(redirectPath || "/");
         // setTimeout(() => {
         //   router.push(redirectPath || '/');
         // }, 100);
@@ -50,7 +50,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
   };
 
   return (
-    <div className="min-h-screen text-white flex justify-center items-center bg-transparent">
+    <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500">
         <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
           Log In
@@ -68,7 +68,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                       className="my-4 py-6"
                       placeholder="Enter Email"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -87,7 +87,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -96,7 +96,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
               )}
             />
             <Button type="submit" className="bg-green-600 mt-3">
-              {isSubmitting ? 'Logging in..' : 'Log in'}
+              {isSubmitting ? "Logging in.." : "Log in"}
             </Button>
             <h1 className="flex mt-8">
               Don&apos;t Have an Account? Please

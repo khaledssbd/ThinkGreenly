@@ -58,8 +58,6 @@ export const logOut = async (): Promise<void> => {
   (await cookies()).delete('accessToken');
   (await cookies()).delete('refreshToken');
 };
-<<<<<<< Updated upstream
-=======
 
 export const getNewToken = async (refreshToken: string): Promise<any> => {
   try {
@@ -83,4 +81,3 @@ export const getNewToken = async (refreshToken: string): Promise<any> => {
     throw new Error(error?.message || 'Token refresh failed');
   }
 };
->>>>>>> Stashed changes
