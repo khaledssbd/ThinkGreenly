@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -12,10 +12,17 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Edit, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "@tanstack/react-table";
+import {
+  ArrowUpDown,
+  ChevronDown,
+  MoreHorizontal,
+  Eye,
+  // Edit,
+  Trash2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -24,14 +31,22 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
-import { TIdea } from "@/types"
-
-
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import { TIdea } from "@/types";
+import Link from "next/link";
+// import { toast } from "sonner"
+import IdeaStatusModal from "./IdeaStatusModal";
 
 // Update the columns array to include all fields
 export const columns: ColumnDef<TIdea>[] = [
@@ -142,6 +157,7 @@ export const columns: ColumnDef<TIdea>[] = [
     header: "Status",
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
+      const id = row?.getValue("id") as string;
 
       const statusColorMap: Record<string, string> = {
         UNDER_REVIEW: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80",
@@ -152,12 +168,18 @@ export const columns: ColumnDef<TIdea>[] = [
 
       return (
         <Badge
+          onClick={() => {}}
           className={`${
             statusColorMap[status] || "bg-gray-100 text-gray-800"
           } font-medium`}
           variant="outline"
         >
-          {status.replace(/_/g, " ")}
+          {status === "UNDER_REVIEW" ? (
+            <IdeaStatusModal title={status?.replace(/_/g, " ")} id={id} />
+          ) : (
+            status.replace(/_/g, " ")
+          )}
+          {/* {status.replace(/_/g, " ")} */}
         </Badge>
       );
     },
@@ -220,7 +242,7 @@ export const columns: ColumnDef<TIdea>[] = [
   },
   {
     id: "category",
-    accessorFn: (row) => row.category.name,
+    accessorFn: (row) => row?.category?.name,
     header: ({ column }) => {
       return (
         <Button
@@ -233,13 +255,13 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const categoryName = row.original.category.name;
+      const categoryName = row?.original?.category?.name;
       return <div>{categoryName}</div>;
     },
   },
   {
     id: "author",
-    accessorFn: (row) => row.author.name,
+    accessorFn: (row) => row?.author?.name,
     header: ({ column }) => {
       return (
         <Button
@@ -252,7 +274,7 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const authorName = row.original.author.name;
+      const authorName = row?.original?.author?.name;
       return <div>{authorName}</div>;
     },
   },
@@ -358,15 +380,15 @@ export const columns: ColumnDef<TIdea>[] = [
             <DropdownMenuItem>
               <span className="flex items-center">
                 <Eye className="mr-2 h-4 w-4" />
-                <span>View details</span>
+                <Link href={`/ideas/${project?.id}`}>View details</Link>
               </span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <span className="flex items-center">
                 <Edit className="mr-2 h-4 w-4" />
                 <span>Edit idea</span>
               </span>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem className="text-red-600">
               <span className="flex items-center">
                 <Trash2 className="mr-2 h-4 w-4" />
@@ -381,15 +403,18 @@ export const columns: ColumnDef<TIdea>[] = [
 ];
 
 interface DataTableProps {
-  data: TIdea[]
+  data: TIdea[];
 }
 
 export function DataTable({ data }: DataTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [statusFilter, setStatusFilter] = React.useState<string[]>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
 
   const table = useReactTable({
     data,
@@ -408,7 +433,7 @@ export function DataTable({ data }: DataTableProps) {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   // Status filter options
   const statusOptions = [
@@ -416,18 +441,21 @@ export function DataTable({ data }: DataTableProps) {
     { label: "Approved", value: "APPROVED" },
     { label: "Rejected", value: "REJECTED" },
     { label: "Draft", value: "DRAFT" },
-    
-  ]
+  ];
 
   // Handle status filter change
   const handleStatusFilterChange = (value: string) => {
     setStatusFilter((prev) => {
-      const newFilter = prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+      const newFilter = prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value];
 
-      table.getColumn("status")?.setFilterValue(newFilter.length ? newFilter : undefined)
-      return newFilter
-    })
-  }
+      table
+        .getColumn("status")
+        ?.setFilterValue(newFilter.length ? newFilter : undefined);
+      return newFilter;
+    });
+  };
 
   return (
     <div className="w-full">
@@ -435,14 +463,18 @@ export function DataTable({ data }: DataTableProps) {
         <Input
           placeholder="Filter by title..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
+          onChange={(event) =>
+            table.getColumn("title")?.setFilterValue(event.target.value)
+          }
           className="max-w-sm"
         />
         <div className="flex flex-wrap gap-2">
           {statusOptions.map((option) => (
             <Badge
               key={option.value}
-              variant={statusFilter.includes(option.value) ? "default" : "outline"}
+              variant={
+                statusFilter.includes(option.value) ? "default" : "outline"
+              }
               className="cursor-pointer"
               onClick={() => handleStatusFilterChange(option.value)}
             >
@@ -466,11 +498,13 @@ export function DataTable({ data }: DataTableProps) {
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                )
+                );
               })}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -483,9 +517,14 @@ export function DataTable({ data }: DataTableProps) {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -493,15 +532,26 @@ export function DataTable({ data }: DataTableProps) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -511,8 +561,8 @@ export function DataTable({ data }: DataTableProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button
@@ -523,11 +573,16 @@ export function DataTable({ data }: DataTableProps) {
           >
             Previous
           </Button>
-          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
             Next
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }
