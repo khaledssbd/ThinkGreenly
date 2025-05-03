@@ -1,10 +1,10 @@
-"use client";
-import React, { useRef } from "react";
-import { Button } from "../ui/button";
-import Image from "next/image";
-import { Card } from "../ui/card";
+'use client';
 
-import { useUser } from "@/context/UserContext";
+import { Button } from '../ui/button';
+import Image from 'next/image';
+import { Card } from '../ui/card';
+
+import { useUser } from '@/context/UserContext';
 import {
   Dialog,
   DialogContent,
@@ -13,15 +13,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+} from '../ui/dialog';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
 
 const ProfileCard = () => {
   const { user } = useUser();
   //   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  console.log(user);
   return (
     <div className="flex justify-center items-center min-h-screenp-4 mt-24">
       <Card className="w-full max-w-sm shadow-lg rounded-2xl p-6text-center border-2 border-green-500">
@@ -46,8 +45,8 @@ const ProfileCard = () => {
                   <DialogHeader>
                     <DialogTitle>Edit profile</DialogTitle>
                     <DialogDescription>
-                      Make changes to your profile here. Click save when you're
-                      done.
+                      Make changes to your profile here. Click save when
+                      you&apos;re done.
                     </DialogDescription>
                   </DialogHeader>
                   <div className="grid gap-4 py-4">

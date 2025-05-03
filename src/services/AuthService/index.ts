@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
 import { cookies } from 'next/headers';
@@ -59,3 +58,29 @@ export const logOut = async (): Promise<void> => {
   (await cookies()).delete('accessToken');
   (await cookies()).delete('refreshToken');
 };
+<<<<<<< Updated upstream
+=======
+
+export const getNewToken = async (refreshToken: string): Promise<any> => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/refresh-token`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error('Failed to refresh token');
+    }
+
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    throw new Error(error?.message || 'Token refresh failed');
+  }
+};
+>>>>>>> Stashed changes
