@@ -1,17 +1,17 @@
 'use server';
 
-import { revalidateTag } from "next/cache";
-export const getAllIdeas = async () => {
+import { revalidateTag } from 'next/cache';
+export const getAllIdeasByAdmin = async () => {
   try {
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas`, {
       method: 'GET',
       // headers: {
       //   Authorization: token,
       // },
       next: {
         tags: ['IDEAS'],
-      }});
+      },
+    });
 
     if (!res.ok) {
       throw new Error('Failed to fetch ideas');
@@ -23,20 +23,24 @@ export const getAllIdeas = async () => {
   }
 };
 
-
-export const updateIdeaStatus = async (id: string, payload: {status: string, feedback?: string}) => {
-
+export const updateIdeaStatus = async (
+  id: string,
+  payload: { status: string; feedback?: string }
+) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas/${id}/status`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    },);
-    
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas/${id}/status`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
     if (!res.ok) {
-      throw new Error("Failed to update idea ");
+      throw new Error('Failed to update idea ');
     }
     revalidateTag('IDEAS');
     const data = await res.json();

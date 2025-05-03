@@ -19,7 +19,6 @@ export const getAllUsers = async () => {
       throw new Error("Failed to fetch ideas");
     }
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error: any) {
     throw new Error(error.message);

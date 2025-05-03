@@ -51,9 +51,6 @@ export default function IdeaStatusModal({ title ,id}: { title: string,id: string
     try {
       // Simulate sending to backend
       await updateIdeaStatus(id, payload);
-
-      console.log("Submitted:", payload);
-
       toast.success(`Status ${payload?.status} successfully!`);
 
       setLoading(false);

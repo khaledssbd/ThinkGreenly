@@ -2,7 +2,7 @@
 
 import { getValidToken } from '@/lib/getValidToken';
 
-export const getAllIdeas = async () => {
+export const getMemberOwnIdeas = async () => {
   try {
     const token = await getValidToken();
     const res = await fetch(
