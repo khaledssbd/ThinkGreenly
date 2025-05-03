@@ -3,7 +3,7 @@
 import { getNewToken } from '@/services/AuthService';
 // import { getNewToken } from '@/services/Auth';
 import { jwtDecode } from 'jwt-decode';
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 
 export const isTokenExpired = async (token: string): Promise<boolean> => {
   if (!token) return true;
@@ -17,8 +17,6 @@ export const isTokenExpired = async (token: string): Promise<boolean> => {
     return true;
   }
 };
-
-
 
 export const getValidToken = async (): Promise<string> => {
   const cookieStore = await cookies();
