@@ -52,8 +52,13 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
 
   return (
     <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent relative">
-      <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500 relative" >
-        <Link href={'/'}  className="border inline font-bold shadow-md hover:shadow-sm hover:cursor-pointer px-3 py-1 rounded-full absolute top-0 right-0 m-2">X</Link>
+      <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500 relative">
+        <Link
+          href={"/"}
+          className="border inline font-bold shadow-md hover:shadow-sm hover:cursor-pointer px-3 py-1 rounded-full absolute top-0 right-0 m-2"
+        >
+          X
+        </Link>
         <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
           Log In
         </h2>
@@ -85,7 +90,8 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                 <FormItem>
                   <FormLabel />
                   <FormControl>
-                    <PasswordInput
+                    <Input
+                      type="password"
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
