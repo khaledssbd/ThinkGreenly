@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   Sheet,
   SheetContent,
@@ -11,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
   Select,
   SelectContent,
@@ -20,16 +19,16 @@ import {
   // SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getAllCategories } from "@/services/Category";
-import { Slider } from "@/components/ui/slider";
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { getAllCategories } from '@/services/Category';
+import { Slider } from '@/components/ui/slider';
 
 const FilterSidebar = () => {
   const [price, setPrice] = useState([0]);
-  const [searchText, setSearchText] = useState("");
-  const [pricing, setPricing] = useState("");
+  const [searchText, setSearchText] = useState('');
+  const [pricing, setPricing] = useState('');
 
   const router = useRouter();
   const pathname = usePathname();
@@ -76,10 +75,10 @@ const FilterSidebar = () => {
         dark:focus:ring-green-600/50 dark:bg-gray-900
         text-lg font-medium transition-colors"
           type="text"
-          onChange={(e) => {
+          onChange={e => {
             // const searchValue = encodeURIComponent(e.target.value);
             router.push(`${pathname}`);
-            handleSearchQuery("searchTerm", e.target.value);
+            handleSearchQuery('searchTerm', e.target.value);
             setSearchText(e.target.value);
           }}
           value={searchText}
@@ -149,8 +148,8 @@ const FilterSidebar = () => {
                       onClick={() => {
                         router.push(`${pathname}`);
                         setPrice([0]);
-                        setSearchText("");
-                        setPricing("");
+                        setSearchText('');
+                        setPricing('');
                       }}
                       size="sm"
                       className="bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-green-200 transition-all"
@@ -161,7 +160,7 @@ const FilterSidebar = () => {
                 </div>
 
                 {/* Price Filter Section */}
-                 <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
+                <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
                   <div className="flex items-center gap-2 mb-5">
                     <div className="bg-green-100 p-2 rounded-lg">💰</div>
                     <h3 className="text-lg font-bold text-green-900">
@@ -173,9 +172,9 @@ const FilterSidebar = () => {
                     max={50000}
                     step={1}
                     value={price}
-                    onValueChange={(value) => {
+                    onValueChange={value => {
                       setPrice(value);
-                      handleSearchQuery("price", value[0]);
+                      handleSearchQuery('price', value[0]);
                     }}
                     className="w-full [&_.range-slider__track]:bg-green-200 [&_.range-slider__range]:bg-green-400 [&_.range-slider__thumb]:bg-green-600"
                   />
@@ -188,7 +187,7 @@ const FilterSidebar = () => {
                       </span>
                     </div>
                   </div>
-                </div> 
+                </div>
 
                 {/* Pricing Type Section */}
                 <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
@@ -201,9 +200,9 @@ const FilterSidebar = () => {
 
                   <Select
                     value={pricing}
-                    onValueChange={(value) => {
+                    onValueChange={value => {
                       setPricing(value);
-                      handleSearchQuery("isPaid", value);
+                      handleSearchQuery('isPaid', value);
                     }}
                   >
                     <SelectTrigger className="w-full border-green-200 hover:border-green-300">
@@ -256,7 +255,7 @@ const FilterSidebar = () => {
                               id={category.id}
                               className="h-5 w-5 rounded-full border-2 border-green-200 text-green-300 focus:ring-2 focus:ring-green-200 focus:ring-offset-2 data-[state=checked]:border-green-300 data-[state=checked]:bg-green-300"
                               onClick={() =>
-                                handleSearchQuery("categoryId", category.id)
+                                handleSearchQuery('categoryId', category.id)
                               }
                             />
                             <Label
@@ -289,8 +288,8 @@ const FilterSidebar = () => {
             onClick={() => {
               router.push(`${pathname}`);
               setPrice([0]);
-              setSearchText("");
-              setPricing("");
+              setSearchText('');
+              setPricing('');
             }}
             className="px-8 py-6 bg-red-50 hover:bg-red-100 
           text-red-600 hover:text-red-700 border-2 border-red-100 
