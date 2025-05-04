@@ -1,22 +1,12 @@
-'use client';
+"use client";
 
-import { Button } from '../ui/button';
-import Image from 'next/image';
-import { Card } from '../ui/card';
+import Image from "next/image";
+import { Card } from "../ui/card";
 
-import { useUser } from '@/context/UserContext';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import UpdatePasswordModal from '@/app/(openRoute)/profile/_component/UpdatePasswordModal';
+import { useUser } from "@/context/UserContext";
+
+import UpdatePasswordModal from "@/app/(openRoute)/profile/_component/UpdatePasswordModal";
+import UpdateProfileModal from "@/app/(openRoute)/profile/_component/UpdateProfileModal";
 
 const ProfileCard = () => {
   const { user } = useUser();
@@ -37,7 +27,7 @@ const ProfileCard = () => {
           <p className="text-gray-600 mb-4 ">{user?.email}</p>
 
           <div className="flex flex-col gap-2 w-[85%] gap-y-4">
-            <Button className="border-2 bg-green-500 border-gray-500">
+            {/* <Button className="border-2 bg-green-500 border-gray-500">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline">Edit Profile</Button>
@@ -71,9 +61,9 @@ const ProfileCard = () => {
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
-            </Button>
+            </Button> */}
+            <UpdateProfileModal  user={user}/>
             <UpdatePasswordModal />
-           
           </div>
         </div>
       </Card>
