@@ -16,6 +16,7 @@ import {
 } from '../ui/dialog';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import UpdatePasswordModal from '@/app/(openRoute)/profile/_component/UpdatePasswordModal';
 
 const ProfileCard = () => {
   const { user } = useUser();
@@ -71,9 +72,8 @@ const ProfileCard = () => {
                 </DialogContent>
               </Dialog>
             </Button>
-            <Button className="border-2 border-green-500">
-              Update Password
-            </Button>
+            <UpdatePasswordModal />
+           
           </div>
         </div>
       </Card>
