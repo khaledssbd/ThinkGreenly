@@ -48,7 +48,7 @@ interface Vote {
   value: number; // e.g., 1 for upvote, -1 for downvote
   userId: string;
   ideaId: string;
-  type? : string;
+  type?: string;
   user?: User;
   idea?: Idea;
   createdAt: Date;
@@ -82,15 +82,16 @@ interface Payment {
 
 // Enums
 enum IdeaStatus {
-  DRAFT = 'DRAFT',
-  UNDER_REVIEW = 'UNDER_REVIEW',
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
+  DRAFT = "DRAFT",
+  UNDER_REVIEW = "UNDER_REVIEW",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
 }
 
 enum PaymentStatus {
-  PENDING = 'PENDING',
-  COMPLETED = 'COMPLETED',
-  FAILED = 'FAILED',
-  REFUNDED = 'REFUNDED',
+  PAID = "Paid",
+  PENDING = "Pending",
+  COMPLETED = "Completed",
+  FAILED = "Failed",
+  REFUNDED = "Refund",
 }
