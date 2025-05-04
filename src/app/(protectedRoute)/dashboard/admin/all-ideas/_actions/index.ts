@@ -1,6 +1,14 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { cookies } from "next/headers";
+
+const getAuthToken = async () => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken");
+  return accessToken?.value;
+};
+
 export const getAllIdeasByAdmin = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas`, {
@@ -45,6 +53,31 @@ export const updateIdeaStatus = async (
     revalidateTag('IDEAS');
     const data = await res.json();
     return data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const deleteIdea = async (id: string) => {
+  try {
+    const token = await getAuthToken();
+    console.log('token:',token);
+    if (!token) return { success: false, message: "Authentication token not found" };
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/ideas/${id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: token },
+      }
+    );
+    console.log('f-idaS:',res);
+    if (!res.ok) {
+      throw new Error("Failed to delete idea");
+    }
+
+    const data = await res.json();
+    return data.data;
   } catch (error: any) {
     throw new Error(error.message);
   }
