@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,26 +8,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { category, TIdea } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import TGImageUploader from "@/components/ui/TGImageUploader";
-import ImagePreviewer from "@/components/ui/TGImageUploader/ImagePreviewer";
-import { createAnIdea, draftAnIdea } from "../_action";
-import { ideaDraftSchema } from "../../../create-idea/_components/IdeaValidation";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { category, TIdea } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useEffect, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import TGImageUploader from '@/components/ui/TGImageUploader';
+import ImagePreviewer from '@/components/ui/TGImageUploader/ImagePreviewer';
+import { createAnIdea, draftAnIdea } from '../_action';
+import { ideaDraftSchema } from '../../../create-idea/_components/IdeaValidation';
 
 const EditIdeaForm = ({
   categories,
-  data,
+  idea,
 }: {
   categories: category[];
-  data: TIdea;
+  idea: TIdea;
 }) => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
@@ -36,20 +36,20 @@ const EditIdeaForm = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (data?.images && data.images.length > 0) {
-      setImagePreview(data.images);
+    if (idea?.images && idea.images.length > 0) {
+      setImagePreview(idea.images);
     }
-  }, [data]);
-  
+  }, [idea]);
+
   const form = useForm({
     resolver: zodResolver(ideaDraftSchema),
     defaultValues: {
-      title: data?.title || "",
-      problemStatement: data?.problemStatement || "",
-      solution: data?.solution || "",
-      description: data?.description || "",
-      categoryId: data?.categoryId || "",
-      price: data?.price || 0,
+      title: idea?.title || '',
+      problemStatement: idea?.problemStatement || '',
+      solution: idea?.solution || '',
+      description: idea?.description || '',
+      categoryId: idea?.categoryId || '',
+      price: idea?.price || 0,
     },
   });
 
@@ -57,60 +57,60 @@ const EditIdeaForm = ({
     formState: { isSubmitting },
   } = form;
 
-  const handleIdeaSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(imageFiles.length, imagePreview.length);
+  const handleIdeaSubmit: SubmitHandler<FieldValues> = async data => {
     if (isDrafting) {
       if (!data.title || data.title.trim().length < 10) {
-        toast.error("Title must be at least 10 characters for a draft.");
+        toast.error('Title must be at least 10 characters for a draft.');
         return;
       }
 
       const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
+      formData.append('data', JSON.stringify(data));
 
-      if (imagePreview.length > 0 && imagePreview[0].startsWith("http")) {
-        formData.append("images", JSON.stringify(imagePreview));
+      if (imagePreview.length > 0 && imagePreview[0].startsWith('http')) {
+        formData.append('images', JSON.stringify(imagePreview));
       } else {
         for (const file of imageFiles) {
-          formData.append("images", file);
+          formData.append('images', file);
         }
       }
 
       try {
         const res = await draftAnIdea(formData);
         if (res?.success) {
-          toast.success("Idea added to draft successfully!");
+          toast.success('Idea added to draft successfully!');
           router.push(`/ideas/${res?.data?.id}`); // or to draft page
         } else {
           toast.error(res?.message);
         }
       } catch (err: any) {
         console.error(err);
-        toast.error("Failed to draft idea.");
+        toast.error('Failed to draft idea.');
       }
       return;
     }
 
     // Publish Idea Mode
-    if ( !data.title ||
-    !data.problemStatement ||
-    !data.solution ||
-    !data.description ||
-    !data.categoryId ||
-    !data.price ||
-    (imageFiles.length < 1 || imagePreview.length < 1)) {
-      toast.error("All fields and at least one image are required to publish");
+    if (
+      !data.title ||
+      !data.problemStatement ||
+      !data.solution ||
+      !data.description ||
+      !data.categoryId ||
+      imagePreview.length < 1
+    ) {
+      toast.error('All fields and at least one image are required to publish');
       return;
     }
 
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
+    formData.append('data', JSON.stringify(data));
 
-    if (imagePreview.length > 0 && imagePreview[0].startsWith("http")) {
-      formData.append("images", JSON.stringify(imagePreview));
+    if (imagePreview.length > 0 && imagePreview[0].startsWith('http')) {
+      formData.append('images', JSON.stringify(imagePreview));
     } else {
       for (const file of imageFiles) {
-        formData.append("images", file);
+        formData.append('images', file);
       }
     }
 
@@ -124,7 +124,7 @@ const EditIdeaForm = ({
       }
     } catch (err: any) {
       console.error(err);
-      toast.error("Failed to publish idea.");
+      toast.error('Failed to publish idea.');
     }
   };
 
@@ -148,7 +148,7 @@ const EditIdeaForm = ({
                       placeholder="Enter idea title"
                       {...field}
                       // defaultValue={data?.title || ""}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -167,7 +167,7 @@ const EditIdeaForm = ({
                       placeholder="Enter idea problem statement"
                       {...field}
                       // defaultValue={data?.problemStatement || ""}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -186,7 +186,7 @@ const EditIdeaForm = ({
                       placeholder="Enter idea solution"
                       {...field}
                       // defaultValue={data?.solution || ""}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -205,7 +205,7 @@ const EditIdeaForm = ({
                       placeholder="Enter idea description"
                       {...field}
                       // defaultValue={data?.description || ""}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -219,10 +219,10 @@ const EditIdeaForm = ({
 
               <div className="flex gap-4">
                 <TGImageUploader
-                  setImageFiles={(files) => {
+                  setImageFiles={files => {
                     setImageFiles(files);
                   }}
-                  setImagePreview={(previews) => {
+                  setImagePreview={previews => {
                     setImagePreview(previews);
                   }}
                   label="Upload New Images"
@@ -247,14 +247,14 @@ const EditIdeaForm = ({
                     <select
                       {...field}
                       // defaultValue={data?.categoryId || ""}
-                      value={field.value || ""}
-                      onChange={(e) => field.onChange(e.target.value)}
+                      value={field.value || ''}
+                      onChange={e => field.onChange(e.target.value)}
                       className="w-full border border-input bg-background px-3 py-2 rounded-md"
                     >
                       <option value="" disabled>
                         Select a category
                       </option>
-                      {categories?.map((category) => (
+                      {categories?.map(category => (
                         <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
@@ -277,8 +277,8 @@ const EditIdeaForm = ({
                       type="number"
                       placeholder="Enter idea price"
                       // defaultValue={data?.price || 0}
-                      value={field.value ?? ""}
-                      onChange={(e) => field.onChange(Number(e.target.value))}
+                      value={field.value ?? ''}
+                      onChange={e => field.onChange(Number(e.target.value))}
                     />
                   </FormControl>
                   <FormMessage />
@@ -297,8 +297,8 @@ const EditIdeaForm = ({
                 variant="outline"
               >
                 {isSubmitting && isDrafting
-                  ? "Saving Draft..."
-                  : "Add to Draft"}
+                  ? 'Saving Draft...'
+                  : 'Add to Draft'}
               </Button>
 
               <Button
@@ -306,7 +306,7 @@ const EditIdeaForm = ({
                 onClick={() => setIsDrafting(false)}
                 disabled={isSubmitting || imageFiles.length < 0}
               >
-                {isSubmitting && !isDrafting ? "Publishing..." : "Publish Idea"}
+                {isSubmitting && !isDrafting ? 'Publishing...' : 'Publish Idea'}
               </Button>
             </div>
 

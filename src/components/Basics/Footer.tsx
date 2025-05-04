@@ -10,9 +10,15 @@ const Footer = () => {
         {/* Logo & Contact Info */}
         <div className="col-span-2 space-y-4">
           <Link href="/">
-            <div className="font-medium w-fit text-lg flex items-center gap-0">
-              <p className="text-black dark:text-white">ThinkGreenly</p>
-              <Image src={logo} alt="logo" className="h-12 w-12" />
+            <div className="relative flex items-center h-12 w-fit">
+              <p className="text-black dark:text-white text-lg font-medium z-10">
+                ThinkGreenly
+              </p>
+              <Image
+                src={logo}
+                alt="logo"
+                className="absolute left-[85px] -top-1 h-12 w-12"
+              />
             </div>
           </Link>
           <p className="text-sm">
