@@ -19,6 +19,8 @@ import Image from "next/image";
 import { Comment, Idea } from "@/types/idea";
 import { useRef, useState } from "react";
 import { useUser } from "@/context/UserContext";
+import { createComment, createVote, deleteVote } from "@/services/Idea";
+import { toast } from "sonner";
 
 interface CommentListProps {
   comment: Comment;
@@ -27,50 +29,55 @@ interface CommentListProps {
 interface CommentFormProps {
   onSubmit: (content: string, parentId?: string) => void;
   onCancel?: () => void;
+  parentId?: string;
 }
 
 const IdeaDetail = ({ idea }: { idea: Idea }) => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   const [comments, setComments] = useState<Comment[]>(idea.comments || []);
   const { user } = useUser();
-
-  const handleVote = (direction: "UP" | "DOWN") => {
-    // Send the vote type to your backend or handle it however you need
+  const handleVote = async (direction: "UP" | "DOWN") => {
     const payload = {
       ideaId: idea.id,
       type: direction,
     };
-    console.log(payload);
-
-    // You can also update state or send API request here
+    const res = await createVote(payload);
+    if (res.success) {
+      toast.success("Thanks for your vote");
+    }
+  };
+  const handleDelete = async (id: string) => {
+    const res = await deleteVote(id);
+    if (res.success) {
+      toast.success("Your vote is removed");
+    }
   };
   const handleAddComment = async (content: string, parentId?: string) => {
     try {
       const payload = {
         content,
         ideaId: idea.id,
-        parentId: parentId || null,
+        ...(parentId ? { parentId } : {}),
       };
-      console.log(payload);
+      const response = await createComment(payload);
 
-      // const response = await axios.post<Comment>('/api/comments', payload);
+      console.log("Comment : ", response);
 
-      // setComments(prev => {
-      //   if (parentId) {
-      //     // Find parent comment and add reply
-      //     return prev.map(comment => {
-      //       if (comment.id === parentId) {
-      //         return {
-      //           ...comment,
-      //           replies: [...(comment.replies || []), response.data]
-      //         };
-      //       }
-      //       return comment;
-      //     });
-      //   }
-      //   // Add new top-level comment
-      //   return [...prev, response.data];
-      // });
+      setComments((prev) => {
+        if (parentId) {
+          return (
+            prev?.map((comment) =>
+              comment?.id === parentId
+                ? {
+                    ...comment,
+                    replies: [...(comment?.replies || []), response.data],
+                  }
+                : comment
+            ) || []
+          );
+        }
+        return [response.data, ...(prev || [])];
+      });
     } catch (error) {
       console.error("Failed to post comment:", error);
     }
@@ -212,20 +219,64 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
               <div className="flex items-center justify-center gap-2">
                 {/* Upvote button */}
                 <button
-                  onClick={() => handleVote("UP")}
-                  className="p-2 rounded-md transition-colors text-gray-600 hover:bg-green-100"
+                  onClick={() => {
+                    const existingVote = idea.votes?.find(
+                      (p) =>
+                        p.ideaId === idea.id &&
+                        p.userEmail === user?.email &&
+                        p.type === "UP"
+                    );
+
+                    if (existingVote) {
+                      // If vote exists, delete it
+                      handleDelete(idea.id);
+                    } else {
+                      // If no vote exists, create UP vote
+                      handleVote("UP");
+                    }
+                  }}
+                  className={`p-2 rounded-md transition-colors ${
+                    idea.votes?.some(
+                      (p) =>
+                        p.ideaId === idea.id &&
+                        p.userEmail === user?.email &&
+                        p.type === "UP"
+                    )
+                      ? "bg-green-100"
+                      : "text-gray-600 hover:bg-green-100"
+                  }`}
                 >
                   <Heart className="w-8 h-8 text-green-600" />
                 </button>
 
-                <span className="text-lg font-medium text-gray-700 dark:text-gray-300">
-                  {/* Optional: Show total votes if needed */}
-                </span>
-
                 {/* Downvote button */}
                 <button
-                  onClick={() => handleVote("DOWN")}
-                  className="p-2 rounded-md transition-colors text-gray-600 hover:bg-red-100"
+                  onClick={() => {
+                    const existingVote = idea.votes?.find(
+                      (p) =>
+                        p.ideaId === idea.id &&
+                        p.userEmail === user?.email &&
+                        p.type === "DOWN"
+                    );
+
+                    if (existingVote) {
+                      // If downvote exists, delete it
+                      handleDelete(idea.id);
+                    } else {
+                      // If no downvote exists, create DOWN vote
+                      handleVote("DOWN");
+                    }
+                  }}
+                  className={`p-2 rounded-md transition-colors ${
+                    idea.votes?.some(
+                      (p) =>
+                        p.ideaId === idea.id &&
+                        p.userEmail === user?.email &&
+                        p.type === "DOWN"
+                    )
+                      ? "bg-red-100"
+                      : "text-gray-600 hover:bg-red-100"
+                  }`}
                 >
                   <HeartOff className="w-8 h-8 text-red-600" />
                 </button>
@@ -328,13 +379,13 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
   );
 };
 
-const CommentForm = ({ onSubmit, onCancel }: CommentFormProps) => {
+const CommentForm = ({ onSubmit, onCancel, parentId }: CommentFormProps) => {
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!content.trim()) return;
-    onSubmit(content);
+    onSubmit(content, parentId || undefined);
     setContent("");
   };
 
