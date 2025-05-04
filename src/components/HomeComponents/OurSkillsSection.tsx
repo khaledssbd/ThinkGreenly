@@ -22,9 +22,11 @@ const OurSkillsSection = () => {
           processes. Rapidiously network cost effective vortals
         </div>
         <div>
-          <p className="text-xl text-gray-200 my-2">Recycling</p>
+          <p className="text-xl dark:text-gray-200 my-2">Recycling</p>
           <Progress value={77} />
-          <p className="text-xl text-gray-200 mt-4  mb-2">Ocean Cleaning </p>
+          <p className="text-xl dark:text-gray-200 mt-4  mb-2">
+            Ocean Cleaning{" "}
+          </p>
           <Progress value={88} />
         </div>
       </div>
