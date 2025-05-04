@@ -50,7 +50,7 @@ const NavBar = () => {
     { name: 'Blogs', path: '/blogs' },
     { name: 'About Us', path: '/about-us' },
     ...(user
-      ? [{ name: 'Dashboard', path: `/dashboard/${user.role.toLowerCase()}` }]
+      ? [{ name: 'Dashboard', path: `/${user.role.toLowerCase()}/dashboard` }]
       : []),
   ];
 
@@ -173,7 +173,7 @@ const NavBar = () => {
                           <Link href="/profile">
                             <DropdownMenuItem>Profile</DropdownMenuItem>
                           </Link>
-                          <Link href={`/dashboard/${user.role.toLowerCase()}`}>
+                          <Link href={`/${user.role.toLowerCase()}/dashboard`}>
                             <DropdownMenuItem>Dashboard</DropdownMenuItem>
                           </Link>
                         </DropdownMenuGroup>

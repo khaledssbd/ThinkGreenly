@@ -43,11 +43,11 @@ export function AppSidebar({
       url: '/member/create-idea',
       icon: PlusCircle,
     },
-    {
-      title: 'Edit Idea',
-      url: '/member/edit-idea',
-      icon: ClipboardList,
-    },
+    // {
+    //   title: 'Edit Idea',
+    //   url: '/member/edit-idea',
+    //   icon: ClipboardList,
+    // },
   ];
 
   const adminMenu = [
@@ -72,7 +72,7 @@ export function AppSidebar({
       },
       {
         title: 'Dashboard',
-        url: `/${user?.role.toLowerCase()}`,
+        url: `/${user?.role.toLowerCase()}/dashboard`,
         icon: LayoutDashboard,
         isActive: true,
       },
