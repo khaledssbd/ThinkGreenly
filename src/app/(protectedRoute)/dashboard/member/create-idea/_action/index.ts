@@ -39,3 +39,17 @@ export const createAnIdea = async (formData: FormData): Promise<any> => {
   const data = await res.json();
   return data;
 };
+
+export const draftAnIdea = async (formData: FormData): Promise<any> => {
+  const token = await getValidToken();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/ideas/draft`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+    body: formData,
+  });
+
+  const data = await res.json();
+  return data;
+};
