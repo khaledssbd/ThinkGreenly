@@ -56,7 +56,6 @@ export const updateIdeaStatus = async (
 export const deleteIdea = async (id: string) => {
   try {
     const token = await getValidToken();
-    console.log('token:',token);
     if (!token) return { success: false, message: "Authentication token not found" };
 
     const res = await fetch(
@@ -66,7 +65,6 @@ export const deleteIdea = async (id: string) => {
         headers: { Authorization: token },
       }
     );
-    console.log('f-idaS:',res);
     if (!res.ok) {
       throw new Error("Failed to delete idea");
     }

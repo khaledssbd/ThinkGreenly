@@ -19,7 +19,6 @@ export const getMemberOwnIdeas = async () => {
     }
 
     const data = await res.json();
-    console.log(data.data);
     return data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -39,7 +38,7 @@ export const deleteIdea = async (id: string) => {
         headers: { Authorization: token },
       }
     );
-    console.log('f-idaS:',res);
+
     if (!res.ok) {
       throw new Error("Failed to delete idea");
     }

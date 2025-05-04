@@ -52,7 +52,6 @@ export default  function UpdatePasswordModal() {
       // Simulate API
       await updatePassword(values)
 
-      console.log('Submitted:', values)
       toast.success('Password updated successfully!')
       setOpen(false)
       form.reset()

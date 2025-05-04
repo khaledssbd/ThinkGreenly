@@ -103,7 +103,7 @@ export function AppSidebar({
     data.navMain.push(...memberMenu);
   }
 
-  console.log({ collapsed }); // this is becoming undefined.. solve this
+  // console.log({ collapsed }); // this is becoming undefined.. solve this
 
   return (
     <Sidebar collapsible="icon" {...props}>
