@@ -18,6 +18,7 @@ import { getCurrentUser, loginUser } from "@/services/AuthService";
 import { useUser } from "@/context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Home } from "lucide-react";
 
 const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
   const router = useRouter();
@@ -52,9 +53,17 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
   return (
     <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500">
-        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
-          Log In
-        </h2>
+        <div className="flex text-center gap-30 ml-32">
+          <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
+            Log In{" "}
+          </h2>
+          <Link href="/">
+            <Button className="rounded-full flex items-center bg-green-500">
+              <Home></Home>
+            </Button>
+          </Link>
+        </div>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
