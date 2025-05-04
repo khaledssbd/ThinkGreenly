@@ -10,6 +10,7 @@ const AllIdeasPage = async ({
   searchParams: SearchParams;
 }) => {
   const query = await searchParams;
+ 
   const { data: ideas, meta } = await getAllIdeas(
     query.page as string,
     '12',
