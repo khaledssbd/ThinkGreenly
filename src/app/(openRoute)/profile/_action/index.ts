@@ -1,6 +1,7 @@
-"use server";
+'use server';
 
-import { getValidToken } from "@/lib/getValidToken";
+import { getValidToken } from '@/lib/getValidToken';
+import { cookies } from 'next/headers';
 
 export const updatePassword = async (payload: {
   newPassword: string;
@@ -11,56 +12,52 @@ export const updatePassword = async (payload: {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/auth/changed-password`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
           Authorization: token,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       }
     );
 
     if (!res.ok) {
-      throw new Error("Failed to update password ");
+      throw new Error('Failed to update password ');
     }
 
     const data = await res.json();
-    console.log("data", data);
+    console.log('data', data);
     return data;
   } catch (error: any) {
     throw new Error(error.message);
   }
 };
-export const updateProfile = async (formData: FormData) => {
 
+export const updateProfile = async (formData: FormData) => {
   try {
     const token = await getValidToken();
-    console.log('hello world',token)
 
-    console.log("formData", formData,token);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/users/profile`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
           Authorization: token,
-          "Content-Type": "application/json",
         },
         body: formData,
       }
     );
-    console.log("res", res);
 
-    if (!res.ok) {
-      throw new Error("Failed to update profile ");
+    const result = await res.json();
+
+    if (result.success) {
+      (await cookies()).set('accessToken', result.data.accessToken);
+      (await cookies()).set('refreshToken', result?.data?.refreshToken);
     }
 
-    const data = await res.json();
-    console.log("data", data);
-    return data;
+    return result;
   } catch (error: any) {
-    console.log("error", error);
+    console.log('error', error);
     throw new Error(error.message);
   }
 };
-
