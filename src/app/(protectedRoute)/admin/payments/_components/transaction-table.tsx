@@ -167,7 +167,7 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue("amount"));
-      const currency = row.original.gatewayResponse.currency;
+      const currency = row?.original?.gatewayResponse?.currency;
 
       // Format the amount with the currency
       const formatted = new Intl.NumberFormat("en-US", {
@@ -211,8 +211,8 @@ export const columns: ColumnDef<ITransaction>[] = [
     accessorKey: "gatewayResponse.bank_gw",
     header: "Payment Method",
     cell: ({ row }) => {
-      const paymentMethod = row.original.gatewayResponse.bank_gw;
-      const cardType = row.original.gatewayResponse.card_type;
+      const paymentMethod = row.original.gatewayResponse?.bank_gw;
+      const cardType = row.original.gatewayResponse?.card_type;
 
       return (
         <div
@@ -228,7 +228,7 @@ export const columns: ColumnDef<ITransaction>[] = [
     accessorKey: "gatewayResponse.card_brand",
     header: "Card Brand",
     cell: ({ row }) => {
-      const cardBrand = row.original.gatewayResponse.card_brand;
+      const cardBrand = row.original.gatewayResponse?.card_brand;
 
       return (
         <div className="max-w-[120px] truncate" title={cardBrand}>
@@ -241,8 +241,8 @@ export const columns: ColumnDef<ITransaction>[] = [
     accessorKey: "gatewayResponse.risk_title",
     header: "Risk Level",
     cell: ({ row }) => {
-      const riskTitle = row.original.gatewayResponse.risk_title;
-      const riskLevel = row.original.gatewayResponse.risk_level;
+      const riskTitle = row.original.gatewayResponse?.risk_title;
+      const riskLevel = row.original.gatewayResponse?.risk_level;
 
       const riskColorMap: Record<string, string> = {
         Safe: "bg-green-100 text-green-800",
@@ -268,11 +268,11 @@ export const columns: ColumnDef<ITransaction>[] = [
     header: "Discount",
     cell: ({ row }) => {
       const discountAmount = Number(
-        row.original.gatewayResponse.discount_amount
+        row.original.gatewayResponse?.discount_amount
       );
       const discountPercentage =
-        row.original.gatewayResponse.discount_percentage;
-      const currency = row.original.gatewayResponse.currency;
+        row.original.gatewayResponse?.discount_percentage;
+      const currency = row?.original?.gatewayResponse?.currency;
 
       if (discountAmount <= 0) return <div className="text-center">-</div>;
 
@@ -286,7 +286,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       return (
         <div
           className="text-right"
-          title={row.original.gatewayResponse.discount_remarks || ""}
+          title={row.original.gatewayResponse?.discount_remarks || ""}
         >
           {formatted} ({discountPercentage}%)
         </div>
@@ -315,7 +315,7 @@ export const columns: ColumnDef<ITransaction>[] = [
     accessorKey: "gatewayResponse.tran_date",
     header: "Gateway Date",
     cell: ({ row }) => {
-      const tranDate = row.original.gatewayResponse.tran_date;
+      const tranDate = row.original.gatewayResponse?.tran_date;
       return <div>{tranDate}</div>;
     },
   },
@@ -367,7 +367,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              {transaction.status === "Paid" && (
+              {transaction?.status === "Paid" && (
                 <DropdownMenuItem>
                   <span className="flex items-center">
                     <RefreshCw className="mr-2 h-4 w-4" />
@@ -375,7 +375,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                   </span>
                 </DropdownMenuItem>
               )}
-              {transaction.status === "Pending" && (
+              {transaction?.status === "Pending" && (
                 <DropdownMenuItem className="text-red-600">
                   <span className="flex items-center">
                     <Ban className="mr-2 h-4 w-4" />
@@ -417,28 +417,28 @@ export const columns: ColumnDef<ITransaction>[] = [
                     <p className="text-sm font-medium">Amount</p>
                     <p className="text-sm text-muted-foreground">
                       {transaction.amount}{" "}
-                      {transaction.gatewayResponse.currency}
+                      {transaction?.gatewayResponse?.currency}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Status</p>
                     <Badge
                       variant={
-                        transaction.status === "Paid"
+                        transaction?.status === "Paid"
                           ? "outline"
-                          : transaction.status === "Pending"
+                          : transaction?.status === "Pending"
                           ? "default"
                           : "destructive"
                       }
                       className={
-                        transaction.status === "Paid"
+                        transaction?.status === "Paid"
                           ? "bg-green-500"
-                          : transaction.status === "Pending"
+                          : transaction?.status === "Pending"
                           ? "bg-yellow-500"
                           : ""
                       }
                     >
-                      {transaction.status}
+                      {transaction?.status}
                     </Badge>
                   </div>
                   <div>
@@ -464,79 +464,79 @@ export const columns: ColumnDef<ITransaction>[] = [
                   <div>
                     <p className="text-sm font-medium">Gateway Status</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.status}
+                      {transaction.gatewayResponse?.status}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Payment Method</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.bank_gw}
+                      {transaction.gatewayResponse?.bank_gw}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Card Type</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.card_type}
+                      {transaction.gatewayResponse?.card_type}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Card Brand</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.card_brand}
+                      {transaction.gatewayResponse?.card_brand}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Card Issuer</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.card_issuer}
+                      {transaction.gatewayResponse?.card_issuer}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Transaction Date</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.tran_date}
+                      {transaction.gatewayResponse?.tran_date}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Store Amount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.store_amount}{" "}
-                      {transaction.gatewayResponse.currency}
+                      {transaction.gatewayResponse?.store_amount}{" "}
+                      {transaction?.gatewayResponse?.currency}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Discount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.discount_percentage}% (
-                      {transaction.gatewayResponse.discount_amount}{" "}
-                      {transaction.gatewayResponse.currency})
+                      {transaction.gatewayResponse?.discount_percentage}% (
+                      {transaction.gatewayResponse?.discount_amount}{" "}
+                      {transaction?.gatewayResponse?.currency})
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Risk Level</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.risk_title} (
-                      {transaction.gatewayResponse.risk_level})
+                      {transaction.gatewayResponse?.risk_title} (
+                      {transaction.gatewayResponse?.risk_level})
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Issuer Country</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.card_issuer_country} (
-                      {transaction.gatewayResponse.card_issuer_country_code})
+                      {transaction.gatewayResponse?.card_issuer_country} (
+                      {transaction.gatewayResponse?.card_issuer_country_code})
                     </p>
                   </div>
                 </CardContent>
               </Card>
 
-              {transaction.gatewayResponse.discount_remarks && (
+              {transaction.gatewayResponse?.discount_remarks && (
                 <Card>
                   <CardHeader>
                     <CardTitle>Discount Information</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm">
-                      {transaction.gatewayResponse.discount_remarks}
+                      {transaction.gatewayResponse?.discount_remarks}
                     </p>
                   </CardContent>
                 </Card>
