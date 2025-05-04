@@ -6,8 +6,8 @@ type Role = keyof typeof roleBasedPrivateRoutes;
 const authRoutes = ['/login', '/register'];
 
 const roleBasedPrivateRoutes = {
-  MEMBER: [/^\/member/],
-  ADMIN: [/^\/admin/],
+  MEMBER: [/^\/member/, /^\/profile/],
+  ADMIN: [/^\/admin/, /^\/profile/],
 };
 
 export const middleware = async (request: NextRequest) => {
@@ -40,11 +40,9 @@ export const config = {
     '/reset-password',
     '/profile',
     '/profile/:page*',
-    // '/dashboard',
-    // '/dashboard/:page*',
-    // '/member',
-    // '/member/:page*',
-    // '/admin',
-    // '/admin/:page*',
+    '/member',
+    '/member/:page*',
+    '/admin',
+    '/admin/:page*',
   ],
 };
