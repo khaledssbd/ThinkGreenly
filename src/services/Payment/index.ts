@@ -65,7 +65,7 @@ export const getMemberPayments = async (
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/payments/landlord?limit=${limit}&page=${page}`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/payments/member?limit=${limit}&page=${page}`,
       {
         method: 'GET',
         headers: {
