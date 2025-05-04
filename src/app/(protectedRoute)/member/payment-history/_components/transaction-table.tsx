@@ -189,7 +189,7 @@ export const columns: ColumnDef<ITransaction>[] = [
         Paid: "bg-green-100 text-green-800 hover:bg-green-100/80",
         Pending: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80",
         Failed: "bg-red-100 text-red-800 hover:bg-red-100/80",
-        Refunded: "bg-blue-100 text-blue-800 hover:bg-blue-100/80",
+       
       };
 
       return (
@@ -587,7 +587,7 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
     { label: "Paid", value: "Paid" },
     { label: "Pending", value: "Pending" },
     { label: "Failed", value: "Failed" },
-    { label: "Refunded", value: "Refunded" },
+    
   ];
 
   // Handle status filter change
@@ -603,7 +603,7 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
       return newFilter;
     });
   };
-  
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center">
