@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import {
   Dialog,
   DialogTrigger,
@@ -10,71 +10,62 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { updateProfile } from "../_action";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { updateProfile } from '../_action';
+// import { useRouter } from 'next/navigation';
+
+interface UpdateProfileModalProps {
+  user: { name: string } | null;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+}
 
 export default function UpdateProfileModal({
   user,
-}: {
-  user: { name: string } | null;
-}) {
-  console.log(user, "user");
+  setIsLoading,
+}: UpdateProfileModalProps) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [picture, setPicture] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  // Sync user.name into local state when user prop changes
+
   useEffect(() => {
     if (user?.name) {
       setName(user.name);
     }
   }, [user]);
-  //   const handleSubmit = async () => {
-  //     setLoading(true)
-  //     try {
-  //       // Simulate API call
-  //       await new Promise((res) => setTimeout(res, 1000))
 
-  //       console.log({ name, picture })
-  //       toast.success('Profile updated successfully!')
-  //       setOpen(false)
-  //     } catch (err) {
-  //       console.error(err)
-  //       toast.error('Failed to update profile')
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
   const handleSubmit = async () => {
+    console.log({ name, picture });
     if (!name.trim()) {
-      toast.error("Name is required.");
+      toast.error('Name is required.');
       return;
     }
 
     setLoading(true);
+
     try {
-
       const formData = new FormData();
-      formData.append("data", JSON.stringify({name:"name asdf as"})); // name goes as "data"
+      formData.append('data', JSON.stringify({ name }));
 
-      // Append image only if it's selected
-    //   if (picture) {
-    //     formData.append("image", picture);
-    //   }
-  
-      
-      await updateProfile(formData);
+      if (picture) {
+        formData.append('image', picture);
+      }
 
-      toast.success("Profile updated successfully!");
-      setOpen(false);
-    } catch (err) {
+      const res = await updateProfile(formData);
+
+      if (res?.success) {
+        setIsLoading(true);
+        toast.success(res.message);
+        setOpen(false);
+        // router.refresh?.(); // Refresh current route if using Next.js App Router
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (err: any) {
       console.error(err);
-      toast.error("Failed to update profile");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -88,7 +79,7 @@ export default function UpdateProfileModal({
         <DialogHeader>
           <DialogTitle>Edit Profile</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you re done.
+            Make changes to your profile here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
 
@@ -100,7 +91,7 @@ export default function UpdateProfileModal({
             <Input
               id="name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
               className="col-span-3"
               disabled={loading}
             />
@@ -113,7 +104,8 @@ export default function UpdateProfileModal({
             <Input
               id="picture"
               type="file"
-              onChange={(e) => setPicture(e.target.files?.[0] || null)}
+              accept="image/*"
+              onChange={e => setPicture(e.target.files?.[0] || null)}
               className="col-span-3"
               disabled={loading}
             />
@@ -122,7 +114,7 @@ export default function UpdateProfileModal({
 
         <DialogFooter>
           <Button onClick={handleSubmit} disabled={loading}>
-            {loading ? "Saving..." : "Save changes"}
+            {loading ? 'Saving...' : 'Save changes'}
           </Button>
         </DialogFooter>
       </DialogContent>

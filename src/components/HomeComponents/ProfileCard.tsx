@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { Card } from "../ui/card";
+import Image from 'next/image';
+import { Card } from '../ui/card';
 
-import { useUser } from "@/context/UserContext";
+import { useUser } from '@/context/UserContext';
 
-import UpdatePasswordModal from "@/app/(openRoute)/profile/_component/UpdatePasswordModal";
-import UpdateProfileModal from "@/app/(openRoute)/profile/_component/UpdateProfileModal";
+import UpdatePasswordModal from '@/app/(openRoute)/profile/_component/UpdatePasswordModal';
+import UpdateProfileModal from '@/app/(openRoute)/profile/_component/UpdateProfileModal';
 
 const ProfileCard = () => {
-  const { user } = useUser();
+  const { user, setIsLoading } = useUser();
+
   //   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -17,7 +18,7 @@ const ProfileCard = () => {
       <Card className="w-full max-w-sm shadow-lg rounded-2xl p-6text-center border-2 border-green-500">
         <div className="flex flex-col items-center">
           <Image
-            src={user?.image as string}
+            src={user?.image || '/avatar.png'}
             alt="Profile"
             width={1200}
             height={1200}
@@ -62,7 +63,7 @@ const ProfileCard = () => {
                 </DialogContent>
               </Dialog>
             </Button> */}
-            <UpdateProfileModal  user={user}/>
+            <UpdateProfileModal user={user} setIsLoading={setIsLoading} />
             <UpdatePasswordModal />
           </div>
         </div>

@@ -1,5 +1,8 @@
 "use client";
+"use client";
 
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -9,29 +12,33 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast, Toaster } from 'sonner';
-import { Input } from '@/components/ui/input';
-import React from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { registrationValidationSchema } from './registerValidation';
-import { registerUser } from '@/services/AuthService';
-import Link from 'next/link';
-import { PasswordInput } from '@/components/ui/password-input';
+} from "@/components/ui/form";
+import { toast, Toaster } from "sonner";
+import { Input } from "@/components/ui/input";
+import React from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { registrationValidationSchema } from "./registerValidation";
+import { registerUser } from "@/services/AuthService";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const form = useForm({
     resolver: zodResolver(registrationValidationSchema),
   });
 
+  const router = useRouter();
+
   const {
     formState: { isSubmitting },
   } = form;
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await registerUser(data);
       if (res.success) {
         toast.success(res?.message);
+        router.push("/login");
       } else {
         toast.error(res.message);
       }
@@ -60,6 +67,7 @@ const RegisterForm = () => {
                       placeholder="Enter User Name"
                       {...field}
                       value={field.value || ""}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -79,6 +87,7 @@ const RegisterForm = () => {
                       placeholder="Enter Email"
                       {...field}
                       value={field.value || ""}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -93,10 +102,12 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel />
                   <FormControl>
-                    <PasswordInput
+                    <Input
+                      type="password"
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
+                      value={field.value || ""}
                       value={field.value || ""}
                     />
                   </FormControl>
@@ -107,6 +118,7 @@ const RegisterForm = () => {
             />
 
             <Button type="submit" className="bg-green-600 mt-3">
+              {isSubmitting ? "Registering.." : "Register"}
               {isSubmitting ? "Registering.." : "Register"}
             </Button>
             <h1 className="mt-4">
