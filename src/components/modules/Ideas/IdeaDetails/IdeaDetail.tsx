@@ -119,16 +119,16 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
               </span>
             </div>
 
-            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm items-center gap-2">
+            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 text-green-700 rounded-full shadow-sm items-center gap-2">
               <Heart className="w-4 h-4 text-green-900" />
               <span className="text-sm font-medium">
                 {idea.votes?.filter((vote) => vote.type === "UP").length || 0}
               </span>
             </div>
-            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm items-center gap-2">
+            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 text-red-700 rounded-full shadow-sm items-center gap-2">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
-                {idea.votes?.filter((vote) => vote.type === "UP").length || 0}
+                {idea.votes?.filter((vote) => vote.type === "DOWN").length || 0}
               </span>
             </div>
           </div>
