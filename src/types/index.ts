@@ -51,6 +51,14 @@ type payment = {
   createdAt      : string
 
 }
+
+export type DynamicPageProps = {
+  params: {
+    id:string
+  }
+}
+
+
 type vote = {
   id  : string 
   userId: string
