@@ -12,7 +12,7 @@ const Footer = () => {
             {/* Logo & Contact Info */}
             <div className="col-span-2 space-y-4">
               <Link href="/">
-                <div className="font-medium w-fit ml-5 text-lg flex items-center gap-0">
+                <div className="font-medium w-fit text-lg flex items-center gap-0">
                   <p className="text-black dark:text-white">ThinkGreenly</p>
                   <Image src={logo} alt="logo" className="h-12 w-12" />
                 </div>
