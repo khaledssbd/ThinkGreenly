@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -27,7 +27,7 @@ const RegisterForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
-  const onSubmit: SubmitHandler<FieldValues> = async data => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await registerUser(data);
       if (res.success) {
@@ -59,7 +59,7 @@ const RegisterForm = () => {
                       className="py-6"
                       placeholder="Enter User Name"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -78,7 +78,7 @@ const RegisterForm = () => {
                       className="my-4 py-6"
                       placeholder="Enter Email"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -97,7 +97,7 @@ const RegisterForm = () => {
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -107,7 +107,7 @@ const RegisterForm = () => {
             />
 
             <Button type="submit" className="bg-green-600 mt-3">
-              {isSubmitting ? 'Registering..' : 'Register'}
+              {isSubmitting ? "Registering.." : "Register"}
             </Button>
             <h1 className="mt-4">
               Already Have an Account? Please
