@@ -48,6 +48,7 @@ import { useRouter } from "next/navigation";
 import { deleteIdea } from "../_actions";
 import { toast } from "sonner";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
+import Link from "next/link";
 
 interface DataTableProps {
   ideas: TIdea[];
@@ -73,6 +74,11 @@ export function DataTable({ ideas }: DataTableProps) {
   const handleDeleteClick = (ideaId: string) => {
     setSelectedIdeaId(ideaId);
     setOpenDeleteModal(true);
+  };
+
+  const handleEditClick = (ideaId: string) => {
+    console.log("edit-", ideaId);
+    router.push(`/member/edit-idea/${ideaId}`);
   };
 
   const handleConfirmDelete = async () => {
@@ -414,13 +420,15 @@ export function DataTable({ ideas }: DataTableProps) {
               <DropdownMenuItem>
                 <span className="flex items-center">
                   <Eye className="mr-2 h-4 w-4" />
-                  <span>View details</span>
+                  <Link href={`/ideas/${project?.id}`}>View details</Link>
                 </span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleEditClick(project.id)}>
                 <span className="flex items-center">
                   <Edit className="mr-2 h-4 w-4" />
-                  <span>Edit idea</span>
+                  <Link href={`/member/edit-idea/${project?.id}`}>
+                    Edit idea
+                  </Link>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
