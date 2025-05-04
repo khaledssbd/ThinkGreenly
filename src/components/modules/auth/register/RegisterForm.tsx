@@ -9,15 +9,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { toast, Toaster } from "sonner";
-import { Input } from "@/components/ui/input";
-import React from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { registrationValidationSchema } from "./registerValidation";
-import { registerUser } from "@/services/AuthService";
-import Link from "next/link";
-import { Home } from "lucide-react";
+} from '@/components/ui/form';
+import { toast, Toaster } from 'sonner';
+import { Input } from '@/components/ui/input';
+import React from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { registrationValidationSchema } from './registerValidation';
+import { registerUser } from '@/services/AuthService';
+import Link from 'next/link';
+import { PasswordInput } from '@/components/ui/password-input';
 
 const RegisterForm = () => {
   const form = useForm({
@@ -41,17 +41,11 @@ const RegisterForm = () => {
   };
   return (
     <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent">
-      <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500">
-        <div className="flex text-center gap-20 ml-28">
-          <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
-            Create Account
-          </h2>
-          <Link href="/">
-            <Button className="rounded-full flex items-center bg-green-500">
-              <Home></Home>
-            </Button>
-          </Link>
-        </div>
+      <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500 relative">
+      <Link href={'/'}  className="border inline font-bold shadow-md hover:shadow-sm hover:cursor-pointer px-3 py-1 rounded-full absolute top-0 right-0 m-2">X</Link>
+        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
+          Create Account
+        </h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -99,7 +93,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel />
                   <FormControl>
-                    <Input
+                    <PasswordInput
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
