@@ -398,6 +398,7 @@ export function DataTable({ ideas }: DataTableProps) {
       enableHiding: false,
       cell: ({ row }) => {
         const project = row.original;
+        const status = row.getValue("status") as string;
 
         return (
           <DropdownMenu>
@@ -423,14 +424,17 @@ export function DataTable({ ideas }: DataTableProps) {
                   <Link href={`/ideas/${project?.id}`}>View details</Link>
                 </span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleEditClick(project.id)}>
-                <span className="flex items-center">
-                  <Edit className="mr-2 h-4 w-4" />
-                  <Link href={`/member/edit-idea/${project?.id}`}>
-                    Edit idea
-                  </Link>
-                </span>
-              </DropdownMenuItem>
+              {status !== "APPROVED" && (
+                <DropdownMenuItem onClick={() => handleEditClick(project.id)}>
+                  <span className="flex items-center">
+                    <Edit className="mr-2 h-4 w-4" />
+                    <Link href={`/member/edit-idea/${project?.id}`}>
+                      Edit idea
+                    </Link>
+                  </span>
+                </DropdownMenuItem>
+              )}
+
               <DropdownMenuItem
                 onClick={() => handleDeleteClick(project.id)}
                 className="text-red-600"
