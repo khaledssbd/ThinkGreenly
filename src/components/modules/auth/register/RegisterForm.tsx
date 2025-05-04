@@ -18,6 +18,7 @@ import { registrationValidationSchema } from './registerValidation';
 import { registerUser } from '@/services/AuthService';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { PasswordInput } from '@/components/ui/password-input';
 
 const RegisterForm = () => {
   const form = useForm({
@@ -101,8 +102,8 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel />
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
+                      // type="password"
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
