@@ -1,23 +1,21 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
+import Autoplay from 'embla-carousel-autoplay';
 
 import {
   Carousel,
   CarouselContent,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import onepic from "../../assets/greenWorld.jpg";
-import twopic from "../../assets/begreen.jpg";
-import Image from "next/image";
+} from '@/components/ui/carousel';
+import onepic from '@/assets/greenWorld.jpg';
+import twopic from '@/assets/begreen.jpg';
+import Image from 'next/image';
+import { useRef } from 'react';
 
 export function Banner() {
   const images = [onepic, twopic];
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
-  );
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (
     <div className="max-w-[1250px] mx-auto my-12 flex justify-center">

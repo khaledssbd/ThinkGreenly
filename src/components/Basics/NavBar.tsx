@@ -1,15 +1,12 @@
 'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
-
-// import { MdEnergySavingsLeaf } from "react-icons/md";
-import logo from "../../assets/logo.png";
-import { ModeToggle } from "../ModeToggle";
-import { useUser } from "@/context/UserContext";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import logo from '@/assets/sLogo.png';
+import { ModeToggle } from '../ModeToggle';
+import { useUser } from '@/context/UserContext';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,112 +15,183 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { LogOut } from "lucide-react";
-import { logOut } from "@/services/AuthService";
-// import { protectedRoutes } from "@/constant";
+} from '../ui/dropdown-menu';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
+import { logOut } from '@/services/AuthService';
+import { protectedRoutes } from '@/constant';
+import { Button } from '../ui/button';
+import NavbarLoadingSkeleton from './UserNavSkeleton';
+import { LogOut, Menu, X } from 'lucide-react';
 
 const NavBar = () => {
-  // const router = useRouter();
-
-  const { user, setIsLoading, isLoading } = useUser();
+  const router = useRouter();
+  const { user, setUser, isLoading } = useUser();
   const pathname = usePathname();
-  //.log(pathname);
-  console.log(user);
-  const handleLogout = () => {
-    logOut();
 
-    // if (protectedRoutes.some((route) => pathname.match(route))) {
-    //   router.push("/");
-    // }
-    setIsLoading(!isLoading);
+  const handleLogOut = async () => {
+    await logOut();
+    setUser(null);
+    if (protectedRoutes.some(route => pathname.match(route))) {
+      router.push('/');
+    }
   };
-  const links = (
-    <>
-      <Link
-        href="/"
-        className={
-          pathname === "/" ? "border-b-2 border-green-300" : "border-b-0"
-        }
-      >
-        <h1>Home</h1>
-      </Link>
-      <Link
-        href="/ideas"
-        className={
-          pathname === "/ideas" ? "border-b-2 border-green-300" : "border-b-0"
-        }
-      >
-        <h1>Ideas</h1>
-      </Link>
-      <Link
-        href="/blogs"
-        className={
-          pathname === "/blog" ? "border-b-2 border-green-300" : "border-b-0"
-        }
-      >
-        <h1>Blogs</h1>
-      </Link>
-      <Link
-        href="/about-us"
-        className={
-          pathname === "/aboutus" ? "border-b-2 border-green-300" : "border-b-0"
-        }
-      >
-        <h1>About Us</h1>
-      </Link>
-    </>
-  );
+
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Ideas', path: '/ideas' },
+    { name: 'Blogs', path: '/blogs' },
+    { name: 'About Us', path: '/about-us' },
+    ...(user
+      ? [{ name: 'Dashboard', path: `/dashboard/${user.role.toLowerCase()}` }]
+      : []),
+  ];
 
   return (
-    <div className="flex  items-center w-[90%] mt-6 mx-auto justify-between">
-      <div className="font-bold ml-5  text-2xl flex gap-2 items-center">
-        <Image src={logo} width={135} height={10} alt="logo" />
-      </div>
-      <div className="flex gap-8 ml-12">{links}</div>
-
-      <div className="flex gap-10">
-        {user ? (
-          <>
-            {" "}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar>
-                  <AvatarImage src={user.image} alt="@shadcn" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <Link href="/profile">
-                    {" "}
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                  </Link>
-                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="text-red-600 font-semibold cursor-pointer"
+    <header className="sticky top-0 z-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pb-3">
+      <div className="container mx-auto h-16 px-5 md:px-10">
+        <div className="relative h-16 md:h-20">
+          {/* <!-- Menu & Small Device for Small Device--> */}
+          <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+            <Drawer>
+              {/* <!-- Menu for Small Device--> */}
+              <DrawerTrigger asChild>
+                <Button
+                  variant="default"
+                  className="bg-transparent text-black dark:text-green-500"
                 >
-                  Log out <LogOut className="text-red-600" />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-        ) : (
-          <Link href="/login">
-            <button className="bg-green-500  rounded-lg px-2 py-1">
-              Login
-            </button>
-          </Link>
-        )}
-        <ModeToggle />
+                  <Menu />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="text-black dark:text-green-500">
+                <div className="mx-auto w-full">
+                  <DrawerHeader>
+                    <DrawerTitle className="sr-only">Menu</DrawerTitle>
+                    <DrawerDescription className="sr-only">
+                      Nav Items.
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <div className="flex justify-end items-start mr-2">
+                    <DrawerClose asChild>
+                      <Button variant="outline">
+                        <X />
+                      </Button>
+                    </DrawerClose>
+                  </div>
+
+                  <div className="p-4">
+                    {/* NavItems for Small Device */}
+                    <div className="pb-3 flex flex-col justify-center items-end gap-2">
+                      {navLinks.map(({ name, path }) => (
+                        <Link
+                          key={name}
+                          href={path}
+                          className={
+                            pathname === path
+                              ? 'rounded-md border border-black text-green-500 dark:text-white  dark:border-green-500 px-3 py-2 text-sm font-medium'
+                              : 'rounded-md border border-transparent px-3 py-2 text-sm font-medium hover:bg-green-500 hover:text-black'
+                          }
+                        >
+                          {name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </div>
+
+          {/* logo, NavItems, Profile dropdown for Large Device */}
+          <div className="flex justify-between items-center h-full">
+            {/* logo for all */}
+            <div className="flex shrink-0 items-center">
+              <Link
+                href="/"
+                className="hidden md:flex text-2xl font-black items-center"
+              >
+                <div className="font-medium w-fit ml-5 text-lg flex items-center gap-0">
+                  <p className="text-black dark:text-white">ThinkGreenly</p>
+                  <Image src={logo} alt="logo" className="h-12 w-12" />
+                </div>
+              </Link>
+            </div>
+            {/* NavItems for Large Device */}
+            <div className="hidden md:block text-black dark:text-green-500">
+              <div className="flex space-x-2 md:space-x-8">
+                {navLinks.map(({ name, path }) => (
+                  <Link
+                    key={name}
+                    href={path}
+                    className={
+                      pathname === path
+                        ? 'border-b-2 border-green-300 dark:text-white'
+                        : 'border-b-0  dark:text-white hover:text-green-700 dark:hover:text-green-300'
+                    }
+                  >
+                    {name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {/* <!-- Profile dropdown for Large Device --> */}
+            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-6">
+              <div className="flex gap-10">
+                <ModeToggle />
+
+                {isLoading ? (
+                  <NavbarLoadingSkeleton />
+                ) : user ? (
+                  <>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Avatar>
+                          <AvatarImage src={user.image} alt="@shadcn" />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-56">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                          <Link href="/profile">
+                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                          </Link>
+                          <Link href={`/dashboard/${user.role.toLowerCase()}`}>
+                            <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                          </Link>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+
+                        <DropdownMenuItem
+                          onClick={handleLogOut}
+                          className="text-red-600 font-semibold cursor-pointer"
+                        >
+                          Log out <LogOut className="text-red-600" />
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </>
+                ) : (
+                  <Link href="/login">
+                    <button className="bg-green-500 font-bold rounded-lg px-3 py-2">
+                      Login
+                    </button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 export default NavBar;

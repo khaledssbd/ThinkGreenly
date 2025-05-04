@@ -1,10 +1,13 @@
-import LoginForm from "@/components/modules/auth/Login/LoginForm";
-import WithSuspense from "@/Providers/LoadingProviders";
+import LoginForm from '@/components/modules/auth/Login/LoginForm';
+import WithSuspense from '@/Providers/LoadingProviders';
 
-const LoginPage = () => {
+type SearchParams = Promise<{ [key: string]: string | undefined }>;
+
+const LoginPage = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const { redirectPath } = await searchParams;
   return (
     <WithSuspense>
-      <LoginForm />
+      <LoginForm redirectPath={redirectPath} />
     </WithSuspense>
   );
 };
