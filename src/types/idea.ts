@@ -44,7 +44,6 @@ interface User {
 }
 
 interface Vote {
-  userEmail: string | undefined;
   id: string;
   value: number;
   userEmail: string;
