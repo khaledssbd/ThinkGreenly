@@ -3,6 +3,7 @@
 import * as React from 'react';
 import {
   ClipboardList,
+  DollarSign,
   HomeIcon,
   LayoutDashboard,
   PlusCircle,
@@ -45,6 +46,11 @@ export function AppSidebar({
       url: '/member/create-idea',
       icon: PlusCircle,
     },
+    {
+      title: 'Manage Payments',
+      url: '/member/payments',
+      icon: DollarSign,
+    },
     // {
     //   title: 'Edit Idea',
     //   url: '/member/edit-idea',
@@ -62,6 +68,11 @@ export function AppSidebar({
       title: 'Manage Users',
       url: '/admin/all-users',
       icon: UsersRoundIcon,
+    },
+    {
+      title: 'Manage Payments',
+      url: '/admin/payments',
+      icon: DollarSign,
     },
   ];
 
