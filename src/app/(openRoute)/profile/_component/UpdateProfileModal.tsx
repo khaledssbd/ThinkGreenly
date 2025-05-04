@@ -38,7 +38,6 @@ export default function UpdateProfileModal({
   }, [user]);
 
   const handleSubmit = async () => {
-    console.log({ name, picture });
     if (!name.trim()) {
       toast.error('Name is required.');
       return;

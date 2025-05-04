@@ -68,7 +68,7 @@ export function DataTable({ ideas }: DataTableProps) {
     null
   );
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
-  const [selectedIdea, setSelectedIdea] = React.useState<TIdea | null>(null);
+  const [, setSelectedIdea] = React.useState<TIdea | null>(null);
   const router = useRouter();
 
   const handleDeleteClick = (ideaId: string) => {
@@ -77,7 +77,7 @@ export function DataTable({ ideas }: DataTableProps) {
   };
 
   const handleEditClick = (ideaId: string) => {
-    console.log("edit-", ideaId);
+
     router.push(`/member/edit-idea/${ideaId}`);
   };
 

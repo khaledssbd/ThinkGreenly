@@ -26,7 +26,7 @@ export const updatePassword = async (payload: {
     }
 
     const data = await res.json();
-    console.log('data', data);
+
     return data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -57,7 +57,6 @@ export const updateProfile = async (formData: FormData) => {
 
     return result;
   } catch (error: any) {
-    console.log('error', error);
-    throw new Error(error.message);
+    console.error(error);
   }
 };
