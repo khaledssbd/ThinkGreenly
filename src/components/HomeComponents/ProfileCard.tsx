@@ -1,24 +1,16 @@
 'use client';
 
-import { Button } from '../ui/button';
 import Image from 'next/image';
 import { Card } from '../ui/card';
 
 import { useUser } from '@/context/UserContext';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
+
+import UpdatePasswordModal from '@/app/(openRoute)/profile/_component/UpdatePasswordModal';
+import UpdateProfileModal from '@/app/(openRoute)/profile/_component/UpdateProfileModal';
 
 const ProfileCard = () => {
-  const { user } = useUser();
+  const { user, setIsLoading } = useUser();
+
   //   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -26,7 +18,7 @@ const ProfileCard = () => {
       <Card className="w-full max-w-sm shadow-lg rounded-2xl p-6text-center border-2 border-green-500">
         <div className="flex flex-col items-center">
           <Image
-            src={user?.image as string}
+            src={user?.image || '/avatar.png'}
             alt="Profile"
             width={1200}
             height={1200}
@@ -36,7 +28,7 @@ const ProfileCard = () => {
           <p className="text-gray-600 mb-4 ">{user?.email}</p>
 
           <div className="flex flex-col gap-2 w-[85%] gap-y-4">
-            <Button className="border-2 bg-green-500 border-gray-500">
+            {/* <Button className="border-2 bg-green-500 border-gray-500">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline">Edit Profile</Button>
@@ -70,10 +62,9 @@ const ProfileCard = () => {
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
-            </Button>
-            <Button className="border-2 border-green-500">
-              Update Password
-            </Button>
+            </Button> */}
+            <UpdateProfileModal user={user} setIsLoading={setIsLoading} />
+            <UpdatePasswordModal />
           </div>
         </div>
       </Card>

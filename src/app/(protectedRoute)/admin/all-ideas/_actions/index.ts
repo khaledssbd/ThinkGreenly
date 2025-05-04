@@ -1,13 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { cookies } from "next/headers";
 
-const getAuthToken = async () => {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken");
-  return accessToken?.value;
-};
+import { getValidToken } from '@/lib/getValidToken';
 
 export const getAllIdeasByAdmin = async () => {
   try {
@@ -60,8 +55,7 @@ export const updateIdeaStatus = async (
 
 export const deleteIdea = async (id: string) => {
   try {
-    const token = await getAuthToken();
-    console.log('token:',token);
+    const token = await getValidToken();
     if (!token) return { success: false, message: "Authentication token not found" };
 
     const res = await fetch(
@@ -71,7 +65,6 @@ export const deleteIdea = async (id: string) => {
         headers: { Authorization: token },
       }
     );
-    console.log('f-idaS:',res);
     if (!res.ok) {
       throw new Error("Failed to delete idea");
     }

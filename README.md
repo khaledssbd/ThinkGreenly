@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 Sustainability Idea Hub (Frontend)
 
-## Getting Started
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-First, run the development server:
+# 📌 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+A Next.js-powered community platform for sharing and voting on sustainable ideas. Admins moderate submissions, while members collaborate on eco-friendly solutions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌍 Live URL
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Want to test your own, please use this link
+[Live Deployment](https://think-greenly-serverside.vercel.app/) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Features
 
-## Learn More
+- **User Authentication**: JWT-based login/signup.
+- **Idea Management**: Submit, draft, and vote on ideas (Reddit-style).
+- **Admin Dashboard**: Approve/reject ideas, manage categories.
+- **Responsive UI**: Built with Tailwind CSS.
+- **Payment Integration**: SSLCommerz for "Paid Ideas."
 
-To learn more about Next.js, take a look at the following resources:
+## 🏗️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS
+- **State Management**: React Context / Zustand
+- **API Calls**: Axios
+- **Form Handling**: React Hook Form
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🏃‍♂️ Setup Guide
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js ≥18.x
+- npm/yarn/pnpm
+
+### Installation
+
+1. Clone the repo:
+
+   ```bash
+   git clone https://github.com/khaledssbd/ThinkGreenly.git sustainability-hub-frontend
+   cd sustainability-hub-frontend
+
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+3. Create .env file:
+
+   ```bash
+   env
+   NEXT_PUBLIC_API_URL=""
+
+   ```
+
+4. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+
+## How to Contribute
+
+1. Fork the repository.
+
+2. Create a branch:
+
+   ```
+   bash
+   git checkout -b feat/your-feature
+
+   ```
+
+3. Commit changes:
+
+   ```
+   bash
+   git commit -m "Add: your feature"
+
+   ```
+
+4. Push to your fork:
+
+   ```
+   bash
+   git push origin feat/your-feature
+
+   ```
+
+5. Open a Pull Request with a clear description.
+
+## License
+
+MIT (do whatever you want to do :smile: )

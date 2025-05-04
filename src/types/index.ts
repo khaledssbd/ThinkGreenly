@@ -51,6 +51,52 @@ type payment = {
   createdAt      : string
 
 }
+export type ITransaction = {
+  id: string
+  userEmail: string
+  ideaId: string
+  amount: number
+  status: string
+  transactionId: string
+  gatewayResponse: {
+    error: string
+    amount: string
+    status: string
+    val_id: string
+    bank_gw: string
+    card_no: string
+    tran_id: string
+    value_a: string
+    value_b: string
+    value_c: string
+    value_d: string
+    currency: string
+    base_fair: string
+    card_type: string
+    tran_date: string
+    card_brand: string
+    emi_amount: string
+    emi_issuer: string
+    gw_version: string
+    risk_level: string
+    risk_title: string
+    card_issuer: string
+    bank_tran_id: string
+    store_amount: string
+    validated_on: string
+    currency_rate: string
+    currency_type: string
+    emi_instalment: string
+    currency_amount: string
+    discount_amount: number
+    emi_description: string
+    discount_remarks: string
+    card_issuer_country: string
+    discount_percentage: string
+    card_issuer_country_code: string
+  }
+  createdAt: string
+}
 
 export type DynamicPageProps = {
   params: {

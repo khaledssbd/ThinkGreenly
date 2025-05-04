@@ -15,4 +15,6 @@ const AllIdeasPage = () => {
     </Suspense>
   );
 };
+
+export const dynamic = 'force-dynamic';
 export default AllIdeasPage;

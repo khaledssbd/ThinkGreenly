@@ -28,7 +28,7 @@ const TestimonialSection = async () => {
       </p>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {testimonials.slice(0, 3).map((idea: any, idx: number) => (
+        {testimonials?.slice(0, 3).map((idea: any, idx: number) => (
           <Card
             key={idx}
             className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-lg transition hover:shadow-xl"
