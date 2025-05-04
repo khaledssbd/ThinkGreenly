@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -12,10 +12,17 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Edit, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+} from '@tanstack/react-table';
+import {
+  ArrowUpDown,
+  ChevronDown,
+  MoreHorizontal,
+  Eye,
+  Edit,
+  Trash2,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -24,33 +31,38 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
-import { TIdea } from "@/types"
-
-
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import Image from 'next/image';
+import { TIdea } from '@/types';
 
 // Update the columns array to include all fields
 export const columns: ColumnDef<TIdea>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={value => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -58,12 +70,12 @@ export const columns: ColumnDef<TIdea>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -71,7 +83,7 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const id = row.getValue("id") as string;
+      const id = row.getValue('id') as string;
       return (
         <div className="font-mono text-xs max-w-[120px] truncate" title={id}>
           {id}
@@ -80,12 +92,12 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Project Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -93,7 +105,7 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const title = row.getValue("title") as string;
+      const title = row.getValue('title') as string;
       return (
         <div className="font-medium max-w-[200px] truncate" title={title}>
           {title}
@@ -102,10 +114,10 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "problemStatement",
-    header: "Problem Statement",
+    accessorKey: 'problemStatement',
+    header: 'Problem Statement',
     cell: ({ row }) => {
-      const problemStatement = row.getValue("problemStatement") as string;
+      const problemStatement = row.getValue('problemStatement') as string;
       return (
         <div className="max-w-[200px] truncate" title={problemStatement}>
           {problemStatement}
@@ -114,10 +126,10 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "solution",
-    header: "Solution",
+    accessorKey: 'solution',
+    header: 'Solution',
     cell: ({ row }) => {
-      const solution = row.getValue("solution") as string;
+      const solution = row.getValue('solution') as string;
       return (
         <div className="max-w-[200px] truncate" title={solution}>
           {solution}
@@ -126,10 +138,10 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "description",
-    header: "Description",
+    accessorKey: 'description',
+    header: 'Description',
     cell: ({ row }) => {
-      const description = row.getValue("description") as string;
+      const description = row.getValue('description') as string;
       return (
         <div className="max-w-[200px] truncate" title={description}>
           {description}
@@ -138,26 +150,26 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: 'status',
+    header: 'Status',
     cell: ({ row }) => {
-      const status = row.getValue("status") as string;
+      const status = row.getValue('status') as string;
 
       const statusColorMap: Record<string, string> = {
-        UNDER_REVIEW: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80",
-        APPROVED: "bg-green-100 text-green-800 hover:bg-green-100/80",
-        REJECTED: "bg-red-100 text-red-800 hover:bg-red-100/80",
-        DRAFT: "bg-blue-100 text-blue-800 hover:bg-blue-100/80",
+        UNDER_REVIEW: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80',
+        APPROVED: 'bg-green-100 text-green-800 hover:bg-green-100/80',
+        REJECTED: 'bg-red-100 text-red-800 hover:bg-red-100/80',
+        DRAFT: 'bg-blue-100 text-blue-800 hover:bg-blue-100/80',
       };
 
       return (
         <Badge
           className={`${
-            statusColorMap[status] || "bg-gray-100 text-gray-800"
+            statusColorMap[status] || 'bg-gray-100 text-gray-800'
           } font-medium`}
           variant="outline"
         >
-          {status.replace(/_/g, " ")}
+          {status.replace(/_/g, ' ')}
         </Badge>
       );
     },
@@ -166,24 +178,24 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "isPaid",
-    header: "Type",
+    accessorKey: 'isPaid',
+    header: 'Type',
     cell: ({ row }) => {
-      const isPaid = row.getValue("isPaid") as boolean;
+      const isPaid = row.getValue('isPaid') as boolean;
       return (
-        <Badge variant={isPaid ? "default" : "outline"}>
-          {isPaid ? "Paid" : "Free"}
+        <Badge variant={isPaid ? 'default' : 'outline'}>
+          {isPaid ? 'Paid' : 'Free'}
         </Badge>
       );
     },
   },
   {
-    accessorKey: "price",
+    accessorKey: 'price',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className="text-right"
         >
           Price
@@ -192,40 +204,40 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const price = Number.parseFloat(row.getValue("price"));
-      const isPaid = row.getValue("isPaid") as boolean;
+      const price = Number.parseFloat(row.getValue('price'));
+      const isPaid = row.getValue('isPaid') as boolean;
 
       if (!isPaid) return <div className="text-right">Free</div>;
 
       // Format the price as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
       }).format(price);
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
-    accessorKey: "feedback",
-    header: "Feedback",
+    accessorKey: 'feedback',
+    header: 'Feedback',
     cell: ({ row }) => {
-      const feedback = row.getValue("feedback") as string | null;
+      const feedback = row.getValue('feedback') as string | null;
       return (
-        <div className="max-w-[200px] truncate" title={feedback || ""}>
-          {feedback || "No feedback"}
+        <div className="max-w-[200px] truncate" title={feedback || ''}>
+          {feedback || 'No feedback'}
         </div>
       );
     },
   },
   {
-    id: "category",
-    accessorFn: (row) => row.category.name,
+    id: 'category',
+    accessorFn: row => row.category.name,
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -238,13 +250,13 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    id: "author",
-    accessorFn: (row) => row.author.name,
+    id: 'author',
+    accessorFn: row => row.author.name,
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Author
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -257,22 +269,22 @@ export const columns: ColumnDef<TIdea>[] = [
     },
   },
   {
-    accessorKey: "isDeleted",
-    header: "Deleted",
+    accessorKey: 'isDeleted',
+    header: 'Deleted',
     cell: ({ row }) => {
-      const isDeleted = row.getValue("isDeleted") as boolean;
+      const isDeleted = row.getValue('isDeleted') as boolean;
       return (
-        <Badge variant={isDeleted ? "destructive" : "outline"}>
-          {isDeleted ? "Deleted" : "Active"}
+        <Badge variant={isDeleted ? 'destructive' : 'outline'}>
+          {isDeleted ? 'Deleted' : 'Active'}
         </Badge>
       );
     },
   },
   {
-    accessorKey: "images",
-    header: "Image",
+    accessorKey: 'images',
+    header: 'Image',
     cell: ({ row }) => {
-      const images = row.getValue("images") as string[];
+      const images = row.getValue('images') as string[];
 
       if (!images || images.length === 0) {
         return (
@@ -284,8 +296,8 @@ export const columns: ColumnDef<TIdea>[] = [
         <div className="flex justify-center">
           <div className="relative h-10 w-10 overflow-hidden rounded-md">
             <Image
-              src={images[0] || "/placeholder.svg"}
-              alt={row.getValue("title") as string}
+              src={images[0] || '/placeholder.svg'}
+              alt={row.getValue('title') as string}
               fill
               className="object-cover"
             />
@@ -296,12 +308,12 @@ export const columns: ColumnDef<TIdea>[] = [
     enableSorting: false,
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: 'createdAt',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Created
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -309,17 +321,17 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"));
+      const date = new Date(row.getValue('createdAt'));
       return <div>{date.toLocaleDateString()}</div>;
     },
   },
   {
-    accessorKey: "updatedAt",
+    accessorKey: 'updatedAt',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Updated
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -327,12 +339,12 @@ export const columns: ColumnDef<TIdea>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("updatedAt"));
+      const date = new Date(row.getValue('updatedAt'));
       return <div>{date.toLocaleDateString()}</div>;
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const project = row.original;
@@ -381,18 +393,21 @@ export const columns: ColumnDef<TIdea>[] = [
 ];
 
 interface DataTableProps {
-  data: TIdea[]
+  ideas: TIdea[];
 }
 
-export function DataTable({ data }: DataTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [statusFilter, setStatusFilter] = React.useState<string[]>([])
+export function DataTable({ ideas }: DataTableProps) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
 
   const table = useReactTable({
-    data,
+    data: ideas,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -408,41 +423,48 @@ export function DataTable({ data }: DataTableProps) {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
 
   // Status filter options
   const statusOptions = [
-    { label: "Under Review", value: "UNDER_REVIEW" },
-    { label: "Approved", value: "APPROVED" },
-    { label: "Rejected", value: "REJECTED" },
-    { label: "Draft", value: "DRAFT" },
-    
-  ]
+    { label: 'Under Review', value: 'UNDER_REVIEW' },
+    { label: 'Approved', value: 'APPROVED' },
+    { label: 'Rejected', value: 'REJECTED' },
+    { label: 'Draft', value: 'DRAFT' },
+  ];
 
   // Handle status filter change
   const handleStatusFilterChange = (value: string) => {
-    setStatusFilter((prev) => {
-      const newFilter = prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    setStatusFilter(prev => {
+      const newFilter = prev.includes(value)
+        ? prev.filter(item => item !== value)
+        : [...prev, value];
 
-      table.getColumn("status")?.setFilterValue(newFilter.length ? newFilter : undefined)
-      return newFilter
-    })
-  }
+      table
+        .getColumn('status')
+        ?.setFilterValue(newFilter.length ? newFilter : undefined);
+      return newFilter;
+    });
+  };
 
   return (
     <div className="w-full">
       <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center">
         <Input
           placeholder="Filter by title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
+          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          onChange={event =>
+            table.getColumn('title')?.setFilterValue(event.target.value)
+          }
           className="max-w-sm"
         />
         <div className="flex flex-wrap gap-2">
-          {statusOptions.map((option) => (
+          {statusOptions.map(option => (
             <Badge
               key={option.value}
-              variant={statusFilter.includes(option.value) ? "default" : "outline"}
+              variant={
+                statusFilter.includes(option.value) ? 'default' : 'outline'
+              }
               className="cursor-pointer"
               onClick={() => handleStatusFilterChange(option.value)}
             >
@@ -459,18 +481,18 @@ export function DataTable({ data }: DataTableProps) {
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
+              .filter(column => column.getCanHide())
+              .map(column => {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    onCheckedChange={value => column.toggleVisibility(!!value)}
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                )
+                );
               })}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -478,30 +500,46 @@ export function DataTable({ data }: DataTableProps) {
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
+            {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
+                {headerGroup.headers.map(header => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+              table.getRowModel().rows.map(row => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                >
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -511,8 +549,8 @@ export function DataTable({ data }: DataTableProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
+          {table.getFilteredSelectedRowModel().rows.length} of{' '}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button
@@ -523,11 +561,16 @@ export function DataTable({ data }: DataTableProps) {
           >
             Previous
           </Button>
-          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
             Next
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }

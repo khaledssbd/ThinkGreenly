@@ -1,15 +1,18 @@
-import { FC } from "react";
-import { DynamicPageProps } from "@/types";
-import { getAllCategories, getIdea } from "./_action";
-import EditIdeaForm from "./_components/EditIdeaForm";
+import { getAllCategories, getIdea } from './_action';
+import EditIdeaForm from './_components/EditIdeaForm';
 
-const EditIdeaPage: FC<DynamicPageProps> = async ({params}) => {
+const EditIdeaPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const { data: categories } = await getAllCategories();
   const { id } = await params;
-  const data = await getIdea(id);
+  const { data: idea } = await getIdea(id);
+
   return (
     <div>
-      <EditIdeaForm categories={categories} data={data.data} />
+      <EditIdeaForm categories={categories} idea={idea} />
     </div>
   );
 };
