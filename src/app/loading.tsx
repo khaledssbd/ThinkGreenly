@@ -1,15 +1,12 @@
-// import DNLoader from "@/components/loaders/DN";
-// import GlobeLoader from "@/components/loaders/globe";
-// import SolarLoader from "@/components/loaders/solar";
+import Image from "next/image";
+import giffy from "../assets/loader.gif";
 
 const loading = () => {
-    return (
-        <div className="grid place-items-center">
-            {/* <SolarLoader />
-            <GlobeLoader /> */}
-            {/* <DNLoader /> */}
-        </div>
-    );
+  return (
+    <div className="grid place-items-center">
+      <Image src={giffy} width={800} height={800} alt="giffy" />
+    </div>
+  );
 };
 
 export default loading;
