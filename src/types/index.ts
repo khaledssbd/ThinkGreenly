@@ -107,7 +107,7 @@ export type DynamicPageProps = {
 
 type vote = {
   id  : string 
-  userId: string
+  userEmail: string
   ideaId: string
   type  : "UP" | "DOWN"
   user  : TUser     
