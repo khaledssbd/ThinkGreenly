@@ -13,12 +13,44 @@ import {
 } from "@/components/ui/card";
 import IdeaActionSkeleton from "./IdeaActionSkeleton";
 import { useUser } from "@/context/UserContext";
-import { MessageCircle, Leaf, ArrowRight, Heart, HeartOff } from "lucide-react";
-import { useRouter } from "next/navigation";
-
+import {
+  MessageCircle,
+  Leaf,
+  ArrowRight,
+  Heart,
+  HeartOff,
+  ShoppingCart,
+  Sparkles,
+  ShieldCheck,
+  FileText,
+  Gem,
+} from "lucide-react";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { createPayment } from "@/services/Payment";
 const IdeaCard = ({ idea }: { idea: Idea }) => {
   const { user, isLoading } = useUser();
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePayment = async (id: string) => {
+    try {
+      const res = await createPayment({ ideaId: id });
+
+      if (res.success && res.data) {
+        window.location.href = res.data;
+      } else {
+        console.error("Payment initiation failed:", res.message);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+    }
+  };
 
   return (
     <Card className="bg-white dark:bg-transparent rounded-3xl border-2 border-green-100 shadow-lg hover:shadow-xl transition-shadow relative">
@@ -41,11 +73,11 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
             {/* Vote Badge */}
             <div className="absolute top-2 left-36 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
               <Heart className="w-4 h-4 text-green-900" />
-              <span className="text-sm font-medium">
+              <span className="text-sm  font-medium">
                 {idea.votes?.filter((vote) => vote.type === "UP").length || 0}
               </span>
             </div>
-            <div className="absolute top-2 left-20 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+            <div className="absolute top-2 left-20 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
                 {idea.votes?.filter((vote) => vote.type === "UP").length || 0}
@@ -95,57 +127,123 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
               {isLoading ? (
                 <IdeaActionSkeleton />
               ) : (
-                <Link
-                  href={
-                    idea.isPaid
-                      ? !user
-                        ? `/login?returnUrl=${encodeURIComponent(
-                            `/checkout/${idea.id}`
-                          )}`
-                        : idea.payments?.some(
-                            (p) =>
-                              p.ideaId === idea.id &&
-                              p.userEmail?.toLowerCase() ===
-                                user.email?.toLowerCase()
-                          )
-                        ? `/ideas/${idea.id}`
-                        : `/checkout/${idea.id}`
-                      : `/ideas/${idea.id}`
-                  }
-                  className="w-full"
-                  onClick={(e) => {
-                    if (idea.isPaid && user) {
-                      const hasValidPayment = idea.payments?.some(
-                        (p) =>
-                          p.ideaId === idea.id &&
-                          p.userEmail?.toLowerCase() ===
-                            user.email?.toLowerCase()
-                      );
-
-                      if (!hasValidPayment) {
-                        e.preventDefault();
-                        router.push(`/checkout/${idea.id}`);
-                      }
-                    }
-                  }}
-                >
-                  <Button
-                    size="lg"
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-2"
-                  >
-                    {idea.isPaid
-                      ? idea.payments?.some(
+                <>
+                  <Link
+                    href={`/ideas/${idea.id}`}
+                    className="w-full"
+                    onClick={(e) => {
+                      if (idea.isPaid && user) {
+                        const hasValidPayment = idea.payments?.some(
                           (p) =>
                             p.ideaId === idea.id &&
                             p.userEmail?.toLowerCase() ===
-                              user?.email?.toLowerCase()
-                        )
-                        ? "View Premium Solution"
-                        : "View Premium Solution"
-                      : "View Detailed Solution"}
-                    <ArrowRight className="ml-2 w-3 h-3" />
-                  </Button>
-                </Link>
+                              user?.email?.toLowerCase() &&
+                            p.status === "Paid"
+                        );
+
+                        if (!hasValidPayment) {
+                          e.preventDefault();
+                          setIsModalOpen(true);
+                        }
+                      }
+
+                      if (idea.isPaid && !user) {
+                        e.preventDefault();
+                        window.location.href = `/login?returnUrl=${encodeURIComponent(
+                          `/ideas/${idea.id}`
+                        )}`;
+                      }
+                    }}
+                  >
+                    <Button
+                      size="lg"
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-2"
+                    >
+                      {idea.isPaid ? " Premium Solution" : "Detailed Solution"}
+                      <ArrowRight className="ml-1 w-3 h-3" />
+                    </Button>
+                  </Link>
+
+                  <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                    <DialogContent className="rounded-lg max-w-md">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        {/* Animated Icon Container */}
+                        <div className="p-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse">
+                          <Gem className="w-8 h-8 text-white" />
+                        </div>
+
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl font-bold text-gray-800 dark:text-white">
+                            Unlock Premium Wisdom
+                          </DialogTitle>
+                          <DialogDescription className="text-gray-600 dark:text-gray-300 mt-2">
+                            This golden idea is waiting to be fully discovered!
+                          </DialogDescription>
+                        </DialogHeader>
+
+                        {/* Feature List */}
+                        <div className="w-full space-y-3 text-left">
+                          <div className="flex items-center gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
+                            <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                            <span className="text-sm font-medium">
+                              Detailed Step-by-Step Guide
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                            <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                            <span className="text-sm font-medium">
+                              Exclusive Implementation Strategies
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                            <span className="text-sm font-medium">
+                              Priority Support Access
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Pricing Banner */}
+                        <div className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white p-4 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <div>
+                              <p className="text-xl font-bold">
+                                ${idea.price}{" "}
+                                <span className="text-sm font-normal">
+                                  / lifetime access
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="w-full flex flex-col gap-2 space-y-2">
+                          <Button
+                            size="lg"
+                            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-lg"
+                            onClick={() => {
+                              setIsModalOpen(false);
+                              handlePayment(idea.id);
+                            }}
+                          >
+                            <ShoppingCart className="mr-2 h-4 w-4" />
+                            Get Instant Access
+                          </Button>
+
+                          <Button
+                            className="w-full text-green-600 bg-green-100  dark:text-gray-600"
+                            onClick={() => setIsModalOpen(false)}
+                          >
+                            Maybe Later
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </>
               )}
             </div>
           </CardFooter>

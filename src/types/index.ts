@@ -45,7 +45,7 @@ type payment = {
   user          :  TUser  
   idea           : TIdea  
   amount     :     number
-  status      :    "Pending" | "Paid" |"Failed"
+  status      :    'Paid' | 'Pending' | 'Failed'
   transactionId:   string
   gatewayResponse?: any
   createdAt      : string
