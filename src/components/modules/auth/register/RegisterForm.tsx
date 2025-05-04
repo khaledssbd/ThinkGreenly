@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -9,14 +9,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast, Toaster } from 'sonner';
-import { Input } from '@/components/ui/input';
-import React from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { registrationValidationSchema } from './registerValidation';
-import { registerUser } from '@/services/AuthService';
-import Link from 'next/link';
+} from "@/components/ui/form";
+import { toast, Toaster } from "sonner";
+import { Input } from "@/components/ui/input";
+import React from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { registrationValidationSchema } from "./registerValidation";
+import { registerUser } from "@/services/AuthService";
+import Link from "next/link";
+import { Home } from "lucide-react";
 
 const RegisterForm = () => {
   const form = useForm({
@@ -26,7 +27,7 @@ const RegisterForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
-  const onSubmit: SubmitHandler<FieldValues> = async data => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await registerUser(data);
       if (res.success) {
@@ -41,9 +42,16 @@ const RegisterForm = () => {
   return (
     <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500">
-        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
-          Create Account
-        </h2>
+        <div className="flex text-center gap-20 ml-28">
+          <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
+            Create Account
+          </h2>
+          <Link href="/">
+            <Button className="rounded-full flex items-center bg-green-500">
+              <Home></Home>
+            </Button>
+          </Link>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -57,7 +65,7 @@ const RegisterForm = () => {
                       className="py-6"
                       placeholder="Enter User Name"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -76,7 +84,7 @@ const RegisterForm = () => {
                       className="my-4 py-6"
                       placeholder="Enter Email"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -95,7 +103,7 @@ const RegisterForm = () => {
                       className="py-6"
                       placeholder="Enter Password"
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                     />
                   </FormControl>
 
@@ -105,7 +113,7 @@ const RegisterForm = () => {
             />
 
             <Button type="submit" className="bg-green-600 mt-3">
-              {isSubmitting ? 'Registering..' : 'Register'}
+              {isSubmitting ? "Registering.." : "Register"}
             </Button>
             <h1 className="mt-4">
               Already Have an Account? Please
