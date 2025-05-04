@@ -1,0 +1,100 @@
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import Image from "next/image";
+
+import { getByVotes } from "@/services/Idea";
+import { Avatar } from "../ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { Separator } from "../ui/separator";
+import { Badge } from "../ui/badge";
+import u1 from "../../assets/u1.avif";
+
+const TestimonialSection = async () => {
+  const { data: testimonials } = await getByVotes();
+  console.log(testimonials);
+  return (
+    <section className="py-16 px-4 text-center mt-8">
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        💬 What Our Users Say
+      </h2>
+      <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto mb-10">
+        Real voices from changemakers who are building a more sustainable future
+        with us.
+      </p>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+        {testimonials.slice(0, 3).map((idea: any, idx: number) => (
+          <Card
+            key={idx}
+            className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-lg transition hover:shadow-xl"
+          >
+            <CardContent className="space-y-8">
+              <div>
+                <Badge variant="secondary">{idea.category?.name}</Badge>
+                <h3 className="text-xl font-semibold mt-4 mb-6">
+                  {idea.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {idea.description}
+                </p>
+              </div>
+
+              {/* <div>
+                <h4 className="font-medium text-green-500">Problem</h4>
+                <p className="text-sm">{idea.problemStatement}</p>
+              </div>
+
+              <div>
+                <h4 className="font-medium text-blue-500">Solution</h4>
+                <p className="text-sm">{idea.solution}</p>
+              </div> */}
+
+              <div className="flex gap-2 flex-wrap justify-center">
+                {idea.images?.map((img: any, index: number) => (
+                  <Image
+                    key={index}
+                    src={img}
+                    alt={`Project ${index + 1}`}
+                    height={1200}
+                    width={1200}
+                    className="w-20 h-20 object-cover rounded-md border"
+                  />
+                ))}
+              </div>
+              <Separator />
+              <CardFooter>
+                <div className="flex mx-auto items-center gap-4 justify-between">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl">
+                    <Image
+                      src={idea.author.image || u1}
+                      width={40}
+                      height={40}
+                      alt="avater"
+                      className="rounded-full"
+                    />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">
+                      {idea.author?.name}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {idea.author?.email}
+                    </p>
+                  </div>
+                </div>
+              </CardFooter>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default TestimonialSection;

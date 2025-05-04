@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // get all Ideas
 export const getAllIdeas = async (
   page?: string,
@@ -6,6 +5,7 @@ export const getAllIdeas = async (
   query?: { [key: string]: string | string[] | undefined }
 ): Promise<any> => {
   const params = new URLSearchParams();
+
 
   if (query?.price) {
     params.append("minPrice", "0");
@@ -29,6 +29,22 @@ export const getAllIdeas = async (
         next: {
           tags: ["IDEA"],
         },
+  }
+
+
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};
+
+export const getByVotes = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/votes/ideas/by-votes`,
+      {
+        method: "GET",
       }
     );
     const result = await res.json();
