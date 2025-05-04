@@ -1,15 +1,15 @@
-'use server';
+"use server";
 
-import { cookies } from 'next/headers';
-import { FieldValues } from 'react-hook-form';
-import { jwtDecode } from 'jwt-decode';
+import { cookies } from "next/headers";
+import { FieldValues } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
 
 export const registerUser = async (userData: FieldValues) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
     });
@@ -22,18 +22,18 @@ export const registerUser = async (userData: FieldValues) => {
 export const loginUser = async (userData: FieldValues): Promise<any> => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(userData),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
     const result = await res.json();
 
     if (result?.success) {
-      (await cookies()).set('accessToken', result?.data?.accessToken);
-      (await cookies()).set('refreshToken', result?.data?.refreshToken);
+      (await cookies()).set("accessToken", result?.data?.accessToken);
+      (await cookies()).set("refreshToken", result?.data?.refreshToken);
     }
 
     return result;
@@ -43,7 +43,7 @@ export const loginUser = async (userData: FieldValues): Promise<any> => {
 };
 
 export const getCurrentUser = async (): Promise<any> => {
-  const accessToken = (await cookies()).get('accessToken')?.value;
+  const accessToken = (await cookies()).get("accessToken")?.value;
   let decodedData = null;
 
   if (accessToken) {
@@ -55,8 +55,8 @@ export const getCurrentUser = async (): Promise<any> => {
 };
 
 export const logOut = async (): Promise<void> => {
-  (await cookies()).delete('accessToken');
-  (await cookies()).delete('refreshToken');
+  (await cookies()).delete("accessToken");
+  (await cookies()).delete("refreshToken");
 };
 
 export const getNewToken = async (refreshToken: string): Promise<any> => {
@@ -64,7 +64,7 @@ export const getNewToken = async (refreshToken: string): Promise<any> => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/auth/refresh-token`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
           Authorization: `${refreshToken}`,
         },
@@ -72,12 +72,12 @@ export const getNewToken = async (refreshToken: string): Promise<any> => {
     );
 
     if (!res.ok) {
-      throw new Error('Failed to refresh token');
+      throw new Error("Failed to refresh token");
     }
 
     const result = await res.json();
     return result;
   } catch (error: any) {
-    throw new Error(error?.message || 'Token refresh failed');
+    throw new Error(error?.message || "Token refresh failed");
   }
 };

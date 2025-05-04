@@ -7,25 +7,41 @@ export const getAllIdeas = async (
   const params = new URLSearchParams();
 
   if (query?.maxRent) {
-    params.append('minRent', '0');
-    params.append('maxRent', query?.maxRent.toString());
+    params.append("minRent", "0");
+    params.append("maxRent", query?.maxRent.toString());
   }
 
   if (query?.searchTerm) {
-    params.append('searchTerm', query?.searchTerm.toString());
+    params.append("searchTerm", query?.searchTerm.toString());
   }
 
   if (query?.isRented) {
-    params.append('isRented', query?.isRented.toString());
+    params.append("isRented", query?.isRented.toString());
   }
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/ideas`, {
-      method: 'GET',
+      method: "GET",
       next: {
-        tags: ['IDEAS'],
+        tags: ["IDEAS"],
       },
     });
+
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};
+
+export const getByVotes = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/votes/ideas/by-votes`,
+      {
+        method: "GET",
+      }
+    );
 
     const result = await res.json();
     return result;

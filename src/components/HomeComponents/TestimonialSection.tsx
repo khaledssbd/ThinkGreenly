@@ -2,40 +2,22 @@ import React from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
 import Image from "next/image";
+
+import { getByVotes } from "@/services/Idea";
+import { Avatar } from "../ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { Separator } from "../ui/separator";
+import { Badge } from "../ui/badge";
 import u1 from "../../assets/u1.avif";
-import u2 from "../../assets/u2.png";
-import u3 from "../../assets/u3.jpg";
 
-const TestimonialSection = () => {
-  const testimonials = [
-    {
-      name: "Ariana Johnson",
-      role: "Eco Activist",
-      message:
-        "This platform helped turn my sustainability idea into action! The support from the community has been incredible.",
-      avatar: u1,
-    },
-    {
-      name: "James Carter",
-      role: "Renewable Energy Engineer",
-      message:
-        "The user-friendly tools and exposure made it so easy to share my solar microgrid concept with the world.",
-      avatar: u2,
-    },
-    {
-      name: "Priya Desai",
-      role: "Environmental Scientist",
-      message:
-        "I was blown away by the quality of ideas. It’s like a greenhouse for green innovation!",
-      avatar: u3,
-    },
-  ];
-
+const TestimonialSection = async () => {
+  const { data: testimonials } = await getByVotes();
+  console.log(testimonials);
   return (
     <section className="py-16 px-4 text-center mt-8">
       <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -47,30 +29,66 @@ const TestimonialSection = () => {
       </p>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {testimonials.map((user, idx) => (
+        {testimonials.slice(0, 3).map((idea: any, idx: number) => (
           <Card
             key={idx}
-            className="bg-white dark:bg-[#0b1d0f] border border-green-600 dark:border-green-400 rounded-2xl shadow-lg hover:shadow-green-500/20 transition"
+            className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-lg transition hover:shadow-xl"
           >
-            <CardHeader className="flex items-center gap-4">
-              <Image
-                src={user.avatar}
-                alt={user.name}
-                width={1200}
-                height={1200}
-                className="w-12 h-12 rounded-full object-cover border-2 border-green-400"
-              />
-              <div className="text-left">
-                <CardTitle className="text-lg text-gray-900 dark:text-white">
-                  {user.name}
-                </CardTitle>
-                <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
-                  {user.role}
-                </CardDescription>
+            <CardContent className="space-y-8">
+              <div>
+                <Badge variant="secondary">{idea.category?.name}</Badge>
+                <h3 className="text-xl font-semibold mt-4 mb-6">
+                  {idea.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {idea.description}
+                </p>
               </div>
-            </CardHeader>
-            <CardContent className="text-left text-gray-700 dark:text-gray-300">
-              <p>{user.message}</p>
+
+              {/* <div>
+                <h4 className="font-medium text-green-500">Problem</h4>
+                <p className="text-sm">{idea.problemStatement}</p>
+              </div>
+
+              <div>
+                <h4 className="font-medium text-blue-500">Solution</h4>
+                <p className="text-sm">{idea.solution}</p>
+              </div> */}
+
+              <div className="flex gap-2 flex-wrap justify-center">
+                {idea.images?.map((img: any, index: number) => (
+                  <Image
+                    key={index}
+                    src={img}
+                    alt={`Project ${index + 1}`}
+                    height={1200}
+                    width={1200}
+                    className="w-20 h-20 object-cover rounded-md border"
+                  />
+                ))}
+              </div>
+              <Separator />
+              <CardFooter>
+                <div className="flex mx-auto items-center gap-4 justify-between">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl">
+                    <Image
+                      src={idea.author.image || u1}
+                      width={40}
+                      height={40}
+                      alt="avater"
+                      className="rounded-full"
+                    />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">
+                      {idea.author?.name}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {idea.author?.email}
+                    </p>
+                  </div>
+                </div>
+              </CardFooter>
             </CardContent>
           </Card>
         ))}
