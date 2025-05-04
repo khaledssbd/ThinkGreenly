@@ -67,8 +67,6 @@ export function DataTable({ data }: DataTableProps) {
     null
   );
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
-  const [openEditModal, setOpenEditModal] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState<string>("DRAFT");
   const [selectedIdea, setSelectedIdea] = React.useState<TIdea | null>(null);
   const router = useRouter();
 
