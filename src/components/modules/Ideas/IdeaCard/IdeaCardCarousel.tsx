@@ -30,10 +30,10 @@ const IdeaCardCarousel = ({ idea }: { idea: Idea }) => {
           <SwiperSlide key={idx}>
             <Image
               src={image}
-              width={500}
-              height={500}
+              width={800}
+              height={300}
               alt="idea image"
-              className="rounded-sm h-48 object-cover"
+              className="rounded-sm  lg:w-[280px]  lg:h-60  object-cover"
             />
           </SwiperSlide>
 

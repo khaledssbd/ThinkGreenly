@@ -6,26 +6,31 @@ export const getAllIdeas = async (
 ): Promise<any> => {
   const params = new URLSearchParams();
 
-  if (query?.maxRent) {
-    params.append("minRent", "0");
-    params.append("maxRent", query?.maxRent.toString());
+
+  if (query?.price) {
+    params.append("minPrice", "0");
+    params.append("maxPrice", query?.price.toString());
   }
 
   if (query?.searchTerm) {
     params.append("searchTerm", query?.searchTerm.toString());
   }
 
-  if (query?.isRented) {
-    params.append("isRented", query?.isRented.toString());
+  if (query?.isPaid) {
+    params.append("isPaid", query?.isPaid.toString());
+  }
+  if (query?.categoryId) {
+    params.append("categoryId", query?.categoryId.toString());
+  }
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/ideas?limit=${limit}&page=${page}&${params}`,
+      {
+        next: {
+          tags: ["IDEA"],
+        },
   }
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/ideas`, {
-      method: "GET",
-      next: {
-        tags: ["IDEAS"],
-      },
-    });
 
     const result = await res.json();
     return result;
@@ -42,10 +47,32 @@ export const getByVotes = async () => {
         method: "GET",
       }
     );
-
     const result = await res.json();
     return result;
   } catch (error: any) {
     return Error(error.message);
+  }
+};
+
+
+
+export const getSingleIdeaDetails = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/ideas/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: {
+          tags: ["IDEA"],
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    return Error(error);
   }
 };

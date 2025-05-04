@@ -31,38 +31,47 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex justify-center items-center gap-2 my-5">
+    <div className="flex justify-center items-center gap-3 my-8">
       <Button
         onClick={handlePrev}
         disabled={currentPage === 1}
         variant="outline"
         size="sm"
-        className="w-8 h-8 rounded-full flex items-center justify-center"
+        className="w-10 h-10 rounded-full flex items-center justify-center border-green-200 hover:border-green-300 hover:bg-green-50 transition-colors"
       >
-        <ArrowLeft />
+        <ArrowLeft className="w-5 h-5 text-green-600" />
       </Button>
-      {[...Array(totalPage)].map((_, index) => (
-        <Button
-          onClick={() => {
-            setCurrentPage(index + 1);
-            router.push(`${pathname}?page=${index + 1}`, { scroll: false });
-          }}
-          key={index}
-          variant={currentPage === index + 1 ? 'default' : 'outline'}
-          size="sm"
-          className="w-8 h-8 rounded-full flex items-center justify-center"
-        >
-          {index + 1}
-        </Button>
-      ))}
+      
+      <div className="flex items-center gap-2">
+        {[...Array(totalPage)].map((_, index) => (
+          <Button
+            onClick={() => {
+              setCurrentPage(index + 1);
+              router.push(`${pathname}?page=${index + 1}`, { scroll: false });
+            }}
+            key={index}
+            variant={currentPage === index + 1 ? 'default' : 'outline'}
+            size="sm"
+            className={`w-10 h-10 rounded-full flex items-center justify-center 
+              ${
+                currentPage === index + 1 
+                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  : 'border-green-200 hover:border-green-300 hover:bg-green-50 text-green-800'
+              } transition-colors font-medium`}
+          >
+            {index + 1}
+          </Button>
+        ))}
+      </div>
+
       <Button
         onClick={handleNext}
         disabled={currentPage === totalPage}
         variant="outline"
         size="sm"
-        className="w-8 h-8 rounded-full flex items-center justify-center"
+        className="w-10 h-10 rounded-full flex items-center justify-center border-green-200 hover:border-green-300 hover:bg-green-50 transition-colors"
       >
-        <ArrowRight />
+        <ArrowRight className="w-5 h-5 text-green-600" />
       </Button>
     </div>
   );
