@@ -8,7 +8,6 @@ const AllIdeasModule = async () => {
   console.log('f-AIdaM-idea:',ideas)
   
   const data = ideas.length > 0 ? ideas : dummyIdeas;
-  // const data = ideas.length < 0 ? ideas : dummyIdeas;
   
   return (
     <div>

@@ -45,9 +45,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { TIdea } from "@/types";
-import { deleteIdea } from "../_actions";
+import { deleteIdea, updateIdeaStatus } from "../_actions";
 import { toast } from "sonner";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
+import { EditStatusModal } from "./EditStatusModal";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps {
   data: TIdea[];
@@ -67,10 +69,20 @@ export function DataTable({ data }: DataTableProps) {
     null
   );
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
+  const [openEditModal, setOpenEditModal] = React.useState(false);
+  const [selectedStatus, setSelectedStatus] = React.useState<string>("DRAFT");
+  const [selectedIdea, setSelectedIdea] = React.useState<TIdea | null>(null);
+  const router = useRouter();
 
   const handleDeleteClick = (ideaId: string) => {
     setSelectedIdeaId(ideaId);
     setOpenDeleteModal(true);
+  };
+  const handleEditClick = (idea: TIdea) => {
+    console.log("clicked-idea:", idea);
+    setSelectedIdea(idea);
+    setSelectedStatus(idea.status);
+    setOpenEditModal(true);
   };
 
   const handleConfirmDelete = async () => {
@@ -78,17 +90,26 @@ export function DataTable({ data }: DataTableProps) {
     try {
       await deleteIdea(selectedIdeaId);
       toast.success("Idea deleted successfully");
-      // refresh table here if needed
+      setOpenDeleteModal(false);
+      setSelectedIdea(null);
+      router.refresh();
     } catch (err: any) {
       toast.error(err.message || "Failed to delete idea");
-    } finally {
-      setOpenDeleteModal(false);
-      setSelectedIdeaId(null);
     }
   };
 
-  // Update the columns array to include all fields
-  // export const columns: ColumnDef<TIdea>[] = [
+  const handleConfirmEdit = async (newStatus: string) => {
+    if (!selectedIdea) return;
+    try {
+      await updateIdeaStatus(selectedIdea.id, newStatus);
+      toast.success("Status updated successfully");
+      setOpenEditModal(false);
+      setSelectedIdea(null);
+      router.refresh();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to update status");
+    }
+  };
   const columns: ColumnDef<TIdea>[] = [
     {
       id: "select",
@@ -416,10 +437,10 @@ export function DataTable({ data }: DataTableProps) {
                   <span>View details</span>
                 </span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleEditClick(project)}>
                 <span className="flex items-center">
                   <Edit className="mr-2 h-4 w-4" />
-                  <span>Edit idea</span>
+                  <span>Edit idea status</span>
                 </span>
               </DropdownMenuItem>
               {/* <DropdownMenuItem onClick={() => handleDelete(project.id)} */}
@@ -613,6 +634,12 @@ export function DataTable({ data }: DataTableProps) {
         open={openDeleteModal}
         onCancel={() => setOpenDeleteModal(false)}
         onConfirm={handleConfirmDelete}
+      />
+      <EditStatusModal
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+        currentStatus={selectedStatus}
+        onConfirm={handleConfirmEdit}
       />
     </div>
   );

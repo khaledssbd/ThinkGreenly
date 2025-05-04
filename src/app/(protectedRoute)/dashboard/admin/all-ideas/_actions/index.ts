@@ -19,7 +19,6 @@ export const getAllIdeas = async () => {
     }
     const data = await res.json();
     console.log(data);
-    // return data;
     return data.data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -67,6 +66,35 @@ export const deleteIdea = async (id: string) => {
     console.log('f-idaS:',res);
     if (!res.ok) {
       throw new Error("Failed to delete idea");
+    }
+
+    const data = await res.json();
+    return data.data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const updateIdeaStatus = async (id: string, status: string) => {
+  try {
+    const token = await getAuthToken();
+
+    if (!token) return { success: false, message: "Authentication token not found" };
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas/${id}/status`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to update idea status");
     }
 
     const data = await res.json();
