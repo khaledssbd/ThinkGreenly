@@ -36,6 +36,7 @@ interface User {
   // Include other user fields you need
   name: string;
   email: string;
+  image?: string;
   ideas?: Idea[];
   votes?: Vote[];
   comments?: Comment[];
@@ -47,12 +48,13 @@ interface Vote {
   value: number; // e.g., 1 for upvote, -1 for downvote
   userId: string;
   ideaId: string;
+  type? : string;
   user?: User;
   idea?: Idea;
   createdAt: Date;
 }
 
-interface Comment {
+export interface Comment {
   id: string;
   content: string;
   userId: string;
@@ -69,7 +71,7 @@ interface Comment {
 interface Payment {
   id: string;
   amount: number;
-  userId: string;
+  userEmail: string;
   ideaId: string;
   transactionId: string;
   status: PaymentStatus;

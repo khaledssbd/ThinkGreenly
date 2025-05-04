@@ -117,9 +117,15 @@ const NavBar = () => {
                 href="/"
                 className="hidden md:flex text-2xl font-black items-center"
               >
-                <div className="font-medium w-fit ml-5 text-lg flex items-center gap-0">
-                  <p className="text-black dark:text-white">ThinkGreenly</p>
-                  <Image src={logo} alt="logo" className="h-12 w-12" />
+                <div className="relative flex items-center h-12 ml-5 w-fit">
+                  <p className="text-black dark:text-white text-lg font-medium z-10">
+                    ThinkGreenly
+                  </p>
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    className="absolute left-[85px] -top-1 h-12 w-12"
+                  />
                 </div>
               </Link>
             </div>
@@ -127,19 +133,19 @@ const NavBar = () => {
             <div className="hidden md:block text-black dark:text-green-500">
               <div className="flex space-x-2 md:space-x-8">
                 {navLinks.map(({ name, path }) => (
-                  <div className="relative group"    key={name}>
-                  <Link
-                    key={name}
-                    href={path}
-                    className={
-                      pathname === path
-                        ? 'border-b-2 border-green-300 dark:text-white'
-                        : 'border-b-0  dark:text-white hover:text-green-700 dark:hover:text-green-300'
-                    }
-                  >
-                    {name}
-                  </Link>
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-green-300 transition-all duration-300 group-hover:w-full"></span>
+                  <div className="relative group" key={name}>
+                    <Link
+                      key={name}
+                      href={path}
+                      className={
+                        pathname === path
+                          ? 'border-b-2 border-green-300 dark:text-white'
+                          : 'border-b-0  dark:text-white hover:text-green-700 dark:hover:text-green-300'
+                      }
+                    >
+                      {name}
+                    </Link>
+                    <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-green-300 transition-all duration-300 group-hover:w-full"></span>
                   </div>
                 ))}
               </div>
