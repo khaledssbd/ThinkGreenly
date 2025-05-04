@@ -254,12 +254,12 @@ export const columns: ColumnDef<TUser>[] = [
                 <span>View profile</span>
               </span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <span className="flex items-center">
                 <Edit className="mr-2 h-4 w-4" />
                 <span>Edit user</span>
               </span>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem className="text-red-600">
               <span className="flex items-center">
                 <Trash2 className="mr-2 h-4 w-4" />
