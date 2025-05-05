@@ -6,7 +6,7 @@ import { getValidToken } from '@/lib/getValidToken';
 
 export const getAllIdeasByAdmin = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/ideas?limit=100`, {
       method: 'GET',
       // headers: {
       //   Authorization: token,

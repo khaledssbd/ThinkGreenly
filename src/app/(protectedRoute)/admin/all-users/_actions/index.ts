@@ -5,7 +5,7 @@ import { revalidateTag } from "next/cache";
 
 export const getAllUsers = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/users`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/users?limit=100`,{
       method: 'GET',
       // headers: {
       //   Authorization: token,
