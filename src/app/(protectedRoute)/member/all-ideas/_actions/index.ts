@@ -6,7 +6,7 @@ export const getMemberOwnIdeas = async () => {
   try {
     const token = await getValidToken();
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/ideas/getOwnIdeas`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/ideas/getOwnIdeas?limit=100`,
       {
         headers: {
           Authorization: `${token}`,
