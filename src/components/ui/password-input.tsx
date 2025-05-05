@@ -1,14 +1,16 @@
-import { forwardRef, useState } from 'react'
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+'use client';
+
+import { forwardRef, useState } from 'react';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
     const disabled =
-      props.value === '' || props.value === undefined || props.disabled
+      props.value === '' || props.value === undefined || props.disabled;
 
     return (
       <div className="relative">
@@ -23,7 +25,7 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           variant="ghost"
           size="sm"
           className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-          onClick={() => setShowPassword((prev) => !prev)}
+          onClick={() => setShowPassword(prev => !prev)}
           disabled={disabled}
         >
           {showPassword && !disabled ? (
@@ -46,9 +48,9 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
 					}
 				`}</style>
       </div>
-    )
-  },
-)
-PasswordInput.displayName = 'PasswordInput'
+    );
+  }
+);
+PasswordInput.displayName = 'PasswordInput';
 
-export { PasswordInput }
+export { PasswordInput };

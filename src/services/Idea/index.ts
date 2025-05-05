@@ -1,3 +1,9 @@
+'use server';
+
+import { getValidToken } from "@/lib/getValidToken";
+import { revalidateTag } from "next/cache";
+import { FieldValues } from "react-hook-form";
+
 // get all Ideas
 export const getAllIdeas = async (
   page?: string,
@@ -61,11 +67,71 @@ export const getSingleIdeaDetails = async (id: string) => {
         'Content-Type': 'application/json',
       },
       next: {
-        tags: ['IDEA'],
+        tags: ['IDEAS'],
       },
     });
     const data = await res.json();
     return data;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+
+// create Voting
+export const createVote = async (paymentData: FieldValues): Promise<any> => {
+  const token = await getValidToken();
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/votes`, {
+      method: "POST",
+      body: JSON.stringify(paymentData),
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    });
+    revalidateTag("IDEAS");
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+export const deleteVote = async (id: string) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/votes/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ideaId: id }),
+    });
+
+    revalidateTag("IDEAS");
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};
+
+export const createComment = async (payload: any): Promise<any> => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    revalidateTag("IDEAS");
+    return res.json();
   } catch (error: any) {
     return Error(error);
   }
