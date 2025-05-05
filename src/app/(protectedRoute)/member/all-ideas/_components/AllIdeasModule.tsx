@@ -5,7 +5,6 @@ import IdeasTable from './IdeasTable';
 
 const AllIdeasModule = async () => {
   const { data: ideas } = await getMemberOwnIdeas();
-  console.log(ideas)
 
   return (
     <div>

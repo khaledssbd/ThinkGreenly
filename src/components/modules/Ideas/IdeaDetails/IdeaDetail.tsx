@@ -62,7 +62,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
       };
       const response = await createComment(payload);
 
-      // console.log('Comment : ', response);
+      
 
       setComments(prev => {
         if (parentId) {
