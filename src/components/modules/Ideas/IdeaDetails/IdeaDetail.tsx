@@ -35,7 +35,6 @@ interface CommentFormProps {
 }
 
 const IdeaDetail = ({ idea }: { idea: Idea }) => {
-  console.log(idea);
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   const [comments, setComments] = useState<Comment[]>(idea.comments || []);
   const { user } = useUser();
@@ -64,8 +63,6 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
       };
       const response = await createComment(payload);
 
-      
-
       setComments(prev => {
         if (parentId) {
           return (
@@ -85,24 +82,28 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
       console.error('Failed to post comment:', error);
     }
   };
-  
+
   // Recursive helper function
-  const addReplyToComment = (comments: Comment[], parentId: string, newReply: Comment): Comment[] => {
+  const addReplyToComment = (
+    comments: Comment[],
+    parentId: string,
+    newReply: Comment
+  ): Comment[] => {
     return comments.map(comment => {
       if (comment.id === parentId) {
         return {
           ...comment,
-          replies: [...(comment.replies || []), newReply]
+          replies: [...(comment.replies || []), newReply],
         };
       }
-      
+
       if (comment.replies?.length) {
         return {
           ...comment,
-          replies: addReplyToComment(comment.replies, parentId, newReply)
+          replies: addReplyToComment(comment.replies, parentId, newReply),
         };
       }
-      
+
       return comment;
     });
   };
@@ -362,14 +363,14 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
               className="object-cover rounded-full"
             />
           ) : (
-            comment?.user?.name?.[0]?.toUpperCase() || "A"
+            comment?.user?.name?.[0]?.toUpperCase() || 'A'
           )}
         </div>
 
         {/* Comment Content */}
         <div className="flex-grow">
           <div className="text-sm font-medium text-gray-900 dark:text-green-400">
-            {comment?.user?.name || "Anonymous"}
+            {comment?.user?.name || 'Anonymous'}
           </div>
           <div className="text-sm text-gray-600 dark:text-white mt-1">
             {comment?.content}
@@ -384,10 +385,10 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
               Reply
             </button>
             <span className="text-sm text-gray-400">
-              {new Date(comment?.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
+              {new Date(comment?.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
               })}
             </span>
           </div>

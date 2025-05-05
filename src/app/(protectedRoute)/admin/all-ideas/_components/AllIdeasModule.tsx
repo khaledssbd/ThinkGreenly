@@ -4,7 +4,7 @@ import IdeasTable from './IdeasTable';
 
 const AllIdeasModule = async () => {
   const ideas = await getAllIdeasByAdmin();
-  console.log('ideas', ideas);
+
   // const data = ideas?.data?.length < 0 ? ideas?.data : dummyIdeas;
   return (
     <div>
