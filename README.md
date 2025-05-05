@@ -1,36 +1,54 @@
-# 🌱 Sustainability Idea Hub (Frontend)
+# 🌱 ThinkGreenly (Frontend)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 # 📌 Overview
 
-A Next.js-powered community platform for sharing and voting on sustainable ideas. Admins moderate submissions, while members collaborate on eco-friendly solutions.
+A Next.js-powered community platform for sharing and voting on sustainable
+ideas. Admins moderate submissions, while members collaborate on eco-friendly
+solutions.
 
 ## 🌍 Live URL
 
-Want to test your own, please use this link
-[Live Deployment](https://think-greenly-serverside.vercel.app/) |
+- [Front-end](https://think-greenly-one.vercel.app)
+- [Back-end](https://think-greenly-serverside.vercel.app)
+
+## 📂 Repository Link
+
+- [Front-end](https://github.com/khaledssbd/ThinkGreenly)
+- [Back-end](https://github.com/khaledssbd/ThinkGreenly-apis)
 
 ## 🛠️ Features
 
-- **User Authentication**: JWT-based login/signup.
-- **Idea Management**: Submit, draft, and vote on ideas (Reddit-style).
+- **User Authentication**: JWT-based login/registration.
+- **Idea Management**: Submit, draft, comment and vote on ideas (Reddit-style).
 - **Admin Dashboard**: Approve/reject ideas, manage categories.
-- **Responsive UI**: Built with Tailwind CSS.
+- **Responsive UI**: Built with Tailwind CSS & Shadcn UI.
 - **Payment Integration**: SSLCommerz for "Paid Ideas."
 
 ## 🏗️ Tech Stack
 
+#### Frontend
+
 - **Framework**: Next.js (App Router)
 - **Styling**: Tailwind CSS
-- **State Management**: React Context / Zustand
-- **API Calls**: Axios
 - **Form Handling**: React Hook Form
+- **Validation**: Zod
+
+#### Backend
+
+- **Framework**: Express.js
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Payment Method**: SSL Commerz
+- **Image hosting**: Multer & Cloudinary
+- **Mail Provider**: Nodemailer
+- **Validation**: Zod
 
 ---
 
-## 🏃‍♂️ Setup Guide
+## 🏃‍♂️ Setup Guide (Frontend)
 
 ### Prerequisites
 
@@ -42,8 +60,8 @@ Want to test your own, please use this link
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/khaledssbd/ThinkGreenly.git sustainability-hub-frontend
-   cd sustainability-hub-frontend
+   git clone https://github.com/khaledssbd/ThinkGreenly.git
+   cd ThinkGreenly
 
    ```
 
@@ -54,11 +72,10 @@ Want to test your own, please use this link
 
    ```
 
-3. Create .env file:
+3. Create .env file with:
 
    ```bash
-   env
-   NEXT_PUBLIC_API_URL=""
+   NEXT_PUBLIC_API_URL="your_backend_url"
 
    ```
 
@@ -67,35 +84,64 @@ Want to test your own, please use this link
    npm run dev
    ```
 
-## How to Contribute
+## 🏃‍♂️ Setup Guide (Backend)
 
-1. Fork the repository.
+### Prerequisites
 
-2. Create a branch:
+- Node.js ≥18.x
+- npm/yarn/pnpm
 
-   ```
-   bash
-   git checkout -b feat/your-feature
+### Installation
 
-   ```
+1. Clone the repo:
 
-3. Commit changes:
-
-   ```
-   bash
-   git commit -m "Add: your feature"
+   ```bash
+   git clone https://github.com/khaledssbd/ThinkGreenly-apis.git
+   cd ThinkGreenly-apis
 
    ```
 
-4. Push to your fork:
+2. Install dependencies:
+
+   ```bash
+   npm install
 
    ```
-   bash
-   git push origin feat/your-feature
+
+3. Create .env file with:
+
+   ```bash
+   NODE_ENV="development"
+   PORT=5000
+   DATABASE_URL=""
+
+   JWT_SECRET=""
+   JWT_EXPIRATION="15d"
+   JWT_REFRESH=""
+   JWT_REFRESH_EXPIRATION="7d"
+
+   RESET_PASSWORD_SECRET=""
+   RESET_PASSWORD_EXPIRATION="10m"
+   RESET_PASSWORD_LINK="http://localhost:5000/auth/reset-password"
+
+   BCRYPT_SALT_ROUNDS=12
+   SMTP_HOST="smtp.gmail.com"
+   SMTP_PORT=587
+   SMTP_USER=""
+   SMTP_APP_PASSWORD=""
+
+   CLOUDINARY_CLOUD_NAME=""
+   CLOUDINARY_API_KEY=""
+   CLOUDINARY_API_SECRET=""
 
    ```
 
-5. Open a Pull Request with a clear description.
+4. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+
+![alt text](think-greenly-one.vercel.app_.png)
 
 ## License
 

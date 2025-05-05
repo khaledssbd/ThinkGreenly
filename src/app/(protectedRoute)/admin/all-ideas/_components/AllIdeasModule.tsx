@@ -1,4 +1,3 @@
-import React from 'react';
 import { getAllIdeasByAdmin } from '../_actions';
 import IdeasTable from './IdeasTable';
 // import { dummyIdeas } from "../_data";

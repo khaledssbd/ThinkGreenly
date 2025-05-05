@@ -166,7 +166,7 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue('amount'));
-      const currency = row.original.gatewayResponse.currency;
+      const currency = row.original.gatewayResponse?.currency;
 
       // Format the amount with the currency
       const formatted = new Intl.NumberFormat('en-US', {
@@ -270,7 +270,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
       const discountPercentage =
         row.original.gatewayResponse?.discount_percentage;
-      const currency = row?.original?.gatewayResponse?.currency;
+      const currency = row.original.gatewayResponse?.currency;
 
       if (discountAmount <= 0) return <div className="text-center">-</div>;
 
@@ -284,7 +284,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       return (
         <div
           className="text-right"
-          title={row.original.gatewayResponse.discount_remarks || ''}
+          title={row.original.gatewayResponse?.discount_remarks || ''}
         >
           {formatted} ({discountPercentage}%)
         </div>
@@ -336,7 +336,7 @@ export const columns: ColumnDef<ITransaction>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() =>
-                  navigator.clipboard.writeText(transaction.transactionId)
+                  navigator.clipboard.writeText(transaction?.transactionId)
                 }
               >
                 <span className="flex items-center">
@@ -365,7 +365,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              {transaction.status === 'Paid' && (
+              {transaction?.status === 'Paid' && (
                 <DropdownMenuItem>
                   <span className="flex items-center">
                     <RefreshCw className="mr-2 h-4 w-4" />
@@ -373,7 +373,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                   </span>
                 </DropdownMenuItem>
               )}
-              {transaction.status === 'Pending' && (
+              {transaction?.status === 'Pending' && (
                 <DropdownMenuItem className="text-red-600">
                   <span className="flex items-center">
                     <Ban className="mr-2 h-4 w-4" />
@@ -389,7 +389,7 @@ export const columns: ColumnDef<ITransaction>[] = [
               <DialogTitle>Transaction Details</DialogTitle>
               <DialogDescription>
                 Complete information about transaction{' '}
-                {transaction.transactionId}
+                {transaction?.transactionId}
               </DialogDescription>
             </DialogHeader>
 
@@ -402,36 +402,36 @@ export const columns: ColumnDef<ITransaction>[] = [
                   <div>
                     <p className="text-sm font-medium">Transaction ID</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.transactionId}
+                      {transaction?.transactionId}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">User Email</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.userEmail}
+                      {transaction?.userEmail}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Amount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.amount}{' '}
-                      {transaction.gatewayResponse.currency}
+                      {transaction?.amount}{' '}
+                      {transaction?.gatewayResponse?.currency}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Status</p>
                     <Badge
                       variant={
-                        transaction.status === 'Paid'
+                        transaction?.status === 'Paid'
                           ? 'outline'
-                          : transaction.status === 'Pending'
+                          : transaction?.status === 'Pending'
                           ? 'default'
                           : 'destructive'
                       }
                       className={
-                        transaction.status === 'Paid'
+                        transaction?.status === 'Paid'
                           ? 'bg-green-500'
-                          : transaction.status === 'Pending'
+                          : transaction?.status === 'Pending'
                           ? 'bg-yellow-500'
                           : ''
                       }
@@ -442,13 +442,13 @@ export const columns: ColumnDef<ITransaction>[] = [
                   <div>
                     <p className="text-sm font-medium">Date</p>
                     <p className="text-sm text-muted-foreground">
-                      {new Date(transaction.createdAt).toLocaleString()}
+                      {new Date(transaction?.createdAt).toLocaleString()}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Idea ID</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.ideaId}
+                      {transaction?.ideaId}
                     </p>
                   </div>
                 </CardContent>
@@ -462,79 +462,79 @@ export const columns: ColumnDef<ITransaction>[] = [
                   <div>
                     <p className="text-sm font-medium">Gateway Status</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.status}
+                      {transaction?.gatewayResponse?.status}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Payment Method</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.bank_gw}
+                      {transaction?.gatewayResponse?.bank_gw}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Card Type</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.card_type}
+                      {transaction?.gatewayResponse?.card_type}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Card Brand</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.card_brand}
+                      {transaction?.gatewayResponse?.card_brand}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Card Issuer</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.card_issuer}
+                      {transaction?.gatewayResponse?.card_issuer}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Transaction Date</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.tran_date}
+                      {transaction?.gatewayResponse?.tran_date}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Store Amount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.store_amount}{' '}
-                      {transaction.gatewayResponse.currency}
+                      {transaction?.gatewayResponse?.store_amount}{' '}
+                      {transaction?.gatewayResponse?.currency}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Discount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse.discount_percentage}% (
-                      {transaction.gatewayResponse.discount_amount}{' '}
-                      {transaction.gatewayResponse.currency})
+                      {transaction?.gatewayResponse?.discount_percentage}% (
+                      {transaction?.gatewayResponse?.discount_amount}{' '}
+                      {transaction?.gatewayResponse?.currency})
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Risk Level</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.risk_title} (
-                      {transaction.gatewayResponse?.risk_level})
+                      {transaction?.gatewayResponse?.risk_title} (
+                      {transaction?.gatewayResponse?.risk_level})
                     </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Issuer Country</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction.gatewayResponse?.card_issuer_country} (
-                      {transaction.gatewayResponse?.card_issuer_country_code})
+                      {transaction?.gatewayResponse?.card_issuer_country} (
+                      {transaction?.gatewayResponse?.card_issuer_country_code})
                     </p>
                   </div>
                 </CardContent>
               </Card>
 
-              {transaction.gatewayResponse?.discount_remarks && (
+              {transaction?.gatewayResponse?.discount_remarks && (
                 <Card>
                   <CardHeader>
                     <CardTitle>Discount Information</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm">
-                      {transaction.gatewayResponse?.discount_remarks}
+                      {transaction?.gatewayResponse?.discount_remarks}
                     </p>
                   </CardContent>
                 </Card>
@@ -596,7 +596,7 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
 
       table
         .getColumn('status')
-        ?.setFilterValue(newFilter.length ? newFilter : undefined);
+        ?.setFilterValue(newFilter?.length ? newFilter : undefined);
       return newFilter;
     });
   };
@@ -675,7 +675,7 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map(row => (
+              table.getRowModel().rows?.map(row => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
@@ -693,7 +693,7 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns?.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -705,8 +705,8 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows?.length} of{' '}
+          {table.getFilteredRowModel().rows?.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button

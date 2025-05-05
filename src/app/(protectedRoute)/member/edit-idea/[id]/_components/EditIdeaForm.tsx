@@ -36,8 +36,8 @@ const EditIdeaForm = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (idea?.images && idea.images.length > 0) {
-      setImagePreview(idea.images);
+    if (idea?.images && idea.images?.length > 0) {
+      setImagePreview(idea?.images);
     }
   }, [idea]);
 
@@ -59,7 +59,7 @@ const EditIdeaForm = ({
 
   const handleIdeaSubmit: SubmitHandler<FieldValues> = async data => {
     if (isDrafting) {
-      if (!data.title || data.title.trim().length < 10) {
+      if (!data.title || data.title.trim()?.length < 10) {
         toast.error('Title must be at least 10 characters for a draft.');
         return;
       }
@@ -67,7 +67,7 @@ const EditIdeaForm = ({
       const formData = new FormData();
       formData.append('data', JSON.stringify(data));
 
-      if (imagePreview.length > 0 && imagePreview[0].startsWith('http')) {
+      if (imagePreview?.length > 0 && imagePreview[0].startsWith('http')) {
         formData.append('images', JSON.stringify(imagePreview));
       } else {
         for (const file of imageFiles) {
@@ -97,7 +97,7 @@ const EditIdeaForm = ({
       !data.solution ||
       !data.description ||
       !data.categoryId ||
-      imagePreview.length < 1
+      imagePreview?.length < 1
     ) {
       toast.error('All fields and at least one image are required to publish');
       return;
@@ -106,7 +106,7 @@ const EditIdeaForm = ({
     const formData = new FormData();
     formData.append('data', JSON.stringify(data));
 
-    if (imagePreview.length > 0 && imagePreview[0].startsWith('http')) {
+    if (imagePreview?.length > 0 && imagePreview[0].startsWith('http')) {
       formData.append('images', JSON.stringify(imagePreview));
     } else {
       for (const file of imageFiles) {

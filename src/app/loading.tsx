@@ -4,7 +4,7 @@ import giffy from "../assets/loader.gif";
 const loading = () => {
   return (
     <div className="grid place-items-center">
-      <Image src={giffy} width={800} height={800} alt="giffy" />
+      <Image src={giffy} width={500} height={500} alt="giffy" />
     </div>
   );
 };

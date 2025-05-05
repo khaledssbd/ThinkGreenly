@@ -64,7 +64,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
       };
       const response = await createComment(payload);
 
-      console.log('Comment : ', response);
+      
 
       setComments(prev => {
         if (parentId) {
@@ -154,13 +154,13 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
             <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 text-green-700 rounded-full shadow-sm items-center gap-2">
               <Heart className="w-4 h-4 text-green-900" />
               <span className="text-sm font-medium">
-                {idea.votes?.filter(vote => vote.type === 'UP').length || 0}
+                {idea.votes?.filter(vote => vote.type === 'UP')?.length || 0}
               </span>
             </div>
             <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 text-red-700 rounded-full shadow-sm items-center gap-2">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
-                {idea.votes?.filter(vote => vote.type === 'DOWN').length || 0}
+                {idea.votes?.filter(vote => vote.type === 'DOWN')?.length || 0}
               </span>
             </div>
           </div>
@@ -217,7 +217,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
               </div>
 
               <div className="space-y-6">
-                {comments.filter(c => !c.parentId).length === 0 ? (
+                {comments.filter(c => !c.parentId)?.length === 0 ? (
                   <p className="text-gray-500 text-center py-4">
                     No comments yet. Be the first to share your thoughts!
                   </p>

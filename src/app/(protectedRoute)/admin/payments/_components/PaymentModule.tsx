@@ -1,17 +1,14 @@
 import { getAllPayments} from '@/services/Payment'
 import React from 'react'
 import { TransactionDataTable } from './transaction-table';
-
+// import { dummyData } from '../_data/data';
 
 const PaymentModule =async () => {
-    const payments = await getAllPayments();
-
+    const {data:payments} = await getAllPayments();
+  
     return (
     <div>
-      {
-       payments &&
-      <TransactionDataTable data={payments?.data} />
-      }
+      <TransactionDataTable data={payments} />
     </div>
   )
 }

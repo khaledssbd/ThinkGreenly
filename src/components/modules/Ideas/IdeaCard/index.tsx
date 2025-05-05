@@ -74,13 +74,13 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
             <div className="absolute top-2 left-36 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
               <Heart className="w-4 h-4 text-green-900" />
               <span className="text-sm  font-medium">
-                {idea.votes?.filter((vote) => vote.type === "UP").length || 0}
+                {idea.votes?.filter((vote) => vote.type === "UP")?.length || 0}
               </span>
             </div>
             <div className="absolute top-2 left-20 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
-                {idea.votes?.filter((vote) => vote.type === "DOWN").length || 0}
+                {idea.votes?.filter((vote) => vote.type === "DOWN")?.length || 0}
               </span>
             </div>
 

@@ -1,10 +1,10 @@
 'use client';
 
 import { forwardRef, useState } from 'react';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { Eye, EyeOff } from 'lucide-react';
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
@@ -29,9 +29,9 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           disabled={disabled}
         >
           {showPassword && !disabled ? (
-            <FaRegEye className="h-4 w-4" aria-hidden="true" />
+            <Eye className="h-4 w-4" aria-hidden="true" />
           ) : (
-            <FaRegEyeSlash className="h-4 w-4" aria-hidden="true" />
+            <EyeOff className="h-4 w-4" aria-hidden="true" />
           )}
           <span className="sr-only">
             {showPassword ? 'Hide password' : 'Show password'}
