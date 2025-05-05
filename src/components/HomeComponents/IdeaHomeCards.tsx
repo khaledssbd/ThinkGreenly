@@ -29,8 +29,8 @@ const IdeaHomeCards = ({ idea }: { idea: any }) => {
             <p>{idea?.problemStatement?.slice(0, 55)}...</p>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-3 md:gap-12">
-            <div className="flex gap-12">
+          <div className="flex flex-col md:flex-row gap-3 md:gap-5">
+            <div className="flex gap-5">
               <div className="flex items-center gap-2 mt-2">
                 <Tag className="w-4 h-4 dark:text-green-400 text-green-700" />
                 <Badge
