@@ -22,6 +22,7 @@ import { useRef, useState } from 'react';
 import { useUser } from '@/context/UserContext';
 import { createComment, createVote, deleteVote } from '@/services/Idea';
 import { toast } from 'sonner';
+import { countAllComments } from './commentCount';
 
 interface CommentListProps {
   comment: Comment;
@@ -34,6 +35,7 @@ interface CommentFormProps {
 }
 
 const IdeaDetail = ({ idea }: { idea: Idea }) => {
+  console.log(idea);
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   const [comments, setComments] = useState<Comment[]>(idea.comments || []);
   const { user } = useUser();
@@ -83,6 +85,27 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
       console.error('Failed to post comment:', error);
     }
   };
+  
+  // Recursive helper function
+  const addReplyToComment = (comments: Comment[], parentId: string, newReply: Comment): Comment[] => {
+    return comments.map(comment => {
+      if (comment.id === parentId) {
+        return {
+          ...comment,
+          replies: [...(comment.replies || []), newReply]
+        };
+      }
+      
+      if (comment.replies?.length) {
+        return {
+          ...comment,
+          replies: addReplyToComment(comment.replies, parentId, newReply)
+        };
+      }
+      
+      return comment;
+    });
+  };
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
@@ -123,7 +146,8 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
             <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm items-center gap-2">
               <MessageCircle className="w-4 h-4 text-green-600" />
               <span className="text-sm font-medium text-green-600">
-                {idea.comments?.length || 0}
+                {/* {idea.comments?.length || 0} */}
+                {countAllComments(idea.comments)}
               </span>
             </div>
 
@@ -322,29 +346,36 @@ export default IdeaDetail;
 
 const CommentList = ({ comment, onReply }: CommentListProps) => {
   const [isReplying, setIsReplying] = useState(false);
-  const userName = comment.user?.name || 'Anonymous';
+  // const userName = comment.user?.name || 'Anonymous';
   return (
     <div className="ml-4 mt-4 border-l-2 border-green-100 pl-4">
+      {/* Comment Header */}
       <div className="flex items-start gap-3">
+        {/* User Avatar */}
         <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center overflow-hidden">
-          {comment.user?.image ? (
+          {comment?.user?.image ? (
             <Image
-              src={comment.user?.image}
-              alt={userName}
-              fill
-              className="w-full h-full object-cover rounded-full"
+              src={comment?.user?.image}
+              alt={comment?.user?.name}
+              width={32}
+              height={32}
+              className="object-cover rounded-full"
             />
           ) : (
-            userName[0].toUpperCase()
+            comment?.user?.name?.[0]?.toUpperCase() || "A"
           )}
         </div>
+
+        {/* Comment Content */}
         <div className="flex-grow">
           <div className="text-sm font-medium text-gray-900 dark:text-green-400">
-            {userName}
+            {comment?.user?.name || "Anonymous"}
           </div>
           <div className="text-sm text-gray-600 dark:text-white mt-1">
-            {comment.content}
+            {comment?.content}
           </div>
+
+          {/* Comment Actions */}
           <div className="flex items-center gap-2 mt-2">
             <button
               onClick={() => setIsReplying(!isReplying)}
@@ -353,9 +384,15 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
               Reply
             </button>
             <span className="text-sm text-gray-400">
-              {new Date(comment.createdAt).toLocaleDateString()}
+              {new Date(comment?.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
             </span>
           </div>
+
+          {/* Reply Form */}
           {isReplying && (
             <div className="mt-3">
               <CommentForm
