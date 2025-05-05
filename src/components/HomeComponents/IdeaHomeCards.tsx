@@ -26,22 +26,24 @@ const IdeaHomeCards = ({ idea }: { idea: any }) => {
             <p className="dark:text-green-500 text-green-700 font-semibold">
               Problem:
             </p>
-            <p>{idea?.problemStatement?.slice(0, 100)}</p>
+            <p>{idea?.problemStatement?.slice(0, 55)}...</p>
           </div>
 
-          <div className="flex gap-12">
-            <div className="flex items-center gap-2 mt-2">
-              <Tag className="w-4 h-4 dark:text-green-400 text-green-700" />
-              <Badge
-                variant="outline"
-                className="dark:border-green-400 border-green-700 dark:text-green-300 text-green-700"
-              >
-                {idea?.category?.name}
-              </Badge>
-            </div>
-            <div className="flex items-center gap-2 dark:text-green-400 text-green-700 mt-1">
-              <User className="w-4 h-4" />
-              <span>{idea?.author?.name}</span>
+          <div className="flex flex-col md:flex-row gap-3 md:gap-12">
+            <div className="flex gap-12">
+              <div className="flex items-center gap-2 mt-2">
+                <Tag className="w-4 h-4 dark:text-green-400 text-green-700" />
+                <Badge
+                  variant="outline"
+                  className="dark:border-green-400 border-green-700 dark:text-green-300 text-green-700"
+                >
+                  {idea?.category?.name}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-2 dark:text-green-400 text-green-700 mt-1">
+                <User className="w-4 h-4" />
+                <span>{idea?.author?.name}</span>
+              </div>
             </div>
             <div className="flex items-center gap-2 dark:text-green-400 text-green-700">
               <CalendarDays className="w-4 h-4" />
