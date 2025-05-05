@@ -90,7 +90,6 @@ export function DataTable({ data }: DataTableProps) {
     }
   };
 
-  // Update the columns array to include all fields
   const columns: ColumnDef<TIdea>[] = [
     {
       id: "select",
@@ -338,7 +337,7 @@ export function DataTable({ data }: DataTableProps) {
       cell: ({ row }) => {
         const images = row.getValue("images") as string[];
 
-        if (!images || images.length === 0) {
+        if (!images || images?.length === 0) {
           return (
             <div className="text-center text-muted-foreground">No image</div>
           );
@@ -483,7 +482,7 @@ export function DataTable({ data }: DataTableProps) {
 
       table
         .getColumn("status")
-        ?.setFilterValue(newFilter.length ? newFilter : undefined);
+        ?.setFilterValue(newFilter?.length ? newFilter : undefined);
       return newFilter;
     });
   };
@@ -580,7 +579,7 @@ export function DataTable({ data }: DataTableProps) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns?.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -592,8 +591,8 @@ export function DataTable({ data }: DataTableProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows?.length} of{" "}
+          {table.getFilteredRowModel().rows?.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button

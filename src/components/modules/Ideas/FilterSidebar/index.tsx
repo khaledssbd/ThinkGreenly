@@ -121,12 +121,12 @@ const FilterSidebar = () => {
               />
             </svg>
             Filter
-            {searchParams.toString().length > 0 && (
+            {searchParams.toString()?.length > 0 && (
               <span
                 className="bg-green-100 text-green-700 
               rounded-full px-2 py-1 text-xs font-medium"
               >
-                {Array.from(searchParams.entries()).length}
+                {Array.from(searchParams.entries())?.length}
               </span>
             )}
           </Button>
@@ -143,7 +143,7 @@ const FilterSidebar = () => {
               <div className="py-5 space-y-8">
                 {/* Clear Filters */}
                 <div className="text-right">
-                  {searchParams.toString().length > 0 && (
+                  {searchParams.toString()?.length > 0 && (
                     <Button
                       onClick={() => {
                         router.push(`${pathname}`);
@@ -283,7 +283,7 @@ const FilterSidebar = () => {
       </Sheet>
       {/* Clear Filters */}
       <div>
-        {searchParams.toString().length > 0 && (
+        {searchParams.toString()?.length > 0 && (
           <Button
             onClick={() => {
               router.push(`${pathname}`);
