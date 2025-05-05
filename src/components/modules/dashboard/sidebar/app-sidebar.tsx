@@ -30,7 +30,6 @@ import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
 
 export function AppSidebar({
-  collapsed,
   ...props
 }: React.ComponentProps<typeof Sidebar> & { collapsed?: boolean }) {
   const { user } = useUser();
@@ -102,8 +101,6 @@ export function AppSidebar({
   } else if (user?.role === 'MEMBER') {
     data.navMain.push(...memberMenu);
   }
-
-  
 
   return (
     <Sidebar collapsible="icon" {...props}>
