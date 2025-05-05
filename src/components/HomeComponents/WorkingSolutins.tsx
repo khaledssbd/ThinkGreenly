@@ -22,7 +22,7 @@ const WorkingSolutins = () => {
         </p>
       </section>
       <div>
-        <div className="flex gap-60 justify-center   ">
+        <div className="flex gap-60 justify-center lg:flex-row flex-col">
           <div className="flex ml-6 flex-col items-center text-center">
             <Image src={s1} width={100} height={100} alt="s1"></Image>
             <p className="font-bold text-2xl">Recycling Waste</p>
@@ -42,7 +42,7 @@ const WorkingSolutins = () => {
             </h1>
           </div>
         </div>
-        <div className="flex justify-center gap-26 mt-34 ml-8">
+        <div className="flex justify-center gap-26 mt-34 ml-8 lg:flex-row flex-col">
           <div className="flex flex-col items-center text-center">
             <Image src={s3} width={100} height={100} alt="s1"></Image>
             <p className="font-bold text-2xl">Water Refining</p>
@@ -51,10 +51,10 @@ const WorkingSolutins = () => {
               redistribute runoff water
             </h1>
           </div>
-          <div>
+          <div className="lg:ml-0 sm:ml-0 md:ml-44">
             <Image src={bulb} width={300} height={200} alt="s1"></Image>
           </div>
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center text-center lg:mb-0 mb-26">
             <Image src={s4} width={100} height={100} alt="s1"></Image>
             <p className="font-bold text-2xl">Wind Energy</p>
             <h1 className="">
@@ -63,8 +63,8 @@ const WorkingSolutins = () => {
             </h1>
           </div>
         </div>
-        <div className="flex justify-center gap-48">
-          <div className="flex flex-col items-center text-center">
+        <div className="flex justify-center gap-48 lg:flex-row flex-col ">
+          <div className="flex flex-col items-center text-center lg:-mb-0 -mb-16  ">
             <Image src={s5} width={100} height={100} alt="s1"></Image>
             <p className="font-bold text-2xl">Dynamic Ecology</p>
             <h1 className="">
