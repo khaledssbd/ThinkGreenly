@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import plasticWaste from '@/assets/plasticWaste.jpg';
 
-
 const CommunityPlasticReduction = () => {
   return (
     <div className="md:mx-20">
@@ -28,8 +27,8 @@ const CommunityPlasticReduction = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <Link href="/blog" className="hover:text-blue-500">
-                Blog
+              <Link href="/blogs" className="hover:text-blue-500">
+                Blogs
               </Link>
             </div>
           </li>
@@ -446,7 +445,8 @@ const CommunityPlasticReduction = () => {
             </div>
           </div>
           <Link
-            href="/ideas/new"
+            href="/blogs"
+            // href="/ideas/new"
             className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700"
           >
             Share Your Community Story
@@ -456,7 +456,11 @@ const CommunityPlasticReduction = () => {
         <div className="mb-8">
           <h3 className="text-lg font-semibold mb-4">Related Articles</h3>
           <div className="grid md:grid-cols-3 gap-6">
-            <Link href="/blog/zero-waste-schools" className="group">
+            <Link
+              href="/blogs"
+              // href="/blogs/zero-waste-schools"
+              className="group"
+            >
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
                 <h4 className="font-medium group-hover:text-blue-500">
                   Zero Waste Schools Initiative
@@ -466,7 +470,11 @@ const CommunityPlasticReduction = () => {
                 </p>
               </div>
             </Link>
-            <Link href="/blog/plastic-alternatives" className="group">
+            <Link
+              href="/blogs"
+              // href="/blog/plastic-alternatives"
+              className="group"
+            >
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
                 <h4 className="font-medium group-hover:text-blue-500">
                   10 Plastic Alternatives You Can Try Today
@@ -476,7 +484,11 @@ const CommunityPlasticReduction = () => {
                 </p>
               </div>
             </Link>
-            <Link href="/blog/community-composting" className="group">
+            <Link
+              href="/blogs"
+              // href="/blog/community-composting"
+              className="group"
+            >
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
                 <h4 className="font-medium group-hover:text-blue-500">
                   Community Composting Success
@@ -496,7 +508,8 @@ const CommunityPlasticReduction = () => {
             experience? Join the conversation on ThinkGreenly!
           </p>
           <Link
-            href="/ideas/community-plastic-reduction-discussion"
+            href="/blogs"
+            // href="/ideas/community-plastic-reduction-discussion"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
           >
             Go to Discussion
