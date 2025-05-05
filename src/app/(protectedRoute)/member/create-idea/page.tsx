@@ -15,5 +15,5 @@ const CreateIdeaPage = () => {
         </Suspense>
   )
 }
-
+export const dynamic = "force-dynamic";
 export default CreateIdeaPage

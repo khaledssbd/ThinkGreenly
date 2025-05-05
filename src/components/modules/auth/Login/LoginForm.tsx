@@ -34,7 +34,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
 
-    console.log({data});
+    // console.log({data});
     try {
       const res = await loginUser(data);
       if (res?.success) {

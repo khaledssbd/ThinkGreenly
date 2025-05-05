@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Edit, Trash2, Search } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Trash2, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -424,7 +424,7 @@ export function UserDataTable({ data }: DataTableProps) {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={columns?.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -434,7 +434,7 @@ export function UserDataTable({ data }: DataTableProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+          {table.getFilteredSelectedRowModel().rows?.length} of {table.getFilteredRowModel().rows?.length} row(s)
           selected.
         </div>
         <div className="space-x-2">
