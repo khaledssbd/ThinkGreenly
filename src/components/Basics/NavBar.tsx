@@ -131,7 +131,7 @@ const NavBar = () => {
             </div>
             {/* NavItems for Large Device */}
             <div className="hidden md:block text-black dark:text-green-500">
-              <div className="flex space-x-2 md:space-x-8">
+              <div className="flex space-x-2 md:space-x-5">
                 {navLinks.map(({ name, path }) => (
                   <div className="relative group" key={name}>
                     <Link
