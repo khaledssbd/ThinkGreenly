@@ -67,7 +67,7 @@ export const getSingleIdeaDetails = async (id: string) => {
         'Content-Type': 'application/json',
       },
       next: {
-        tags: ['IDEA'],
+        tags: ['IDEAS'],
       },
     });
     const data = await res.json();
@@ -91,7 +91,7 @@ export const createVote = async (paymentData: FieldValues): Promise<any> => {
         "Content-Type": "application/json",
       },
     });
-    revalidateTag("VOTE");
+    revalidateTag("IDEAS");
     const result = await res.json();
     return result;
   } catch (error: any) {
@@ -111,7 +111,7 @@ export const deleteVote = async (id: string) => {
       body: JSON.stringify({ ideaId: id }),
     });
 
-    revalidateTag("VOTE");
+    revalidateTag("IDEAS");
     const result = await res.json();
     return result;
   } catch (error: any) {
@@ -130,6 +130,7 @@ export const createComment = async (payload: any): Promise<any> => {
       },
       body: JSON.stringify(payload),
     });
+    revalidateTag("IDEAS");
     return res.json();
   } catch (error: any) {
     return Error(error);
