@@ -13,7 +13,9 @@ const HomePage = async () => {
     <div>
       <Banner />
       <IdeaHome />
+
       <OurSkillsSection />
+      
       <WorkingSolutins />
 
       <TestimonialSection />

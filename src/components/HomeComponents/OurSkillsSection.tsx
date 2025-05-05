@@ -1,12 +1,14 @@
-"use client";
-import Image from "next/image";
-import React from "react";
-import skill from "../../assets/skill-thumb.png";
-import { Leaf } from "lucide-react";
-import { Progress } from "../ui/progress";
+'use client';
+
+import Image from 'next/image';
+import React from 'react';
+import skill from '../../assets/skill-thumb.png';
+import { Leaf } from 'lucide-react';
+import { Progress } from '../ui/progress';
+
 const OurSkillsSection = () => {
   return (
-    <div className="bg-[#F6F6EE] dark:bg-black flex justify-around my-26">
+    <div className="bg-[#F6F6EE] rounded-2xl dark:bg-black flex flex-col md:flex-row-reverse justify-around items-center my-26 px-8 lg:px-0 gap-5">
       <div className="mt-20 space-y-4">
         <p className="dark:text-green-300 font-bold text-black flex gap-2">
           Our SKills <Leaf />
@@ -25,7 +27,7 @@ const OurSkillsSection = () => {
           <p className="text-xl dark:text-gray-200 my-2">Recycling</p>
           <Progress value={77} />
           <p className="text-xl dark:text-gray-200 mt-4  mb-2">
-            Ocean Cleaning{" "}
+            Ocean Cleaning{' '}
           </p>
           <Progress value={88} />
         </div>
