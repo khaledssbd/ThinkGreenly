@@ -39,7 +39,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
 
   const handleIdeaSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (isDrafting) {
-      if (!data.title || data.title.trim().length < 10) {
+      if (!data.title || data.title.trim()?.length < 10) {
         toast.error("Title must be at least 10 characters for a draft.");
         return;
       }
@@ -67,7 +67,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
     }
 
     // Create Idea Mode
-    if (imageFiles.length < 0) {
+    if (imageFiles?.length < 0) {
       toast.error("Please select at least 1 image!");
       return;
     }
@@ -262,7 +262,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                 disabled={
                   isSubmitting ||
                   
-                  imageFiles.length < 1
+                  imageFiles?.length < 1
                 }
               >
                 {isSubmitting && !isDrafting ? "Creating..." : "Create Idea"}
