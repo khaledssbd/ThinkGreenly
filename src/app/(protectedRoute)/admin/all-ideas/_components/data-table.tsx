@@ -399,6 +399,7 @@ export function DataTable({ data }: DataTableProps) {
       enableHiding: false,
       cell: ({ row }) => {
         const project = row.original;
+        const isDeleted = row.getValue("isDeleted") as boolean;
 
         return (
           <DropdownMenu>
@@ -430,15 +431,19 @@ export function DataTable({ data }: DataTableProps) {
                 <span>Edit idea</span>
               </span>
             </DropdownMenuItem> */}
+            {
+              !isDeleted &&
               <DropdownMenuItem
-                onClick={() => handleDeleteClick(project.id)}
-                className="text-red-600"
-              >
-                <span className="flex items-center">
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  <span>Delete idea</span>
-                </span>
-              </DropdownMenuItem>
+              onClick={() => handleDeleteClick(project.id)}
+              className="text-red-600"
+            >
+              <span className="flex items-center">
+                <Trash2 className="mr-2 h-4 w-4" />
+                <span>Delete idea</span>
+              </span>
+            </DropdownMenuItem>
+            }
+             
             </DropdownMenuContent>
           </DropdownMenu>
         );
