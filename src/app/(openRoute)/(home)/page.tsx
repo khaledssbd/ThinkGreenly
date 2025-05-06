@@ -11,13 +11,13 @@ import OurSkillsSection from '@/components/HomeComponents/OurSkillsSection';
 const HomePage = async () => {
   return (
     <div>
-      {/* <Banner />
+      <Banner />
 
       <IdeaHome />
 
       <OurSkillsSection />
 
-      <WorkingSolutins /> */}
+      <WorkingSolutins />
 
       <TestimonialSection />
     </div>
