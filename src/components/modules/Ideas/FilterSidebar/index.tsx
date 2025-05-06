@@ -133,10 +133,10 @@ const FilterSidebar = () => {
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="w-[400px] bg-gradient-to-b from-green-50 to-white"
+          className="w-[400px] "
         >
           <SheetHeader>
-            <SheetTitle className="text-2xl font-bold text-green-900 border-b-2 border-green-200 pb-4">
+            <SheetTitle className="text-2xl font-bold text-green-900 dark:text-green-400 border-b-2 border-green-200 pb-4">
               🔍 Idea Explorer Filters
             </SheetTitle>
             <SheetDescription asChild>
@@ -160,10 +160,10 @@ const FilterSidebar = () => {
                 </div>
 
                 {/* Price Filter Section */}
-                <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
+                <div className="p-6 bg-white dark:bg-transparent rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
                   <div className="flex items-center gap-2 mb-5">
-                    <div className="bg-green-100 p-2 rounded-lg">💰</div>
-                    <h3 className="text-lg font-bold text-green-900">
+                    <div className="bg-green-100 dark:bg-transparent p-2 rounded-lg">💰</div>
+                    <h3 className="text-lg font-bold text-green-900 dark:text-green-400">
                       Price Range
                     </h3>
                   </div>
@@ -180,9 +180,9 @@ const FilterSidebar = () => {
                   />
 
                   <div className="mt-4 flex justify-between items-center">
-                    <span className="text-sm text-green-600">Current max:</span>
-                    <div className="px-3 py-1 bg-green-100 rounded-full">
-                      <span className="font-bold text-green-800">
+                    <span className="text-sm text-green-600 dark:text-green-400">Current max:</span>
+                    <div className="px-3 py-1 bg-green-100 dark:bg-transparent rounded-full">
+                      <span className="font-bold text-green-800 dark:text-green-400">
                         ${price[0]}
                       </span>
                     </div>
@@ -190,10 +190,10 @@ const FilterSidebar = () => {
                 </div>
 
                 {/* Pricing Type Section */}
-                <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
+                <div className="p-6 bg-white rounded-xl dark:bg-transparent shadow-sm hover:shadow-md transition-shadow border border-green-100">
                   <div className="flex items-center gap-2 mb-5">
-                    <div className="bg-green-100 p-2 rounded-lg">🏷️</div>
-                    <h3 className="text-lg font-bold text-green-900">
+                    <div className="bg-green-100 p-2 dark:bg-transparent rounded-lg">🏷️</div>
+                    <h3 className="text-lg font-bold text-green-900 dark:text-green-400">
                       Pricing Type
                     </h3>
                   </div>
@@ -212,7 +212,7 @@ const FilterSidebar = () => {
                       <SelectGroup>
                         <SelectItem
                           value="false"
-                          className="hover:bg-green-50 focus:bg-green-50"
+                          className="hover:bg-green-50 dark:hover:bg-green-600 focus:bg-green-50 dark:focus:bg-green-600"
                         >
                           <span className="flex items-center gap-2">
                             <span className="text-green-500">🌱</span>
@@ -221,7 +221,7 @@ const FilterSidebar = () => {
                         </SelectItem>
                         <SelectItem
                           value="true"
-                          className="hover:bg-green-50 focus:bg-green-50"
+                          className="hover:bg-green-50 dark:hover:bg-green-600 focus:bg-green-50"
                         >
                           <span className="flex items-center gap-2">
                             <span className="text-green-500">💎</span>
@@ -234,10 +234,10 @@ const FilterSidebar = () => {
                 </div>
 
                 {/* Categories Section */}
-                <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
+                <div className="p-6 bg-white dark:bg-transparent rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
                   <div className="flex items-center gap-2 mb-5">
                     <div className="bg-green-100 p-2 rounded-lg">📚</div>
-                    <h3 className="text-lg font-bold text-green-900">
+                    <h3 className="text-lg font-bold text-green-900 dark:text-green-400">
                       Categories
                     </h3>
                   </div>
@@ -248,7 +248,7 @@ const FilterSidebar = () => {
                         (category: { id: string; name: string }) => (
                           <div
                             key={category.id}
-                            className="group flex items-center space-x-3 p-3 hover:bg-green-50 rounded-lg transition-all cursor-pointer border border-transparent hover:border-green-200"
+                            className="group flex items-center space-x-3 p-3 hover:bg-green-600  rounded-lg transition-all cursor-pointer border border-transparent hover:border-green-200"
                           >
                             <RadioGroupItem
                               value={category.id}
@@ -260,7 +260,7 @@ const FilterSidebar = () => {
                             />
                             <Label
                               htmlFor={category.id}
-                              className="flex-1 text-green-800 font-medium transition-colors group-hover:text-green-900 data-[state=checked]:text-green-900 flex items-center gap-2"
+                              className="flex-1 text-green-800 dark:text-green-400   font-medium transition-colors group-hover:text-white data-[state=checked]:text-green-900 flex items-center gap-2"
                             >
                               <span className="flex-1">{category.name}</span>
                               <span className="text-green-500 opacity-0 group-hover:opacity-100 transition-opacity">
