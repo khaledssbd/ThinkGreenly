@@ -68,8 +68,8 @@ const TestimonialSection = async () => {
               </div>
               <Separator />
               <CardFooter>
-                <div className="flex mx-auto items-center gap-4 justify-between">
-                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl">
+                <div className="flex justify-around items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
                     <Image
                       src={idea.author.image || u1}
                       width={40}
@@ -83,7 +83,7 @@ const TestimonialSection = async () => {
                       {idea.author?.name}
                     </CardTitle>
                     <p className="text-sm text-muted-foreground">
-                      {idea.author?.email}
+                      ...@{idea.author?.email.split('@')[1]}
                     </p>
                   </div>
                 </div>
