@@ -31,15 +31,29 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { TUser } from "@/types"
-import { updateUserStatus } from "../_actions"
-import { toast } from "sonner"
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { TUser } from '@/types';
+import { updateUserStatus } from '../_actions';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 // Define the columns for the data table
 export const columns: ColumnDef<TUser>[] = [
@@ -137,8 +151,16 @@ export const columns: ColumnDef<TUser>[] = [
       );
     },
     cell: ({ row }) => {
-      const passwordChangedAt = row.getValue("passwordChangedAt") as string | null
-      return <div className="text-center">{passwordChangedAt ? new Date(passwordChangedAt).toLocaleDateString() : "Never"}</div>
+      const passwordChangedAt = row.getValue('passwordChangedAt') as
+        | string
+        | null;
+      return (
+        <div className="text-center">
+          {passwordChangedAt
+            ? new Date(passwordChangedAt).toLocaleDateString()
+            : 'Never'}
+        </div>
+      );
     },
   },
   {
@@ -282,10 +304,12 @@ export const columns: ColumnDef<TUser>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => {
-              navigator.clipboard.writeText(user.id);
-              toast.success("UserId copied to dashboard")
-             }}>
+            <DropdownMenuItem
+              onClick={() => {
+                navigator.clipboard.writeText(user.id);
+                toast.success('UserId copied to dashboard');
+              }}
+            >
               <span className="flex items-center">
                 <span className="mr-2 cursor-pointer">Copy ID</span>
               </span>
