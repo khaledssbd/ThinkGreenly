@@ -12,6 +12,7 @@ const HomePage = async () => {
   return (
     <div>
       <Banner />
+      
       <IdeaHome />
 
       <OurSkillsSection />
