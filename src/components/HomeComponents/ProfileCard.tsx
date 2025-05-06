@@ -5,8 +5,8 @@ import { Card } from '../ui/card';
 
 import { useUser } from '@/context/UserContext';
 
-import UpdatePasswordModal from '@/app/(openRoute)/profile/_component/UpdatePasswordModal';
-import UpdateProfileModal from '@/app/(openRoute)/profile/_component/UpdateProfileModal';
+import UpdatePasswordModal from '@/components/modules/Profile/UpdatePasswordModal';
+import UpdateProfileModal from '@/components/modules/Profile/UpdateProfileModal';
 
 const ProfileCard = () => {
   const { user, setIsLoading } = useUser();

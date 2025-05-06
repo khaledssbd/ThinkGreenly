@@ -1,4 +1,4 @@
-import CommonDashboard from '@/components/Dashboard/CommonDashboard';
+import CommonDashboard from '@/components/modules/Dashboard/CommonDashboard';
 
 const AdminDashboardPage = () => {
   return (

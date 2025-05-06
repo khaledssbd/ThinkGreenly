@@ -1,10 +1,14 @@
-import RegisterForm from "@/components/modules/auth/register/RegisterForm";
-import WithSuspense from "@/Providers/LoadingProviders";
+import HelperFooter from '@/components/Helper/HelperFooter';
+import RegisterForm from '@/components/modules/Auth/register/RegisterForm';
+import WithSuspense from '@/Providers/LoadingProviders';
 
 const RegisterPage = () => {
   return (
     <WithSuspense>
-      <RegisterForm />
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <RegisterForm />
+        <HelperFooter />
+      </div>
     </WithSuspense>
   );
 };

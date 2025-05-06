@@ -190,7 +190,7 @@ const NavBar = () => {
                   </>
                 ) : (
                   <Link href="/login">
-                    <button className="bg-green-500 font-bold rounded-lg px-3 py-2">
+                    <button className="bg-green-500 font-bold rounded-lg px-3 py-2 text-white">
                       Login
                     </button>
                   </Link>

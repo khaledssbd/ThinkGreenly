@@ -1,4 +1,3 @@
-import React from 'react';
 import s1 from '../../assets/service-icon-1.png';
 import s2 from '../../assets/service-icon-2.png';
 import s3 from '../../assets/service-icon-3.png';
@@ -51,7 +50,7 @@ const WorkingSolutins = () => {
               redistribute runoff water
             </h1>
           </div>
-          <div className="lg:ml-0 sm:ml-0 ml-44 flex justify-center items-center">
+          <div className="lg:ml-0 sm:ml-0 flex justify-center items-center">
             <Image src={bulb} width={300} height={200} alt="s1"></Image>
           </div>
           <div className="flex justify-center items-center flex-col text-center lg:mb-0 mb-26">

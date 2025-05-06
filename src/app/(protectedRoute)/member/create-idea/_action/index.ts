@@ -9,19 +9,15 @@ export const getAllCategories = async () => {
       `${process.env.NEXT_PUBLIC_BASE_API}/categories`
       //   {
       //     headers: {
-      //       Authorization: `${token}`,
+      //       Authorization: token,
       //     },
       //   }
     );
 
-    if (!res.ok) {
-      throw new Error('Failed to fetch categories');
-    }
-
     const data = await res.json();
     return data;
   } catch (error: any) {
-    throw new Error(error.message);
+    return Error(error);
   }
 };
 
@@ -43,7 +39,7 @@ export const createAnIdea = async (formData: FormData): Promise<any> => {
 export const draftAnIdea = async (formData: FormData): Promise<any> => {
   const token = await getValidToken();
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/ideas/draft`, {
-    method: "POST",
+    method: 'POST',
     headers: {
       Authorization: token,
     },

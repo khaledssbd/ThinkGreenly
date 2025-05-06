@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import logo from "@/assets/sLogo.png";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import Image from 'next/image';
+import Link from 'next/link';
+import logo from '@/assets/sLogo.png';
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -13,13 +13,13 @@ const Footer = () => {
         <div className="flex-1 space-y-4">
           <Link href="/" className="w-fit">
             <div className="relative flex items-center h-12 w-fit">
-              <p className="text-black dark:text-white text-lg font-semibold z-10">
+              <p className="text-black dark:text-white text-lg font-medium z-10">
                 ThinkGreenly
               </p>
               <Image
                 src={logo}
                 alt="logo"
-                className="absolute left-[115px] -top-1 h-12 w-12"
+                className="absolute left-[85px] -top-1 h-12 w-12"
               />
             </div>
           </Link>
@@ -126,6 +126,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}; 
+};
 
 export default Footer;

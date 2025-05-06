@@ -52,7 +52,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
   };
 
   return (
-    <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent relative">
+    <div className="dark:text-white text-black bg-transparent relative">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500 relative">
         <Link
           href={'/'}
@@ -60,11 +60,11 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
         >
           X
         </Link>
-        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
+        <h2 className="text-3xl font-bold text-center mb-6 text-black dark:text-green-500 tracking-wide">
           Log In
         </h2>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="text-center">
             <FormField
               control={form.control}
               name="email"
@@ -93,7 +93,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                   <FormControl>
                     <PasswordInput
                       // type="password"
-                      className="py-6"
+                      className="my-4 py-6"
                       placeholder="Enter Password"
                       {...field}
                       value={field.value || ''}
@@ -110,7 +110,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
             <h1 className="flex mt-8">
               Don&apos;t Have an Account? Please
               <Link href="/register">
-                <span className="text-green-400 ml-2">Register</span>
+                <span className="text-green-700 ml-2 font-bold">Register</span>
               </Link>
             </h1>
           </form>
