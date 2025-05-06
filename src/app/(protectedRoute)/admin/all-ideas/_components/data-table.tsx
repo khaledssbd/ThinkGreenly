@@ -253,7 +253,7 @@ export function DataTable({ data }: DataTableProps) {
         const price = Number.parseFloat(row.getValue('price'));
         const isPaid = row.getValue('isPaid') as boolean;
 
-        if (!isPaid) return <div className="text-right">Free</div>;
+        if (!isPaid) return <div className="text-center">Free</div>;
 
         // Format the price as a dollar amount
         const formatted = new Intl.NumberFormat('en-US', {
@@ -261,7 +261,7 @@ export function DataTable({ data }: DataTableProps) {
           currency: 'USD',
         }).format(price);
 
-        return <div className="text-right font-medium">{formatted}</div>;
+        return <div className="text-center font-medium">{formatted}</div>;
       },
     },
     {
@@ -292,7 +292,7 @@ export function DataTable({ data }: DataTableProps) {
       },
       cell: ({ row }) => {
         const categoryName = row?.original?.category?.name;
-        return <div>{categoryName}</div>;
+        return <div className="text-center">{categoryName}</div>;
       },
     },
     {
@@ -311,17 +311,17 @@ export function DataTable({ data }: DataTableProps) {
       },
       cell: ({ row }) => {
         const authorName = row?.original?.author?.name;
-        return <div>{authorName}</div>;
+        return <div className="text-center">{authorName}</div>;
       },
     },
     {
-      accessorKey: 'isDeleted',
-      header: 'Deleted',
+      accessorKey: "isDeleted",
+      header: "Delete Status",
       cell: ({ row }) => {
         const isDeleted = row.getValue('isDeleted') as boolean;
         return (
-          <Badge variant={isDeleted ? 'destructive' : 'outline'}>
-            {isDeleted ? 'Deleted' : 'Active'}
+          <Badge className="text-center" variant={isDeleted ? "destructive" : "outline"}>
+            {isDeleted ? "Deleted" : "Active"}
           </Badge>
         );
       },
@@ -367,8 +367,8 @@ export function DataTable({ data }: DataTableProps) {
         );
       },
       cell: ({ row }) => {
-        const date = new Date(row.getValue('createdAt'));
-        return <div>{date.toLocaleDateString()}</div>;
+        const date = new Date(row.getValue("createdAt"));
+        return <div className="text-center">{date.toLocaleDateString()}</div>;
       },
     },
     {
@@ -385,8 +385,8 @@ export function DataTable({ data }: DataTableProps) {
         );
       },
       cell: ({ row }) => {
-        const date = new Date(row.getValue('updatedAt'));
-        return <div>{date.toLocaleDateString()}</div>;
+        const date = new Date(row.getValue("updatedAt"));
+        return <div className="text-center">{date.toLocaleDateString()}</div>;
       },
     },
     {
@@ -407,7 +407,10 @@ export function DataTable({ data }: DataTableProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(project.id)}
+                onClick={() => {
+                  navigator.clipboard.writeText(project.id);
+                  toast.success("Idea id copied to dashboard");
+                }}
               >
                 <span className="flex items-center">
                   <span className="mr-2">Copy ID</span>
@@ -415,7 +418,7 @@ export function DataTable({ data }: DataTableProps) {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <span className="flex items-center">
+                <span className="flex items-center cursor-pointer">
                   <Eye className="mr-2 h-4 w-4" />
                   <Link href={`/ideas/${project?.id}`}>View details</Link>
                 </span>
@@ -423,7 +426,7 @@ export function DataTable({ data }: DataTableProps) {
               {/* <DropdownMenuItem>
               <span className="flex items-center">
                 <Edit className="mr-2 h-4 w-4" />
-                <span>Edit idea</span>
+                <span className="cursor-pointer">Edit idea</span>
               </span>
             </DropdownMenuItem> */}
               {!isDeleted && (
@@ -433,7 +436,7 @@ export function DataTable({ data }: DataTableProps) {
                 >
                   <span className="flex items-center">
                     <Trash2 className="mr-2 h-4 w-4" />
-                    <span>Delete idea</span>
+                    <span className="cursor-pointer">Delete idea</span>
                   </span>
                 </DropdownMenuItem>
               )}

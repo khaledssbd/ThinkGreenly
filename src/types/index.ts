@@ -22,6 +22,32 @@ export type TIdea = {
   createdAt: string;
   updatedAt: string;
 }
+type vote = {
+  id: string;
+  userEmail: string;
+  ideaId: string;
+  type: "UP" | "DOWN";
+  user: TUser;
+  idea: TIdea;
+};
+type author = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  passwordChangedAt: any;
+  image: string | null;
+  role: "MEMBER" | "ADMIN";
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type category = {
+  id: string;
+  name: string;
+  createdAt: string;
+};
 
 type comment = {
    id   :     string
@@ -105,32 +131,6 @@ export type DynamicPageProps = {
 }
 
 
-type vote = {
-  id  : string 
-  userEmail: string
-  ideaId: string
-  type  : "UP" | "DOWN"
-  user  : TUser     
-  idea  : TIdea     
-}
-type author = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  passwordChangedAt: any;
-  image: string | null;
-  role: "MEMBER" | "ADMIN";
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type category = {
-  id: string;
-  name: string;
-  createdAt: string;
-};
 
 // Define types for the nested objects
 type Payment = {

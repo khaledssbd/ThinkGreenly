@@ -50,10 +50,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ITransaction } from '@/types';
-import { useState } from 'react';
+} from "@/components/ui/dialog";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ITransaction } from "@/types";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<ITransaction>[] = [
   {
@@ -175,7 +175,7 @@ export const columns: ColumnDef<ITransaction>[] = [
         minimumFractionDigits: 2,
       }).format(amount);
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <div className="text-center font-medium">{formatted}</div>;
     },
   },
   {
@@ -263,35 +263,36 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'gatewayResponse.discount_amount',
-    header: 'Discount',
-    cell: ({ row }) => {
-      const discountAmount = Number(
-        row.original.gatewayResponse?.discount_amount
-      );
-      const discountPercentage =
-        row.original.gatewayResponse?.discount_percentage;
-      const currency = row.original.gatewayResponse?.currency;
+  accessorKey: "gatewayResponse.discount_amount",
+  header: "Discount",
+  cell: ({ row }) => {
+    const discountAmount = Number(
+      row.original.gatewayResponse?.discount_amount
+    );
+    const discountPercentage =
+      row.original.gatewayResponse?.discount_percentage;
+    const currency = row.original.gatewayResponse?.currency;
 
-      if (discountAmount <= 0) return <div className="text-center">-</div>;
+    if (!discountAmount || discountAmount <= 0)
+      return <div className="text-center">-</div>;
 
-      // Format the discount amount with the currency
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency || 'USD',
-        minimumFractionDigits: 2,
-      }).format(discountAmount);
+    // Format the discount amount with the currency
+    const formatted = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency || "USD",
+      minimumFractionDigits: 2,
+    }).format(discountAmount);
 
-      return (
-        <div
-          className="text-right"
-          title={row.original.gatewayResponse?.discount_remarks || ''}
-        >
-          {formatted} ({discountPercentage}%)
-        </div>
-      );
-    },
+    return (
+      <div
+        className="text-center"
+        title={row.original.gatewayResponse?.discount_remarks || ""}
+      >
+        {formatted} {discountPercentage ? `(${discountPercentage}%)` : ""}
+      </div>
+    );
   },
+},
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
@@ -306,8 +307,8 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue('createdAt'));
-      return <div>{date.toLocaleDateString()}</div>;
+      const date = new Date(row.getValue("createdAt"));
+      return <div className="text-center">{date.toLocaleDateString()}</div>;
     },
   },
   {
@@ -336,12 +337,15 @@ export const columns: ColumnDef<ITransaction>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() =>
-                  navigator.clipboard.writeText(transaction?.transactionId)
-                }
+                onClick={() => {
+                  navigator.clipboard.writeText(transaction?.transactionId);
+                  toast.success("Transaction id copied to dashboard");
+                }}
               >
                 <span className="flex items-center">
-                  <span className="mr-2">Copy Transaction ID</span>
+                  <span className="mr-2 cursor-pointer">
+                    Copy Transaction ID
+                  </span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -349,20 +353,20 @@ export const columns: ColumnDef<ITransaction>[] = [
                 <DropdownMenuItem>
                   <span className="flex items-center">
                     <Eye className="mr-2 h-4 w-4" />
-                    <span>View details</span>
+                    <span className="cursor-pointer">View details</span>
                   </span>
                 </DropdownMenuItem>
               </DialogTrigger>
               <DropdownMenuItem>
                 <span className="flex items-center">
                   <FileText className="mr-2 h-4 w-4" />
-                  <span>Generate invoice</span>
+                  <span className="cursor-pointer">Generate invoice</span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <span className="flex items-center">
                   <Download className="mr-2 h-4 w-4" />
-                  <span>Download receipt</span>
+                  <span className="cursor-pointer">Download receipt</span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -370,7 +374,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                 <DropdownMenuItem>
                   <span className="flex items-center">
                     <RefreshCw className="mr-2 h-4 w-4" />
-                    <span>Process refund</span>
+                    <span className="cursor-pointer">Process refund</span>
                   </span>
                 </DropdownMenuItem>
               )}
@@ -378,7 +382,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                 <DropdownMenuItem className="text-red-600">
                   <span className="flex items-center">
                     <Ban className="mr-2 h-4 w-4" />
-                    <span>Cancel transaction</span>
+                    <span className="cursor-pointer">Cancel transaction</span>
                   </span>
                 </DropdownMenuItem>
               )}

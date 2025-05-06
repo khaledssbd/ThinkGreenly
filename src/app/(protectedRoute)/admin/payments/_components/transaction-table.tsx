@@ -1,5 +1,6 @@
-'use client';
+"use client";
 
+import * as React from "react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -11,7 +12,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 import {
   ArrowUpDown,
   ChevronDown,
@@ -21,9 +22,9 @@ import {
   RefreshCw,
   Ban,
   Download,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -32,8 +33,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -41,8 +42,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -50,28 +51,28 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ITransaction } from '@/types';
-import { useState } from 'react';
+} from "@/components/ui/dialog";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ITransaction } from "@/types";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<ITransaction>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
+          (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -79,12 +80,12 @@ export const columns: ColumnDef<ITransaction>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'transactionId',
+    accessorKey: "transactionId",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Transaction ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -92,7 +93,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const transactionId = row.getValue('transactionId') as string;
+      const transactionId = row.getValue("transactionId") as string;
       return (
         <div
           className="font-mono text-xs max-w-[120px] truncate"
@@ -104,12 +105,12 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'userEmail',
+    accessorKey: "userEmail",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           User Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -117,7 +118,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const email = row.getValue('userEmail') as string;
+      const email = row.getValue("userEmail") as string;
       return (
         <div className="font-medium max-w-[180px] truncate" title={email}>
           {email}
@@ -126,12 +127,12 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'ideaId',
+    accessorKey: "ideaId",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Idea ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -139,7 +140,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const ideaId = row.getValue('ideaId') as string;
+      const ideaId = row.getValue("ideaId") as string;
       return (
         <div
           className="font-mono text-xs max-w-[120px] truncate"
@@ -151,12 +152,12 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'amount',
+    accessorKey: "amount",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="text-right"
         >
           Amount
@@ -165,35 +166,35 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue('amount'));
+      const amount = Number.parseFloat(row.getValue("amount"));
       const currency = row.original.gatewayResponse?.currency;
 
       // Format the amount with the currency
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency || 'USD',
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currency || "USD",
         minimumFractionDigits: 2,
       }).format(amount);
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <div className="text-center font-medium">{formatted}</div>;
     },
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
+    accessorKey: "status",
+    header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue('status') as string;
+      const status = row.getValue("status") as string;
 
       const statusColorMap: Record<string, string> = {
-        Paid: 'bg-green-100 text-green-800 hover:bg-green-100/80',
-        Pending: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80',
-        Failed: 'bg-red-100 text-red-800 hover:bg-red-100/80',
+        Paid: "bg-green-100 text-green-800 hover:bg-green-100/80",
+        Pending: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80",
+        Failed: "bg-red-100 text-red-800 hover:bg-red-100/80",
       };
 
       return (
         <Badge
           className={`${
-            statusColorMap[status] || 'bg-gray-100 text-gray-800'
+            statusColorMap[status] || "bg-gray-100 text-gray-800"
           } font-medium`}
           variant="outline"
         >
@@ -206,8 +207,8 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'gatewayResponse.bank_gw',
-    header: 'Payment Method',
+    accessorKey: "gatewayResponse.bank_gw",
+    header: "Payment Method",
     cell: ({ row }) => {
       const paymentMethod = row.original.gatewayResponse?.bank_gw;
       const cardType = row.original.gatewayResponse?.card_type;
@@ -223,8 +224,8 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'gatewayResponse.card_brand',
-    header: 'Card Brand',
+    accessorKey: "gatewayResponse.card_brand",
+    header: "Card Brand",
     cell: ({ row }) => {
       const cardBrand = row.original.gatewayResponse?.card_brand;
 
@@ -236,23 +237,23 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'gatewayResponse.risk_title',
-    header: 'Risk Level',
+    accessorKey: "gatewayResponse.risk_title",
+    header: "Risk Level",
     cell: ({ row }) => {
       const riskTitle = row.original.gatewayResponse?.risk_title;
       const riskLevel = row.original.gatewayResponse?.risk_level;
 
       const riskColorMap: Record<string, string> = {
-        Safe: 'bg-green-100 text-green-800',
-        Low: 'bg-blue-100 text-blue-800',
-        Medium: 'bg-yellow-100 text-yellow-800',
-        High: 'bg-red-100 text-red-800',
+        Safe: "bg-green-100 text-green-800",
+        Low: "bg-blue-100 text-blue-800",
+        Medium: "bg-yellow-100 text-yellow-800",
+        High: "bg-red-100 text-red-800",
       };
 
       return (
         <Badge
           className={`${
-            riskColorMap[riskTitle] || 'bg-gray-100 text-gray-800'
+            riskColorMap[riskTitle] || "bg-gray-100 text-gray-800"
           } font-medium`}
           variant="outline"
         >
@@ -262,8 +263,8 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-    accessorKey: 'gatewayResponse.discount_amount',
-    header: 'Discount',
+    accessorKey: "gatewayResponse.discount_amount",
+    header: "Discount",
     cell: ({ row }) => {
       const discountAmount = Number(
         row.original.gatewayResponse?.discount_amount
@@ -272,32 +273,33 @@ export const columns: ColumnDef<ITransaction>[] = [
         row.original.gatewayResponse?.discount_percentage;
       const currency = row.original.gatewayResponse?.currency;
 
-      if (discountAmount <= 0) return <div className="text-center">-</div>;
+      if (!discountAmount || discountAmount <= 0)
+        return <div className="text-center">-</div>;
 
       // Format the discount amount with the currency
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency || 'USD',
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currency || "USD",
         minimumFractionDigits: 2,
       }).format(discountAmount);
 
       return (
         <div
-          className="text-right"
-          title={row.original.gatewayResponse?.discount_remarks || ''}
+          className="text-center"
+          title={row.original.gatewayResponse?.discount_remarks || ""}
         >
-          {formatted} ({discountPercentage}%)
+          {formatted} {discountPercentage ? `(${discountPercentage}%)` : ""}
         </div>
       );
     },
   },
   {
-    accessorKey: 'createdAt',
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -305,20 +307,20 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue('createdAt'));
-      return <div>{date.toLocaleDateString()}</div>;
+      const date = new Date(row.getValue("createdAt"));
+      return <div className="text-center">{date.toLocaleDateString()}</div>;
     },
   },
   {
-    accessorKey: 'gatewayResponse.tran_date',
-    header: 'Gateway Date',
+    accessorKey: "gatewayResponse.tran_date",
+    header: "Gateway Date",
     cell: ({ row }) => {
       const tranDate = row.original.gatewayResponse?.tran_date;
       return <div>{tranDate}</div>;
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
       const transaction = row.original;
@@ -335,12 +337,15 @@ export const columns: ColumnDef<ITransaction>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() =>
-                  navigator.clipboard.writeText(transaction?.transactionId)
-                }
+                onClick={() => {
+                  navigator.clipboard.writeText(transaction?.transactionId);
+                  toast.success("Transaction id copied to dashboard");
+                }}
               >
                 <span className="flex items-center">
-                  <span className="mr-2">Copy Transaction ID</span>
+                  <span className="mr-2 cursor-pointer">
+                    Copy Transaction ID
+                  </span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -348,36 +353,36 @@ export const columns: ColumnDef<ITransaction>[] = [
                 <DropdownMenuItem>
                   <span className="flex items-center">
                     <Eye className="mr-2 h-4 w-4" />
-                    <span>View details</span>
+                    <span className="cursor-pointer">View details</span>
                   </span>
                 </DropdownMenuItem>
               </DialogTrigger>
               <DropdownMenuItem>
                 <span className="flex items-center">
                   <FileText className="mr-2 h-4 w-4" />
-                  <span>Generate invoice</span>
+                  <span className="cursor-pointer">Generate invoice</span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <span className="flex items-center">
                   <Download className="mr-2 h-4 w-4" />
-                  <span>Download receipt</span>
+                  <span className="cursor-pointer">Download receipt</span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              {transaction?.status === 'Paid' && (
+              {transaction?.status === "Paid" && (
                 <DropdownMenuItem>
                   <span className="flex items-center">
                     <RefreshCw className="mr-2 h-4 w-4" />
-                    <span>Process refund</span>
+                    <span className="cursor-pointer">Process refund</span>
                   </span>
                 </DropdownMenuItem>
               )}
-              {transaction?.status === 'Pending' && (
+              {transaction?.status === "Pending" && (
                 <DropdownMenuItem className="text-red-600">
                   <span className="flex items-center">
                     <Ban className="mr-2 h-4 w-4" />
-                    <span>Cancel transaction</span>
+                    <span className="cursor-pointer">Cancel transaction</span>
                   </span>
                 </DropdownMenuItem>
               )}
@@ -388,7 +393,7 @@ export const columns: ColumnDef<ITransaction>[] = [
             <DialogHeader>
               <DialogTitle>Transaction Details</DialogTitle>
               <DialogDescription>
-                Complete information about transaction{' '}
+                Complete information about transaction{" "}
                 {transaction?.transactionId}
               </DialogDescription>
             </DialogHeader>
@@ -414,7 +419,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                   <div>
                     <p className="text-sm font-medium">Amount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction?.amount}{' '}
+                      {transaction?.amount}{" "}
                       {transaction?.gatewayResponse?.currency}
                     </p>
                   </div>
@@ -422,18 +427,18 @@ export const columns: ColumnDef<ITransaction>[] = [
                     <p className="text-sm font-medium">Status</p>
                     <Badge
                       variant={
-                        transaction?.status === 'Paid'
-                          ? 'outline'
-                          : transaction?.status === 'Pending'
-                          ? 'default'
-                          : 'destructive'
+                        transaction?.status === "Paid"
+                          ? "outline"
+                          : transaction?.status === "Pending"
+                          ? "default"
+                          : "destructive"
                       }
                       className={
-                        transaction?.status === 'Paid'
-                          ? 'bg-green-500'
-                          : transaction?.status === 'Pending'
-                          ? 'bg-yellow-500'
-                          : ''
+                        transaction?.status === "Paid"
+                          ? "bg-green-500"
+                          : transaction?.status === "Pending"
+                          ? "bg-yellow-500"
+                          : ""
                       }
                     >
                       {transaction?.status}
@@ -498,7 +503,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                   <div>
                     <p className="text-sm font-medium">Store Amount</p>
                     <p className="text-sm text-muted-foreground">
-                      {transaction?.gatewayResponse?.store_amount}{' '}
+                      {transaction?.gatewayResponse?.store_amount}{" "}
                       {transaction?.gatewayResponse?.currency}
                     </p>
                   </div>
@@ -506,7 +511,7 @@ export const columns: ColumnDef<ITransaction>[] = [
                     <p className="text-sm font-medium">Discount</p>
                     <p className="text-sm text-muted-foreground">
                       {transaction?.gatewayResponse?.discount_percentage}% (
-                      {transaction?.gatewayResponse?.discount_amount}{' '}
+                      {transaction?.gatewayResponse?.discount_amount}{" "}
                       {transaction?.gatewayResponse?.currency})
                     </p>
                   </div>
@@ -579,20 +584,20 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
 
   // Status filter options
   const statusOptions = [
-    { label: 'Paid', value: 'Paid' },
-    { label: 'Pending', value: 'Pending' },
-    { label: 'Failed', value: 'Failed' },
+    { label: "Paid", value: "Paid" },
+    { label: "Pending", value: "Pending" },
+    { label: "Failed", value: "Failed" },
   ];
 
   // Handle status filter change
   const handleStatusFilterChange = (value: string) => {
-    setStatusFilter(prev => {
+    setStatusFilter((prev) => {
       const newFilter = prev.includes(value)
-        ? prev.filter(item => item !== value)
+        ? prev.filter((item) => item !== value)
         : [...prev, value];
 
       table
-        .getColumn('status')
+        .getColumn("status")
         ?.setFilterValue(newFilter?.length ? newFilter : undefined);
       return newFilter;
     });
@@ -604,19 +609,19 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
         <Input
           placeholder="Filter by transaction ID..."
           value={
-            (table.getColumn('transactionId')?.getFilterValue() as string) ?? ''
+            (table.getColumn("transactionId")?.getFilterValue() as string) ?? ""
           }
-          onChange={event =>
-            table.getColumn('transactionId')?.setFilterValue(event.target.value)
+          onChange={(event) =>
+            table.getColumn("transactionId")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
         <div className="flex flex-wrap gap-2">
-          {statusOptions.map(option => (
+          {statusOptions.map((option) => (
             <Badge
               key={option.value}
               variant={
-                statusFilter.includes(option.value) ? 'default' : 'outline'
+                statusFilter.includes(option.value) ? "default" : "outline"
               }
               className="cursor-pointer"
               onClick={() => handleStatusFilterChange(option.value)}
@@ -634,14 +639,16 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
-              .filter(column => column.getCanHide())
-              .map(column => {
+              .filter((column) => column.getCanHide())
+              .map((column) => {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
-                    onCheckedChange={value => column.toggleVisibility(!!value)}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
@@ -653,9 +660,9 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map(headerGroup => (
+            {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => {
+                {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
                       {header.isPlaceholder
@@ -672,12 +679,12 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows?.map(row => (
+              table.getRowModel().rows?.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map(cell => (
+                  {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -702,7 +709,7 @@ export function TransactionDataTable({ data }: TransactionDataTableProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows?.length} of{' '}
+          {table.getFilteredSelectedRowModel().rows?.length} of{" "}
           {table.getFilteredRowModel().rows?.length} row(s) selected.
         </div>
         <div className="space-x-2">

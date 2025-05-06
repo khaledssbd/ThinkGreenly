@@ -277,7 +277,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
                       : 'text-gray-600 hover:bg-green-100'
                   }`}
                 >
-                  <Heart className="w-8 h-8 text-green-600" />
+                  <Heart className="w-8 h-8 cursor-pointer text-green-600" />
                 </button>
 
                 {/* Downvote button */}
@@ -310,7 +310,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
                       : 'text-gray-600 hover:bg-red-100'
                   }`}
                 >
-                  <HeartOff className="w-8 h-8 text-red-600" />
+                  <HeartOff className="w-8 h-8 cursor-pointer text-red-600" />
                 </button>
               </div>
             </div>
