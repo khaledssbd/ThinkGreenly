@@ -16,5 +16,5 @@ const AllIdeasPage = () => {
   );
 };
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 export default AllIdeasPage;
