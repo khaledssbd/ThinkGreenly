@@ -1,5 +1,5 @@
 import HelperFooter from '@/components/Helper/HelperFooter';
-import LoginForm from '@/components/modules/Auth/Login/LoginForm';
+import LoginForm from '@/components/modules/Auth/LoginForm';
 import WithSuspense from '@/Providers/LoadingProviders';
 
 type SearchParams = Promise<{ [key: string]: string | undefined }>;

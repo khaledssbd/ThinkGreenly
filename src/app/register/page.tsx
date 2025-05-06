@@ -1,5 +1,5 @@
 import HelperFooter from '@/components/Helper/HelperFooter';
-import RegisterForm from '@/components/modules/Auth/register/RegisterForm';
+import RegisterForm from '@/components/modules/Auth/RegisterForm';
 import WithSuspense from '@/Providers/LoadingProviders';
 
 const RegisterPage = () => {
