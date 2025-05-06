@@ -157,7 +157,7 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
                   >
                     <Button
                       size="lg"
-                      className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-2"
+                      className="w-full cursor-pointer bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-2"
                     >
                       {idea.isPaid ? " Premium Solution" : "Detailed Solution"}
                       <ArrowRight className="ml-1 w-3 h-3" />

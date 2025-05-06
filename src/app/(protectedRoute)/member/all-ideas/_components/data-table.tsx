@@ -257,7 +257,7 @@ export function DataTable({ ideas }: DataTableProps) {
         const price = Number.parseFloat(row.getValue("price"));
         const isPaid = row.getValue("isPaid") as boolean;
 
-        if (!isPaid) return <div className="text-right">Free</div>;
+        if (!isPaid) return <div className="text-center">Free</div>;
 
         // Format the price as a dollar amount
         const formatted = new Intl.NumberFormat("en-US", {
@@ -265,7 +265,7 @@ export function DataTable({ ideas }: DataTableProps) {
           currency: "USD",
         }).format(price);
 
-        return <div className="text-right font-medium">{formatted}</div>;
+        return <div className="text-center font-medium">{formatted}</div>;
       },
     },
     {
@@ -296,7 +296,7 @@ export function DataTable({ ideas }: DataTableProps) {
       },
       cell: ({ row }) => {
         const categoryName = row.original.category.name;
-        return <div>{categoryName}</div>;
+        return <div className="text-center">{categoryName}</div>;
       },
     },
     {
@@ -372,7 +372,7 @@ export function DataTable({ ideas }: DataTableProps) {
       },
       cell: ({ row }) => {
         const date = new Date(row.getValue("createdAt"));
-        return <div>{date.toLocaleDateString()}</div>;
+        return <div className="text-center">{date.toLocaleDateString()}</div>;
       },
     },
     {
@@ -390,7 +390,7 @@ export function DataTable({ ideas }: DataTableProps) {
       },
       cell: ({ row }) => {
         const date = new Date(row.getValue("updatedAt"));
-        return <div>{date.toLocaleDateString()}</div>;
+        return <div className="text-center">{date.toLocaleDateString()}</div>;
       },
     },
     {
@@ -411,10 +411,12 @@ export function DataTable({ ideas }: DataTableProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(project.id)}
+                onClick={() => { navigator.clipboard.writeText(project.id);
+                  toast.success("Idea id copied to dashboard")
+                }}
               >
                 <span className="flex items-center">
-                  <span className="mr-2">Copy ID</span>
+                  <span className="mr-2 cursor-pointer">Copy ID</span>
                 </span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -441,7 +443,7 @@ export function DataTable({ ideas }: DataTableProps) {
               >
                 <span className="flex items-center">
                   <Trash2 className="mr-2 h-4 w-4" />
-                  <span>Delete idea</span>
+                  <span className="cursor-pointer">Delete idea</span>
                 </span>
               </DropdownMenuItem>
             </DropdownMenuContent>

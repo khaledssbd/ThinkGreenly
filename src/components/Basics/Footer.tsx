@@ -19,7 +19,7 @@ const Footer = () => {
               <Image
                 src={logo}
                 alt="logo"
-                className="absolute left-[115px] -top-1 h-12 w-12"
+                className="absolute left-[80%] -top-1 h-12 w-12"
               />
             </div>
           </Link>
