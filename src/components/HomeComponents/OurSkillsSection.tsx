@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
 import skill from '../../assets/skill-thumb.png';
 import { Leaf } from 'lucide-react';
 import { Progress } from '../ui/progress';

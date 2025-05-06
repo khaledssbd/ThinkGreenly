@@ -10,7 +10,7 @@ export const updatePassword = async (payload: {
   try {
     const token = await getValidToken();
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/auth/changed-password`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/change-password`,
       {
         method: 'PATCH',
         headers: {
@@ -21,15 +21,10 @@ export const updatePassword = async (payload: {
       }
     );
 
-    if (!res.ok) {
-      throw new Error('Failed to update password ');
-    }
-
     const data = await res.json();
-
     return data;
   } catch (error: any) {
-    throw new Error(error.message);
+    return Error(error);
   }
 };
 

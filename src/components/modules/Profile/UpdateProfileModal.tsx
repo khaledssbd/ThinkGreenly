@@ -14,8 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { updateProfile } from '../_action';
-// import { useRouter } from 'next/navigation';
+import { updateProfile } from '../../../services/Profile';
+import { useRouter } from 'next/navigation';
 
 interface UpdateProfileModalProps {
   user: { name: string } | null;
@@ -30,6 +30,7 @@ export default function UpdateProfileModal({
   const [name, setName] = useState('');
   const [picture, setPicture] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (user?.name) {
@@ -59,7 +60,8 @@ export default function UpdateProfileModal({
         setIsLoading(true);
         toast.success(res.message);
         setOpen(false);
-        // router.refresh?.(); // Refresh current route if using Next.js App Router
+        setLoading(false);
+        router.refresh?.();
       } else {
         toast.error(res?.message);
       }

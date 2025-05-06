@@ -1,11 +1,10 @@
+'use client';
 
-'use client'
-
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from 'sonner'
-import * as z from 'zod'
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 import {
   Dialog,
@@ -14,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog'
+} from '@/components/ui/dialog';
 import {
   Form,
   FormField,
@@ -22,21 +21,25 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from '@/components/ui/form'
-import { PasswordInput } from '@/components/ui/password-input'
-import { Button } from '@/components/ui/button'
-import { updatePassword } from '../_action'
-
+} from '@/components/ui/form';
+import { PasswordInput } from '@/components/ui/password-input';
+import { Button } from '@/components/ui/button';
+import { updatePassword } from '../../../services/Profile';
+import { useRouter } from 'next/navigation';
+import { logOut } from '@/services/AuthService';
+import { useUser } from '@/context/UserContext';
 
 // Schema
 const formSchema = z.object({
   oldPassword: z.string().min(1, 'Old password is required'),
   newPassword: z.string().min(6, 'New password must be at least 6 characters'),
-})
+});
 
-export default  function UpdatePasswordModal() {
-  const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+export default function UpdatePasswordModal() {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { setIsLoading } = useUser();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,29 +47,36 @@ export default  function UpdatePasswordModal() {
       oldPassword: '',
       newPassword: '',
     },
-  })
+  });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      // Simulate API
-      await updatePassword(values)
+      const res = await updatePassword(values);
 
-      toast.success('Password updated successfully!')
-      setOpen(false)
-      form.reset()
+      if (res?.success) {
+        await logOut();
+        toast.success(res?.message);
+        setOpen(false);
+        form.reset();
+        setIsLoading(true);
+        router.push('/login');
+      } else {
+        toast.error(res?.message);
+      }
     } catch (err) {
-      console.error(err)
-      toast.error('Failed to update password.')
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className='cursor-pointer'>Update Password</Button>
+        <Button variant="outline" className="cursor-pointer">
+          Update Password
+        </Button>
       </DialogTrigger>
 
       <DialogContent>
@@ -83,7 +93,11 @@ export default  function UpdatePasswordModal() {
                 <FormItem>
                   <FormLabel>Old Password</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="Enter old password" {...field} disabled={loading} />
+                    <PasswordInput
+                      placeholder="Enter old password"
+                      {...field}
+                      disabled={loading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,7 +111,11 @@ export default  function UpdatePasswordModal() {
                 <FormItem>
                   <FormLabel>New Password</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder="Enter new password" {...field} disabled={loading} />
+                    <PasswordInput
+                      placeholder="Enter new password"
+                      {...field}
+                      disabled={loading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,8 +130,8 @@ export default  function UpdatePasswordModal() {
                 type="button"
                 variant="ghost"
                 onClick={() => {
-                  form.reset()
-                  setOpen(false)
+                  form.reset();
+                  setOpen(false);
                 }}
                 disabled={loading}
               >
@@ -124,6 +142,5 @@ export default  function UpdatePasswordModal() {
         </Form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

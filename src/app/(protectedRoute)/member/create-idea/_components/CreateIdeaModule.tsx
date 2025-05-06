@@ -1,4 +1,3 @@
-import React from 'react';
 import CreateIdeaForm from './CreateIdeaForm';
 import { getAllCategories } from '../_action';
 
