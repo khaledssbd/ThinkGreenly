@@ -40,7 +40,7 @@ const TestimonialSection = async () => {
                   {idea.title}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  {idea.description}
+                  {idea.description?.slice(0, 85)}...
                 </p>
               </div>
 
@@ -54,12 +54,12 @@ const TestimonialSection = async () => {
                 <p className="text-sm">{idea.solution}</p>
               </div> */}
 
-              <div className="flex gap-2 flex-wrap justify-center">
+              <div className="flex gap-2 justify-center">
                 {idea.images?.map((img: any, index: number) => (
                   <Image
                     key={index}
                     src={img}
-                    alt={`Project ${index + 1}`}
+                    alt={`Project image ${index + 1}`}
                     height={1200}
                     width={1200}
                     className="w-20 h-20 object-cover rounded-md border"
@@ -68,7 +68,7 @@ const TestimonialSection = async () => {
               </div>
               <Separator />
               <CardFooter>
-                <div className="flex justify-around items-center gap-4">
+                <div className="flex justify-center items-center gap-4 w-full">
                   <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
                     <Image
                       src={idea.author.image || u1}
