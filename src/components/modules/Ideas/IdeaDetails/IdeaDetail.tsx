@@ -35,11 +35,13 @@ interface CommentFormProps {
 }
 
 const IdeaDetail = ({ idea }: { idea: Idea }) => {
-  console.log(idea);
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   const [comments, setComments] = useState<Comment[]>(idea.comments || []);
   const { user } = useUser();
   const handleVote = async (direction: 'UP' | 'DOWN') => {
+    if(!user){
+      return toast.error("Please login to your account!")
+    }
     const payload = {
       ideaId: idea.id,
       type: direction,
@@ -56,6 +58,9 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
     }
   };
   const handleAddComment = async (content: string, parentId?: string) => {
+    if(!user){
+      return toast.error("Please login to your account!")
+    }
     try {
       const payload = {
         content,
@@ -63,8 +68,6 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
         ...(parentId ? { parentId } : {}),
       };
       const response = await createComment(payload);
-
-      
 
       setComments(prev => {
         if (parentId) {
@@ -85,30 +88,34 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
       console.error('Failed to post comment:', error);
     }
   };
-  
+
   // Recursive helper function
-  const addReplyToComment = (comments: Comment[], parentId: string, newReply: Comment): Comment[] => {
+  const addReplyToComment = (
+    comments: Comment[],
+    parentId: string,
+    newReply: Comment
+  ): Comment[] => {
     return comments.map(comment => {
       if (comment.id === parentId) {
         return {
           ...comment,
-          replies: [...(comment.replies || []), newReply]
+          replies: [...(comment.replies || []), newReply],
         };
       }
-      
+
       if (comment.replies?.length) {
         return {
           ...comment,
-          replies: addReplyToComment(comment.replies, parentId, newReply)
+          replies: addReplyToComment(comment.replies, parentId, newReply),
         };
       }
-      
+
       return comment;
     });
   };
 
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
+    <div className="mx-auto lg:px-8 py-8 ">
       <div className="rounded-3xl shadow-xl overflow-hidden">
         <div className="relative h-96 bg-gray-100">
           <Carousel
@@ -137,13 +144,13 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
           </Carousel>
 
           <div className="absolute bottom-4 right-4  flex items-center gap-2 ">
-            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm items-center gap-2">
+            <div className="flex bg-white/90 backdrop-blur-sm  px-3 md:px-4 py-2 rounded-full shadow-sm items-center gap-2">
               <Leaf className="w-5 h-5 text-green-600" />
               <span className="font-medium text-green-700">
                 {idea.category?.name}
               </span>
             </div>
-            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm items-center gap-2">
+            <div className="flex bg-white/90 backdrop-blur-sm px-3 md:px-4 py-2 rounded-full shadow-sm items-center gap-2">
               <MessageCircle className="w-4 h-4 text-green-600" />
               <span className="text-sm font-medium text-green-600">
                 {/* {idea.comments?.length || 0} */}
@@ -151,13 +158,13 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
               </span>
             </div>
 
-            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 text-green-700 rounded-full shadow-sm items-center gap-2">
+            <div className="flex bg-white/90 backdrop-blur-sm px-3 md:px-4 py-2 text-green-700 rounded-full shadow-sm items-center gap-2">
               <Heart className="w-4 h-4 text-green-900" />
               <span className="text-sm font-medium">
                 {idea.votes?.filter(vote => vote.type === 'UP')?.length || 0}
               </span>
             </div>
-            <div className="flex bg-white/90 backdrop-blur-sm px-4 py-2 text-red-700 rounded-full shadow-sm items-center gap-2">
+            <div className="flex bg-white/90 backdrop-blur-sm px-3 md:px-4 py-2 text-red-700 rounded-full shadow-sm items-center gap-2">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
                 {idea.votes?.filter(vote => vote.type === 'DOWN')?.length || 0}
@@ -167,7 +174,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
         </div>
 
         {/* Content Section */}
-        <div className="p-8 lg:p-12 grid lg:grid-cols-3 gap-8">
+        <div className=" p-2 md:p-8 lg:p-12 grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             <div className="space-y-4">
@@ -242,6 +249,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
               <div className="flex items-center justify-center gap-2">
                 {/* Upvote button */}
                 <button
+                  
                   onClick={() => {
                     const existingVote = idea.votes?.find(
                       p =>
@@ -274,6 +282,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
 
                 {/* Downvote button */}
                 <button
+              
                   onClick={() => {
                     const existingVote = idea.votes?.find(
                       p =>
@@ -362,14 +371,14 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
               className="object-cover rounded-full"
             />
           ) : (
-            comment?.user?.name?.[0]?.toUpperCase() || "A"
+            comment?.user?.name?.[0]?.toUpperCase() || 'A'
           )}
         </div>
 
         {/* Comment Content */}
         <div className="flex-grow">
           <div className="text-sm font-medium text-gray-900 dark:text-green-400">
-            {comment?.user?.name || "Anonymous"}
+            {comment?.user?.name || 'Anonymous'}
           </div>
           <div className="text-sm text-gray-600 dark:text-white mt-1">
             {comment?.content}
@@ -384,10 +393,10 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
               Reply
             </button>
             <span className="text-sm text-gray-400">
-              {new Date(comment?.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
+              {new Date(comment?.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
               })}
             </span>
           </div>

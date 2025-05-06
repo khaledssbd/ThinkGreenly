@@ -557,14 +557,11 @@ interface TransactionDataTableProps {
 }
 
 export function TransactionDataTable({ data }: TransactionDataTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [statusFilter, setStatusFilter] = useState<string[]>([]);
 
   const table = useReactTable({
     data: data,

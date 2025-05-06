@@ -10,51 +10,40 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { loginValidationSchema } from './loginValidation';
-import { getCurrentUser, loginUser } from '@/services/AuthService';
-import { useUser } from '@/context/UserContext';
+import { registrationValidationSchema } from './registerValidation';
+import { registerUser } from '@/services/AuthService';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { PasswordInput } from '@/components/ui/password-input';
-// import { PasswordInput } from "@/components/ui/password-input";
 
-const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
-  const router = useRouter();
-  const { setUser } = useUser();
+const RegisterForm = () => {
   const form = useForm({
-    resolver: zodResolver(loginValidationSchema),
+    resolver: zodResolver(registrationValidationSchema),
   });
+
+  const router = useRouter();
 
   const {
     formState: { isSubmitting },
   } = form;
-
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-
-    // console.log({data});
     try {
-      const res = await loginUser(data);
-      if (res?.success) {
-        setUser(await getCurrentUser());
-        // setIsLoading(true);
+      const res = await registerUser(data);
+      if (res.success) {
         toast.success(res?.message);
-        router.push(redirectPath || '/');
-        // setTimeout(() => {
-        //   router.push(redirectPath || '/');
-        // }, 100);
+        router.push('/login');
       } else {
-        toast.error(res?.message);
+        toast.error(res.message);
       }
     } catch (err: any) {
       console.error(err);
     }
   };
-
   return (
-    <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent relative">
+    <div className="dark:text-white text-black bg-transparent">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500 relative">
         <Link
           href={'/'}
@@ -62,11 +51,30 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
         >
           X
         </Link>
-        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
-          Log In
+        <h2 className="text-3xl font-bold text-center mb-6 text-black dark:text-green-500 tracking-wide">
+          Register
         </h2>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="text-center">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel />
+                  <FormControl>
+                    <Input
+                      className="py-6"
+                      placeholder="Enter User Name"
+                      {...field}
+                      value={field.value || ''}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -75,7 +83,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                   <FormLabel />
                   <FormControl>
                     <Input
-                      className="my-4 py-6"
+                      className="mt-4 py-6"
                       placeholder="Enter Email"
                       {...field}
                       value={field.value || ''}
@@ -95,7 +103,7 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                   <FormControl>
                     <PasswordInput
                       // type="password"
-                      className="py-6"
+                      className="my-4 py-6"
                       placeholder="Enter Password"
                       {...field}
                       value={field.value || ''}
@@ -106,19 +114,22 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
                 </FormItem>
               )}
             />
+
             <Button type="submit" className="bg-green-600 mt-3">
-              {isSubmitting ? 'Logging in..' : 'Log in'}
+              {isSubmitting ? 'Registering..' : 'Register'}
             </Button>
-            <h1 className="flex mt-8">
-              Don&apos;t Have an Account? Please
-              <Link href="/register">
-                <span className="text-green-400 ml-2">Register</span>
+            <h1 className="mt-4">
+              Already Have an Account? Please
+              <Link href="/login">
+                <span className="text-green-700 ml-2 font-bold">Login</span>
               </Link>
             </h1>
           </form>
         </Form>
       </div>
+      <Toaster richColors />
     </div>
   );
 };
-export default LoginForm;
+
+export default RegisterForm;

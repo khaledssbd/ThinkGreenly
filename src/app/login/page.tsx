@@ -1,13 +1,18 @@
-import LoginForm from '@/components/modules/auth/Login/LoginForm';
+import HelperFooter from '@/components/Helper/HelperFooter';
+import LoginForm from '@/components/modules/Auth/LoginForm';
 import WithSuspense from '@/Providers/LoadingProviders';
 
 type SearchParams = Promise<{ [key: string]: string | undefined }>;
 
 const LoginPage = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { redirectPath } = await searchParams;
+
   return (
     <WithSuspense>
-      <LoginForm redirectPath={redirectPath} />
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <LoginForm redirectPath={redirectPath} />
+        <HelperFooter />
+      </div>
     </WithSuspense>
   );
 };

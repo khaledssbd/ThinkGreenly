@@ -10,41 +10,49 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { toast, Toaster } from 'sonner';
+import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
-import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { registrationValidationSchema } from './registerValidation';
-import { registerUser } from '@/services/AuthService';
+import { loginValidationSchema } from './loginValidation';
+import { getCurrentUser, loginUser } from '@/services/AuthService';
+import { useUser } from '@/context/UserContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { PasswordInput } from '@/components/ui/password-input';
+// import { PasswordInput } from "@/components/ui/password-input";
 
-const RegisterForm = () => {
-  const form = useForm({
-    resolver: zodResolver(registrationValidationSchema),
-  });
-
+const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
   const router = useRouter();
+  const { setUser } = useUser();
+  const form = useForm({
+    resolver: zodResolver(loginValidationSchema),
+  });
 
   const {
     formState: { isSubmitting },
   } = form;
+
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
-      const res = await registerUser(data);
-      if (res.success) {
+      const res = await loginUser(data);
+      if (res?.success) {
+        setUser(await getCurrentUser());
+        // setIsLoading(true);
         toast.success(res?.message);
-        router.push('/login');
+        router.push(redirectPath || '/');
+        // setTimeout(() => {
+        //   router.push(redirectPath || '/');
+        // }, 100);
       } else {
-        toast.error(res.message);
+        toast.error(res?.message);
       }
     } catch (err: any) {
       console.error(err);
     }
   };
+
   return (
-    <div className="min-h-screen dark:text-white text-black flex justify-center items-center bg-transparent">
+    <div className="dark:text-white text-black bg-transparent relative">
       <div className="backdrop-blur-2xl p-8 rounded-lg shadow-lg max-w-md w-full border-2 border-green-500 relative">
         <Link
           href={'/'}
@@ -52,30 +60,11 @@ const RegisterForm = () => {
         >
           X
         </Link>
-        <h2 className="text-3xl font-bold text-center mb-6 text-green-400 tracking-wide">
-          Create Account
+        <h2 className="text-3xl font-bold text-center mb-6 text-black dark:text-green-500 tracking-wide">
+          Log In
         </h2>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel />
-                  <FormControl>
-                    <Input
-                      className="py-6"
-                      placeholder="Enter User Name"
-                      {...field}
-                      value={field.value || ''}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="text-center">
             <FormField
               control={form.control}
               name="email"
@@ -104,7 +93,7 @@ const RegisterForm = () => {
                   <FormControl>
                     <PasswordInput
                       // type="password"
-                      className="py-6"
+                      className="my-4 py-6"
                       placeholder="Enter Password"
                       {...field}
                       value={field.value || ''}
@@ -115,22 +104,19 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-
             <Button type="submit" className="bg-green-600 mt-3">
-              {isSubmitting ? 'Registering..' : 'Register'}
+              {isSubmitting ? 'Logging in..' : 'Log in'}
             </Button>
-            <h1 className="mt-4">
-              Already Have an Account? Please
-              <Link href="/login">
-                <span className="text-green-700 ml-2 font-bold">Login</span>
+            <h1 className="flex mt-8">
+              Don&apos;t Have an Account? Please
+              <Link href="/register">
+                <span className="text-green-700 ml-2 font-bold">Register</span>
               </Link>
             </h1>
           </form>
         </Form>
       </div>
-      <Toaster richColors />
     </div>
   );
 };
-
-export default RegisterForm;
+export default LoginForm;

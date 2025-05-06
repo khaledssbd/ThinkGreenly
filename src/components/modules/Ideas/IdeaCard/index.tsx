@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import IdeaCardCarousel from "./IdeaCardCarousel";
-import { Idea } from "@/types/idea";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import IdeaCardCarousel from './IdeaCardCarousel';
+import { Idea } from '@/types/idea';
+import Link from 'next/link';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import IdeaActionSkeleton from "./IdeaActionSkeleton";
-import { useUser } from "@/context/UserContext";
+} from '@/components/ui/card';
+import IdeaActionSkeleton from './IdeaActionSkeleton';
+import { useUser } from '@/context/UserContext';
 import {
   MessageCircle,
   Leaf,
@@ -24,31 +24,36 @@ import {
   ShieldCheck,
   FileText,
   Gem,
-} from "lucide-react";
-import { useState } from "react";
+  User,
+  CalendarDays,
+} from 'lucide-react';
+import { useState } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { createPayment } from "@/services/Payment";
+} from '@/components/ui/dialog';
+import { createPayment } from '@/services/Payment';
+import { useRouter } from 'next/navigation';
 const IdeaCard = ({ idea }: { idea: Idea }) => {
   const { user, isLoading } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handlePayment = async (id: string) => {
     try {
       const res = await createPayment({ ideaId: id });
 
       if (res.success && res.data) {
-        window.location.href = res.data;
+        // window.location.href = res.data;
+        router.push(res.data);
       } else {
-        console.error("Payment initiation failed:", res.message);
+        console.error('Payment initiation failed:', res.message);
       }
     } catch (error) {
-      console.error("Payment error:", error);
+      console.error('Payment error:', error);
     }
   };
 
@@ -60,27 +65,46 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 px-2 ">
         <div className="lg:h-full relative aspect-video lg:aspect-auto">
-          <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl  ">
+          <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl">
+            
+            {/* image carousel part */}
             <IdeaCardCarousel idea={idea} />
 
-            <div className="absolute top-2 left-2 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+            <div className="flex justify-around items-center">
+              {/* author name */}
+              <div className="flex items-center gap-1 dark:text-green-400 text-green-700 mt-1">
+                <User className="w-4 h-4" />
+                <span>{idea?.author?.name}</span>
+              </div>
+
+              {/* post date */}
+              <div className="flex items-center gap-1 dark:text-green-400 text-green-700">
+                <CalendarDays className="w-4 h-4" />
+                <span>{new Date(idea?.createdAt)?.toLocaleDateString()}</span>
+              </div>
+            </div>
+
+            {/* comments count */}
+            <div className="absolute top-2 left-1 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
               <MessageCircle className="w-4 h-4 text-green-900" />
               <span className="text-sm font-medium">
                 {idea.comments?.length || 0}
               </span>
             </div>
 
-            {/* Vote Badge */}
-            <div className="absolute top-2 left-36 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+            {/* UP-Vote Badge */}
+            <div className="absolute top-2 left-16 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
               <Heart className="w-4 h-4 text-green-900" />
               <span className="text-sm  font-medium">
-                {idea.votes?.filter((vote) => vote.type === "UP")?.length || 0}
+                {idea.votes?.filter(vote => vote.type === 'UP')?.length || 0}
               </span>
             </div>
-            <div className="absolute top-2 left-20 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
+
+            {/* DOWN-Vote Badge */}
+            <div className="absolute top-2 left-32 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
-                {idea.votes?.filter((vote) => vote.type === "DOWN")?.length || 0}
+                {idea.votes?.filter(vote => vote.type === 'DOWN')?.length || 0}
               </span>
             </div>
 
@@ -110,16 +134,16 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
 
           <CardFooter className="p-0 mt-4">
             <div className="w-full flex flex-col gap-4">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full">
+              <div className="flex md:flex-col justify-around items-center gap-3">
+                <div className="flex items-center gap-2 bg-green-50 px-4 py-1 rounded-full">
                   <Leaf className="w-4 h-4 text-green-600" />
                   <span className="text-sm font-medium text-green-600">
-                    {idea.category?.name}
+                    {idea?.category?.name}
                   </span>
                 </div>
                 <div className="bg-green-100 px-4 py-1 rounded-full">
                   <span className="text-lg font-medium text-green-900">
-                    {idea.isPaid ? <>${idea.price?.toFixed(2)}</> : "Free"}
+                    {idea.isPaid ? <>${idea.price?.toFixed(2)}</> : 'Free'}
                   </span>
                 </div>
               </div>
@@ -131,14 +155,14 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
                   <Link
                     href={`/ideas/${idea.id}`}
                     className="w-full"
-                    onClick={(e) => {
+                    onClick={e => {
                       if (idea.isPaid && user) {
                         const hasValidPayment = idea.payments?.some(
-                          (p) =>
+                          p =>
                             p.ideaId === idea.id &&
                             p.userEmail?.toLowerCase() ===
                               user?.email?.toLowerCase() &&
-                            p.status === "Paid"
+                            p.status === 'Paid'
                         );
 
                         if (!hasValidPayment) {
@@ -159,7 +183,7 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
                       size="lg"
                       className="w-full cursor-pointer bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl py-2"
                     >
-                      {idea.isPaid ? " Premium Solution" : "Detailed Solution"}
+                      {idea.isPaid ? ' Premium Solution' : 'Detailed Solution'}
                       <ArrowRight className="ml-1 w-3 h-3" />
                     </Button>
                   </Link>
@@ -210,7 +234,7 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
                           <div className="flex justify-between items-center">
                             <div>
                               <p className="text-xl font-bold">
-                                ${idea.price}{" "}
+                                ${idea.price}{' '}
                                 <span className="text-sm font-normal">
                                   / lifetime access
                                 </span>

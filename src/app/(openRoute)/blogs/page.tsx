@@ -1,3 +1,4 @@
+import ContributePart from '@/components/Blogs/ContributePart';
 import Link from 'next/link';
 
 const BlogsPage = () => {
@@ -29,7 +30,8 @@ const BlogsPage = () => {
               <div className="p-6">
                 <h3 className="text-lg md:text-xl font-bold mb-2">
                   <Link
-                    href="/blog/zero-waste-communities"
+                    href="/blogs"
+                    // href="/blogs/zero-waste-communities"
                     className="hover:text-blue-500"
                   >
                     How Zero-Waste Communities Are Changing Urban Living
@@ -52,7 +54,11 @@ const BlogsPage = () => {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
               <div className="p-6">
                 <h3 className="text-lg md:text-xl font-bold mb-2">
-                  <Link href="/blog/diy-solar" className="hover:text-blue-500">
+                  <Link
+                    href="/blogs"
+                    // href="/blogs/diy-solar"
+                    className="hover:text-blue-500"
+                  >
                     DIY Solar: Affordable Home Energy Solutions
                   </Link>
                 </h3>
@@ -85,7 +91,8 @@ const BlogsPage = () => {
                 </span>
                 <h3 className="text-lg font-bold mb-2">
                   <Link
-                    href="/blog/composting-101"
+                    href="/blogs"
+                    // href="/blogs/composting-101"
                     className="hover:text-blue-500"
                   >
                     Composting 101: Turning Waste Into Garden Gold
@@ -106,7 +113,8 @@ const BlogsPage = () => {
                 </span>
                 <h3 className="text-lg font-bold mb-2">
                   <Link
-                    href="/blog/bike-commuting"
+                    href="/blogs"
+                    // href="/blogs/bike-commuting"
                     className="hover:text-blue-500"
                   >
                     The Complete Guide to Bike Commuting
@@ -127,7 +135,8 @@ const BlogsPage = () => {
                 </span>
                 <h3 className="text-lg font-bold mb-2">
                   <Link
-                    href="/blog/energy-audit"
+                    href="/blogs"
+                    // href="/blogs/energy-audit"
                     className="hover:text-blue-500"
                   >
                     Home Energy Audit: Finding Your Hidden Savings
@@ -180,21 +189,7 @@ const BlogsPage = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="text-center py-8">
-          <h2 className="text-xl md:text-2xl font-semibold mb-4">
-            Want to contribute to our blog?
-          </h2>
-          <p className="dark:text-white mb-6">
-            We&apos;re always looking for new voices to share sustainable living
-            tips, project case studies, and environmental insights.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
-          >
-            Submit Your Article Idea
-          </Link>
-        </section>
+        <ContributePart />
       </div>
     </div>
   );

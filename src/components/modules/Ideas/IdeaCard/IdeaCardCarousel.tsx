@@ -1,52 +1,42 @@
 'use client';
 
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import Autoplay from 'embla-carousel-autoplay';
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import Image from 'next/image';
-import 'swiper/css';
+import { useRef } from 'react';
 import { Idea } from '@/types/idea';
 
 const IdeaCardCarousel = ({ idea }: { idea: Idea }) => {
-  return (
-    <div className="container mx-auto">
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        // navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
-      >
-        {idea?.images?.map((image, idx) => (
-          <SwiperSlide key={idx}>
-            <Image
-              src={image}
-              width={800}
-              height={300}
-              alt="idea image"
-              className="rounded-sm  lg:w-[280px]  lg:h-60  object-cover"
-            />
-          </SwiperSlide>
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
-          // <SwiperSlide key={idx} className="aspect-[16/9]">
-          //   <Image
-          //     src={image}
-          //     fill
-          //     alt="idea image"
-          //     className="rounded-sm h-48 object-cover"
-          //   />
-          // </SwiperSlide>
-        ))}
-      </Swiper>
+  return (
+    <div className="w-full h-full mx-auto my-12 flex justify-center mb-auto">
+      <Carousel
+        plugins={[plugin.current]}
+        className="w-full max-w-7xl"
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
+      >
+        <CarouselContent>
+          {idea.images.map((img, idx) => (
+            <Image
+              key={idx}
+              src={img}
+              width={2400}
+              height={1000}
+              alt="images"
+            />
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
     </div>
   );
 };
