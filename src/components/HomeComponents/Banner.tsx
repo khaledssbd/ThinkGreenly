@@ -5,8 +5,8 @@ import Autoplay from 'embla-carousel-autoplay';
 import {
   Carousel,
   CarouselContent,
-  CarouselNext,
-  CarouselPrevious,
+  // CarouselNext,
+  // CarouselPrevious,
 } from '@/components/ui/carousel';
 import onepic from '@/assets/greenWorld.jpg';
 import twopic from '@/assets/begreen.jpg';
@@ -22,8 +22,8 @@ export function Banner() {
       <Carousel
         plugins={[plugin.current]}
         className="w-full max-w-7xl"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
+        // onMouseEnter={plugin.current.stop}
+        // onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
           {images.map((img, idx) => (
@@ -36,8 +36,8 @@ export function Banner() {
             />
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        {/* <CarouselPrevious />
+        <CarouselNext /> */}
       </Carousel>
     </div>
   );
