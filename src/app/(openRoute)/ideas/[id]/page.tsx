@@ -1,4 +1,4 @@
-import IdeaDetail from "@/components/modules/Ideas/IdeaDetails/IdeaDetail";
+import IdeaDetail from "@/components/modules/Ideas/IdeaDetails";
 import { getSingleIdeaDetails } from "@/services/Idea";
 
 const BlogDetailsPage = async ({

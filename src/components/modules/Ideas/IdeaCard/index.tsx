@@ -66,7 +66,6 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 px-2 ">
         <div className="lg:h-full relative aspect-video lg:aspect-auto">
           <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl">
-            
             {/* image carousel part */}
             <IdeaCardCarousel idea={idea} />
 

@@ -50,13 +50,13 @@ const Pagination = ({
               router.push(`${pathname}?page=${index + 1}`, { scroll: false });
             }}
             key={index}
-            variant={currentPage === index + 1 ? "default" : "outline"}
+            variant={currentPage === index + 1 ? 'default' : 'outline'}
             size="sm"
             className={`w-10 h-10 rounded-full flex items-center justify-center 
               ${
                 currentPage === index + 1
-                  ? "bg-green-600 hover:bg-green-700 text-white"
-                  : "border-green-200 hover:border-green-300 hover:bg-green-50 text-green-800"
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'border-green-200 hover:border-green-300 hover:bg-green-50 text-green-800'
               } transition-colors font-medium cursor-pointer`}
           >
             {index + 1}

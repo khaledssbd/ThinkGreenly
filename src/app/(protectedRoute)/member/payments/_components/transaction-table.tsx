@@ -50,10 +50,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ITransaction } from "@/types";
-import { toast } from "sonner";
+} from '@/components/ui/dialog';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ITransaction } from '@/types';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 export const columns: ColumnDef<ITransaction>[] = [
   {
@@ -263,36 +264,36 @@ export const columns: ColumnDef<ITransaction>[] = [
     },
   },
   {
-  accessorKey: "gatewayResponse.discount_amount",
-  header: "Discount",
-  cell: ({ row }) => {
-    const discountAmount = Number(
-      row.original.gatewayResponse?.discount_amount
-    );
-    const discountPercentage =
-      row.original.gatewayResponse?.discount_percentage;
-    const currency = row.original.gatewayResponse?.currency;
+    accessorKey: 'gatewayResponse.discount_amount',
+    header: 'Discount',
+    cell: ({ row }) => {
+      const discountAmount = Number(
+        row.original.gatewayResponse?.discount_amount
+      );
+      const discountPercentage =
+        row.original.gatewayResponse?.discount_percentage;
+      const currency = row.original.gatewayResponse?.currency;
 
-    if (!discountAmount || discountAmount <= 0)
-      return <div className="text-center">-</div>;
+      if (!discountAmount || discountAmount <= 0)
+        return <div className="text-center">-</div>;
 
-    // Format the discount amount with the currency
-    const formatted = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency || "USD",
-      minimumFractionDigits: 2,
-    }).format(discountAmount);
+      // Format the discount amount with the currency
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency || 'USD',
+        minimumFractionDigits: 2,
+      }).format(discountAmount);
 
-    return (
-      <div
-        className="text-center"
-        title={row.original.gatewayResponse?.discount_remarks || ""}
-      >
-        {formatted} {discountPercentage ? `(${discountPercentage}%)` : ""}
-      </div>
-    );
+      return (
+        <div
+          className="text-center"
+          title={row.original.gatewayResponse?.discount_remarks || ''}
+        >
+          {formatted} {discountPercentage ? `(${discountPercentage}%)` : ''}
+        </div>
+      );
+    },
   },
-},
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
@@ -307,7 +308,7 @@ export const columns: ColumnDef<ITransaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"));
+      const date = new Date(row.getValue('createdAt'));
       return <div className="text-center">{date.toLocaleDateString()}</div>;
     },
   },
@@ -339,7 +340,7 @@ export const columns: ColumnDef<ITransaction>[] = [
               <DropdownMenuItem
                 onClick={() => {
                   navigator.clipboard.writeText(transaction?.transactionId);
-                  toast.success("Transaction id copied to dashboard");
+                  toast.success('Transaction id copied to dashboard');
                 }}
               >
                 <span className="flex items-center">

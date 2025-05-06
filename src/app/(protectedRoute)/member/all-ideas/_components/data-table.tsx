@@ -365,7 +365,7 @@ export function DataTable({ ideas }: DataTableProps) {
         );
       },
       cell: ({ row }) => {
-        const date = new Date(row.getValue("createdAt"));
+        const date = new Date(row.getValue('createdAt'));
         return <div className="text-center">{date.toLocaleDateString()}</div>;
       },
     },
@@ -383,7 +383,7 @@ export function DataTable({ ideas }: DataTableProps) {
         );
       },
       cell: ({ row }) => {
-        const date = new Date(row.getValue("updatedAt"));
+        const date = new Date(row.getValue('updatedAt'));
         return <div className="text-center">{date.toLocaleDateString()}</div>;
       },
     },
@@ -405,8 +405,9 @@ export function DataTable({ ideas }: DataTableProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => { navigator.clipboard.writeText(project.id);
-                  toast.success("Idea id copied to dashboard")
+                onClick={() => {
+                  navigator.clipboard.writeText(project.id);
+                  toast.success('Idea id copied to dashboard');
                 }}
               >
                 <span className="flex items-center">

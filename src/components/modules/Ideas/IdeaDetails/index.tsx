@@ -39,8 +39,8 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
   const [comments, setComments] = useState<Comment[]>(idea.comments || []);
   const { user } = useUser();
   const handleVote = async (direction: 'UP' | 'DOWN') => {
-    if(!user){
-      return toast.error("Please login to your account!")
+    if (!user) {
+      return toast.error('Please login to your account!');
     }
     const payload = {
       ideaId: idea.id,
@@ -58,8 +58,8 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
     }
   };
   const handleAddComment = async (content: string, parentId?: string) => {
-    if(!user){
-      return toast.error("Please login to your account!")
+    if (!user) {
+      return toast.error('Please login to your account!');
     }
     try {
       const payload = {
@@ -249,7 +249,6 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
               <div className="flex items-center justify-center gap-2">
                 {/* Upvote button */}
                 <button
-                  
                   onClick={() => {
                     const existingVote = idea.votes?.find(
                       p =>
@@ -282,7 +281,6 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
 
                 {/* Downvote button */}
                 <button
-              
                   onClick={() => {
                     const existingVote = idea.votes?.find(
                       p =>
