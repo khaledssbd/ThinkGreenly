@@ -24,6 +24,8 @@ import {
   ShieldCheck,
   FileText,
   Gem,
+  User,
+  CalendarDays,
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -63,24 +65,43 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 px-2 ">
         <div className="lg:h-full relative aspect-video lg:aspect-auto">
-          <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl  ">
+          <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl">
+            
+            {/* image carousel part */}
             <IdeaCardCarousel idea={idea} />
 
-            <div className="absolute top-2 left-2 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+            <div className="flex justify-around items-center">
+              {/* author name */}
+              <div className="flex items-center gap-1 dark:text-green-400 text-green-700 mt-1">
+                <User className="w-4 h-4" />
+                <span>{idea?.author?.name}</span>
+              </div>
+
+              {/* post date */}
+              <div className="flex items-center gap-1 dark:text-green-400 text-green-700">
+                <CalendarDays className="w-4 h-4" />
+                <span>{new Date(idea?.createdAt)?.toLocaleDateString()}</span>
+              </div>
+            </div>
+
+            {/* comments count */}
+            <div className="absolute top-2 left-1 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
               <MessageCircle className="w-4 h-4 text-green-900" />
               <span className="text-sm font-medium">
                 {idea.comments?.length || 0}
               </span>
             </div>
 
-            {/* Vote Badge */}
-            <div className="absolute top-2 left-36 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+            {/* UP-Vote Badge */}
+            <div className="absolute top-2 left-16 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
               <Heart className="w-4 h-4 text-green-900" />
               <span className="text-sm  font-medium">
                 {idea.votes?.filter(vote => vote.type === 'UP')?.length || 0}
               </span>
             </div>
-            <div className="absolute top-2 left-20 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
+
+            {/* DOWN-Vote Badge */}
+            <div className="absolute top-2 left-32 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
               <HeartOff className="w-4 h-4 text-red-600" />
               <span className="text-sm font-medium">
                 {idea.votes?.filter(vote => vote.type === 'DOWN')?.length || 0}
@@ -113,11 +134,11 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
 
           <CardFooter className="p-0 mt-4">
             <div className="w-full flex flex-col gap-4">
-              <div className="flex justify-around items-center">
-                <div className="flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full">
+              <div className="flex md:flex-col justify-around items-center gap-3">
+                <div className="flex items-center gap-2 bg-green-50 px-4 py-1 rounded-full">
                   <Leaf className="w-4 h-4 text-green-600" />
                   <span className="text-sm font-medium text-green-600">
-                    {idea.category?.name}
+                    {idea?.category?.name}
                   </span>
                 </div>
                 <div className="bg-green-100 px-4 py-1 rounded-full">
