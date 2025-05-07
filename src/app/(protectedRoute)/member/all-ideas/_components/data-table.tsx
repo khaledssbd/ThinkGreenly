@@ -276,7 +276,7 @@ export function DataTable({ ideas }: DataTableProps) {
     },
     {
       id: 'category',
-      accessorFn: row => row.category.name,
+      accessorFn: row => row.category?.name,
       header: ({ column }) => {
         return (
           <Button
@@ -289,13 +289,13 @@ export function DataTable({ ideas }: DataTableProps) {
         );
       },
       cell: ({ row }) => {
-        const categoryName = row.original.category.name;
+        const categoryName = row.original.category?.name;
         return <div className="text-center">{categoryName}</div>;
       },
     },
     {
       id: 'author',
-      accessorFn: row => row.author.name,
+      accessorFn: row => row.author?.name,
       header: ({ column }) => {
         return (
           <Button
@@ -308,7 +308,7 @@ export function DataTable({ ideas }: DataTableProps) {
         );
       },
       cell: ({ row }) => {
-        const authorName = row.original.author.name;
+        const authorName = row.original.author?.name;
         return <div>{authorName}</div>;
       },
     },
@@ -406,7 +406,7 @@ export function DataTable({ ideas }: DataTableProps) {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => {
-                  navigator.clipboard.writeText(project.id);
+                  navigator.clipboard.writeText(project?.id);
                   toast.success('Idea id copied to dashboard');
                 }}
               >
