@@ -60,4 +60,7 @@ export const ideaDraftSchema = z.object({
   categoryId: z.string({
     required_error: "Must select a category!",
   }).optional(),
+  id: z.string({
+    required_error: "",
+  }).optional(),
 });
