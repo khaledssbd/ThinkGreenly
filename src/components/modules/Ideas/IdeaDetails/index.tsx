@@ -20,9 +20,23 @@ import Image from 'next/image';
 import { Comment, Idea } from '@/types/idea';
 import { useRef, useState } from 'react';
 import { useUser } from '@/context/UserContext';
-import { createComment, createVote, deleteVote } from '@/services/Idea';
+import {
+  createComment,
+  createVote,
+  deleteComment,
+  deleteVote,
+} from '@/services/Idea';
 import { toast } from 'sonner';
 import { countAllComments } from './commentCount';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface CommentListProps {
   comment: Comment;
@@ -89,30 +103,30 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
     }
   };
 
-  // Recursive helper function
-  const addReplyToComment = (
-    comments: Comment[],
-    parentId: string,
-    newReply: Comment
-  ): Comment[] => {
-    return comments.map(comment => {
-      if (comment.id === parentId) {
-        return {
-          ...comment,
-          replies: [...(comment.replies || []), newReply],
-        };
-      }
+  // // Recursive helper function
+  // const addReplyToComment = (
+  //   comments: Comment[],
+  //   parentId: string,
+  //   newReply: Comment
+  // ): Comment[] => {
+  //   return comments.map(comment => {
+  //     if (comment.id === parentId) {
+  //       return {
+  //         ...comment,
+  //         replies: [...(comment.replies || []), newReply],
+  //       };
+  //     }
 
-      if (comment.replies?.length) {
-        return {
-          ...comment,
-          replies: addReplyToComment(comment.replies, parentId, newReply),
-        };
-      }
+  //     if (comment.replies?.length) {
+  //       return {
+  //         ...comment,
+  //         replies: addReplyToComment(comment.replies, parentId, newReply),
+  //       };
+  //     }
 
-      return comment;
-    });
-  };
+  //     return comment;
+  //   });
+  // };
 
   return (
     <div className="mx-auto lg:px-8 py-8 ">
@@ -353,7 +367,28 @@ export default IdeaDetail;
 
 const CommentList = ({ comment, onReply }: CommentListProps) => {
   const [isReplying, setIsReplying] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
+  const { user } = useUser();
   // const userName = comment.user?.name || 'Anonymous';
+
+  const handleConfirmDelete = async (commentId: string) => {
+    try {
+      const res = await deleteComment(commentId);
+
+      console.log({ res });
+
+      if (res?.success) {
+        toast.success(res?.message);
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (err: any) {
+      console.error(err);
+      toast.error('Failed to delete comment!');
+    }
+  };
+
   return (
     <div className="ml-4 mt-4 border-l-2 border-green-100 pl-4">
       {/* Comment Header */}
@@ -375,8 +410,75 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
 
         {/* Comment Content */}
         <div className="flex-grow">
-          <div className="text-sm font-medium text-gray-900 dark:text-green-400">
+          <div className="text-sm font-medium text-gray-900 dark:text-green-400 w-1/4 flex justify-between">
             {comment?.user?.name || 'Anonymous'}
+
+            {/* Comment Delete Section */}
+            {user && user?.role === 'ADMIN' && (
+              <div className="relative inline-block text-left">
+                {/* Three Dot Button for DELETE*/}
+                <div
+                  className="cursor-pointer p-2 rounded-full hover:bg-gray-100"
+                  onClick={() => setShowOptions(!showOptions)}
+                >
+                  <div className="flex flex-col items-center justify-center space-y-0.5">
+                    <span className="w-[2px] h-[2px] bg-gray-200 rounded-full"></span>
+                    <span className="w-[2px] h-[2px] bg-gray-200 rounded-full"></span>
+                    <span className="w-[2px] h-[2px] bg-gray-200 rounded-full"></span>
+                  </div>
+                </div>
+
+                {/* DELETE Dropdown Option */}
+                {showOptions && (
+                  <div className="absolute right-0 mt-2 w-32 border rounded-lg shadow-lg z-10">
+                    <Button
+                      className="w-full px-4 py-2 text-left rounded-full bg-red-500 text-white hover:bg-red-50 hover:text-red-500"
+                      onClick={() => {
+                        setShowConfirmModal(true);
+                        setShowOptions(false);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )}
+
+                {/* DELETE Confirmation Modal */}
+                {showConfirmModal && (
+                  <Dialog
+                    open={showConfirmModal}
+                    onOpenChange={setShowConfirmModal}
+                  >
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Confirm Deletion</DialogTitle>
+                        <DialogDescription>
+                          Are you sure you want to delete this comment? This
+                          action cannot be undone.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <Button
+                          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                          onClick={() => setShowConfirmModal(false)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                          onClick={() => {
+                            handleConfirmDelete(comment.id);
+                            setShowConfirmModal(false);
+                          }}
+                        >
+                          Confirm
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                )}
+              </div>
+            )}
           </div>
           <div className="text-sm text-gray-600 dark:text-white mt-1">
             {comment?.content}

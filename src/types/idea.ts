@@ -31,11 +31,12 @@ interface Category {
   updatedAt: Date;
 }
 
-interface User {
+export interface User {
   id: string;
   // Include other user fields you need
   name: string;
   email: string;
+  role: 'MEMBER' | 'ADMIN';
   image?: string;
   ideas?: Idea[];
   votes?: Vote[];
