@@ -18,8 +18,8 @@ const IdeaCardCarousel = ({ idea }: { idea: Idea }) => {
   return (
     <div className="w-full h-full mx-auto my-12 flex justify-center mb-auto">
       <Carousel
-        plugins={[plugin.current]}
-        className="w-full max-w-7xl"
+        plugins={[plugin.current]} 
+        className="w-full max-w-7xl "
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >

@@ -133,7 +133,7 @@ const FilterSidebar = () => {
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="w-[400px] "
+          className="w-[80%] sm:w-[400px] overflow-y-auto"
         >
           <SheetHeader>
             <SheetTitle className="text-2xl font-bold text-green-900 dark:text-green-400 border-b-2 border-green-200 pb-4">
