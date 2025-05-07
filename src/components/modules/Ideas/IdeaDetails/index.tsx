@@ -52,6 +52,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   const [comments, setComments] = useState<Comment[]>(idea.comments || []);
   const { user } = useUser();
+
   const handleVote = async (direction: 'UP' | 'DOWN') => {
     if (!user) {
       return toast.error('Please login to your account!');
@@ -62,15 +63,17 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
     };
     const res = await createVote(payload);
     if (res.success) {
-      toast.success('Thanks for your vote');
+      toast.success('Thanks for your vote!');
     }
   };
-  const handleDelete = async (id: string) => {
+
+  const handleDeleteVote = async (id: string) => {
     const res = await deleteVote(id);
     if (res.success) {
-      toast.success('Your vote is removed');
+      toast.success('Your vote is removed!');
     }
   };
+
   const handleAddComment = async (content: string, parentId?: string) => {
     if (!user) {
       return toast.error('Please login to your account!');
@@ -81,23 +84,29 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
         ideaId: idea.id,
         ...(parentId ? { parentId } : {}),
       };
-      const response = await createComment(payload);
 
-      setComments(prev => {
-        if (parentId) {
-          return (
-            prev?.map(comment =>
-              comment?.id === parentId
-                ? {
-                    ...comment,
-                    replies: [...(comment?.replies || []), response.data],
-                  }
-                : comment
-            ) || []
-          );
-        }
-        return [response.data, ...(prev || [])];
-      });
+      const res = await createComment(payload);
+      if (res.success) {
+        toast.success(res?.message);
+
+        setComments(prev => {
+          if (parentId) {
+            return (
+              prev?.map(comment =>
+                comment?.id === parentId
+                  ? {
+                      ...comment,
+                      replies: [...(comment?.replies || []), res.data],
+                    }
+                  : comment
+              ) || []
+            );
+          }
+          return [res.data, ...(prev || [])];
+        });
+      } else {
+        toast.error(res.message);
+      }
     } catch (error) {
       console.error('Failed to post comment:', error);
     }
@@ -273,7 +282,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
 
                     if (existingVote) {
                       // If vote exists, delete it
-                      handleDelete(idea.id);
+                      handleDeleteVote(idea.id);
                     } else {
                       // If no vote exists, create UP vote
                       handleVote('UP');
@@ -305,7 +314,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
 
                     if (existingVote) {
                       // If downvote exists, delete it
-                      handleDelete(idea.id);
+                      handleDeleteVote(idea.id);
                     } else {
                       // If no downvote exists, create DOWN vote
                       handleVote('DOWN');
@@ -372,11 +381,9 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
   const { user } = useUser();
   // const userName = comment.user?.name || 'Anonymous';
 
-  const handleConfirmDelete = async (commentId: string) => {
+  const handleConfirmCommentDelete = async (commentId: string) => {
     try {
       const res = await deleteComment(commentId);
-
-      console.log({ res });
 
       if (res?.success) {
         toast.success(res?.message);
@@ -422,9 +429,9 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
                   onClick={() => setShowOptions(!showOptions)}
                 >
                   <div className="flex flex-col items-center justify-center space-y-0.5">
-                    <span className="w-[2px] h-[2px] bg-gray-200 rounded-full"></span>
-                    <span className="w-[2px] h-[2px] bg-gray-200 rounded-full"></span>
-                    <span className="w-[2px] h-[2px] bg-gray-200 rounded-full"></span>
+                    <span className="w-[2px] h-[2px] bg-black dark:bg-gray-200 rounded-full"></span>
+                    <span className="w-[2px] h-[2px] bg-black dark:bg-gray-200 rounded-full"></span>
+                    <span className="w-[2px] h-[2px] bg-black dark:bg-gray-200 rounded-full"></span>
                   </div>
                 </div>
 
@@ -432,7 +439,7 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
                 {showOptions && (
                   <div className="absolute right-0 mt-2 w-32 border rounded-lg shadow-lg z-10">
                     <Button
-                      className="w-full px-4 py-2 text-left rounded-full bg-red-500 text-white hover:bg-red-50 hover:text-red-500"
+                      className="w-full px-4 py-2 text-left rounded-lg bg-red-500 text-white hover:bg-red-50 hover:text-red-500"
                       onClick={() => {
                         setShowConfirmModal(true);
                         setShowOptions(false);
@@ -459,15 +466,15 @@ const CommentList = ({ comment, onReply }: CommentListProps) => {
                       </DialogHeader>
                       <DialogFooter>
                         <Button
-                          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                          className="px-4 py-2 bg-black text-white hover:bg-gray-400 hover:text-black dark:bg-gray-400 dark:text-black dark:hover:bg-gray-600 dark:hover:text-gray-200 rounded-lg"
                           onClick={() => setShowConfirmModal(false)}
                         >
                           Cancel
                         </Button>
                         <Button
-                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-400 hover:text-black"
                           onClick={() => {
-                            handleConfirmDelete(comment.id);
+                            handleConfirmCommentDelete(comment.id);
                             setShowConfirmModal(false);
                           }}
                         >
