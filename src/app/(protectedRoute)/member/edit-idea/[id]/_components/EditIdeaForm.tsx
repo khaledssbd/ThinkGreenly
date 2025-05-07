@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { category, TIdea } from '@/types';
-import { zodResolver } from '@hookform/resolvers/zod';
+// import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -20,7 +20,10 @@ import { useRouter } from 'next/navigation';
 import TGImageUploader from '@/components/ui/TGImageUploader';
 import ImagePreviewer from '@/components/ui/TGImageUploader/ImagePreviewer';
 import { createAnIdea, draftAnIdea } from '../_action';
-import { ideaDraftSchema } from '../../../create-idea/_components/IdeaValidation';
+import {
+  ideaCreationSchema,
+  ideaDraftSchema,
+} from '../../../create-idea/_components/IdeaValidation';
 
 const EditIdeaForm = ({
   categories,
@@ -42,7 +45,7 @@ const EditIdeaForm = ({
   }, [idea]);
 
   const form = useForm({
-    resolver: zodResolver(ideaDraftSchema),
+    // resolver: zodResolver(ideaDraftSchema),
     defaultValues: {
       title: idea?.title || '',
       problemStatement: idea?.problemStatement || '',
@@ -51,7 +54,6 @@ const EditIdeaForm = ({
       categoryId: idea?.categoryId || '',
       price: idea?.price || 0,
       id: idea?.id || '',
-    
     },
   });
 
@@ -60,74 +62,61 @@ const EditIdeaForm = ({
   } = form;
 
   const handleIdeaSubmit: SubmitHandler<FieldValues> = async data => {
-    console.log('data edit data', data);
-    if (isDrafting) {
-      if (!data.title || data.title.trim()?.length < 10) {
-        toast.error('Title must be at least 10 characters for a draft.');
-        return;
-      }
+    const activeSchema = isDrafting ? ideaDraftSchema : ideaCreationSchema;
+    const validation = activeSchema.safeParse(data);
 
-      const formData = new FormData();
-      formData.append('data', JSON.stringify(data));
+    if (!validation.success) {
+      const errors = validation.error.format();
+      const firstField = Object.keys(errors)[0];
+      const errorMessage =
+        (typeof errors[firstField as keyof typeof errors] === 'object' &&
+          '_errors' in (errors[firstField as keyof typeof errors] ?? {}) &&
+          ((errors[firstField as keyof typeof errors] as { _errors: string[] })
+            ._errors?.[0] ??
+            'Validation error')) ||
+        'Validation error';
 
-      if (imagePreview?.length > 0 && imagePreview[0].startsWith('http')) {
-        formData.append('images', JSON.stringify(imagePreview));
-      } else {
-        for (const file of imageFiles) {
-          formData.append('images', file);
-        }
-      }
-
-      try {
-        const res = await draftAnIdea(formData);
-        if (res?.success) {
-          toast.success('Idea added to draft successfully!');
-          router.push(`/ideas/${res?.data?.id}`); // or to draft page
-        } else {
-          toast.error(res?.message);
-        }
-      } catch (err: any) {
-        console.error(err);
-        toast.error('Failed to draft idea.');
-      }
+      toast.error(errorMessage);
       return;
     }
 
-    // Publish Idea Mode
-    if (
-      !data.title ||
-      !data.problemStatement ||
-      !data.solution ||
-      !data.description ||
-      !data.categoryId ||
-      imagePreview?.length < 1
-    ) {
-      toast.error('All fields and at least one image are required to publish');
+    if (!isDrafting && imagePreview.length < 1) {
+      toast.error('At least one image is required to publish');
       return;
     }
 
     const formData = new FormData();
-    formData.append('data', JSON.stringify(data));
 
-    if (imagePreview?.length > 0 && imagePreview[0].startsWith('http')) {
-      formData.append('images', JSON.stringify(imagePreview));
-    } else {
-      for (const file of imageFiles) {
-        formData.append('images', file);
-      }
+    const updatedData = {
+      ...data,
+      images: imagePreview.filter(url => url.startsWith('http')), // old images
+    };
+
+    console.log({ updatedData });
+
+    formData.append('data', JSON.stringify(updatedData));
+
+    // only new upload images are here
+    for (const file of imageFiles) {
+      formData.append('images', file);
     }
 
     try {
-      const res = await createAnIdea(formData);
+      const res = isDrafting
+        ? await draftAnIdea(formData)
+        : await createAnIdea(formData);
+
       if (res?.success) {
         toast.success(res?.message);
         router.push(`/ideas/${res?.data?.id}`);
       } else {
-        toast.error(res?.message);
+        toast.error(res?.message || 'Action failed.');
       }
     } catch (err: any) {
       console.error(err);
-      toast.error('Failed to publish idea.');
+      toast.error(
+        isDrafting ? 'Failed to draft idea.' : 'Failed to publish idea.'
+      );
     }
   };
 
@@ -307,7 +296,7 @@ const EditIdeaForm = ({
               <Button
                 type="submit"
                 onClick={() => setIsDrafting(false)}
-                disabled={isSubmitting || imageFiles.length < 0}
+                disabled={isSubmitting || imagePreview.length < 1}
               >
                 {isSubmitting && !isDrafting ? 'Publishing...' : 'Publish Idea'}
               </Button>
