@@ -50,6 +50,8 @@ const EditIdeaForm = ({
       description: idea?.description || '',
       categoryId: idea?.categoryId || '',
       price: idea?.price || 0,
+      id: idea?.id || '',
+    
     },
   });
 
@@ -58,6 +60,7 @@ const EditIdeaForm = ({
   } = form;
 
   const handleIdeaSubmit: SubmitHandler<FieldValues> = async data => {
+    console.log('data edit data', data);
     if (isDrafting) {
       if (!data.title || data.title.trim()?.length < 10) {
         toast.error('Title must be at least 10 characters for a draft.');
