@@ -32,25 +32,25 @@ const Footer = () => {
           </div>
           <div className="flex gap-4 mt-3">
             <Link
-              href="#"
+              href="https://www.facebook.com/mdkhaledsshuvo"
               className="text-[#1877F2] hover:scale-110 transition"
             >
               <Facebook />
             </Link>
             <Link
-              href="#"
+              href="https://x.com/mdkhaledsshuvo"
               className="text-[#1DA1F2] hover:scale-110 transition"
             >
               <Twitter />
             </Link>
             <Link
-              href="#"
+              href="https://www.instagram.com/mdkhaledsshuvo"
               className="text-[#E1306C] hover:scale-110 transition"
             >
               <Instagram />
             </Link>
             <Link
-              href="#"
+              href="https://www.linkedin.com/in/mdkhaledsshuvo"
               className="text-[#0077B5] hover:scale-110 transition"
             >
               <Linkedin />
@@ -114,7 +114,9 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className=" border-t text-sm   text-gray-600 dark:text-gray-400 py-6 mt-5">
-        <p className='grid place-items-center'>© {new Date().getFullYear()} ThinkGreenly. All rights reserved.</p>
+        <p className="grid place-items-center">
+          © {new Date().getFullYear()} ThinkGreenly. All rights reserved.
+        </p>
         {/* <div className="flex gap-4">
           <Link href="/terms" className="hover:underline">
             Terms
