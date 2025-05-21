@@ -10,7 +10,7 @@ import OurSkillsSection from '@/components/HomeComponents/OurSkillsSection';
 
 const HomePage = async () => {
   return (
-    <div>
+    <div className='w-full'>
       <Banner />
 
       <IdeaHome />

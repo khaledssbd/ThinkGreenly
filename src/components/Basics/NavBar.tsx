@@ -118,7 +118,7 @@ const NavBar = () => {
                 href="/"
                 className="hidden md:flex text-2xl font-black items-center"
               >
-                <div className="relative flex items-center h-12 ml-5 w-fit">
+                <div className="relative flex items-center h-12  w-fit">
                   <p className="text-black dark:text-white text-lg font-medium z-10">
                     ThinkGreenly
                   </p>
