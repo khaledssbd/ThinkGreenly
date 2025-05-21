@@ -7,7 +7,7 @@ const AllIdeas = ({ ideas }: { ideas: Idea[] }) => {
     <div className="flex flex-col gap-3 my-10">
       <FilterSidebar />
 
-      <div className="mx-4 lg:mx-10">
+      <div className="mx-4 lg:my-10 md:mx-0">
         {ideas?.length === 0 ? (
           <h3 className="text-xl font-bold text-center">No Idea found</h3>
         ) : (

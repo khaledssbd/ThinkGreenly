@@ -66,7 +66,7 @@ const FilterSidebar = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-5 items-center px-10 my-10">
+    <div className="flex flex-col sm:flex-row gap-5 items-center justify-center px-10 my-10">
       <div className="relative w-full sm:max-w-xl">
         <input
           className="w-full border-2 p-3 pl-12 rounded-lg

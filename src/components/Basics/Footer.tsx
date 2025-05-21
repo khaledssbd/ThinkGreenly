@@ -7,8 +7,8 @@ import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="px-5 py-12 bg-gray-100 dark:bg-gray-900 border-t">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24 justify-between">
+    <footer className="px-5 pt-12 bg-gray-100 dark:bg-gray-900 border-t">
+      <div className="container px-5 md:px-10 mx-auto flex flex-col md:flex-row gap-12 md:gap-24 justify-between">
         {/* Logo & Contact Info */}
         <div className="flex-1 space-y-4">
           <Link href="/" className="w-fit">
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Navigation and Legal */}
-        <div className="flex-1 grid grid-cols-2 gap-10">
+        <div className="flex-1 grid grid-cols-2  gap-10">
           <div>
             <h3 className="mb-4 font-semibold text-gray-800 dark:text-gray-100">
               Navigation
@@ -113,16 +113,16 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-12 pt-6 border-t text-sm text-center md:text-left text-gray-600 dark:text-gray-400 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p>© {new Date().getFullYear()} ThinkGreenly. All rights reserved.</p>
-        <div className="flex gap-4">
+      <div className=" border-t text-sm   text-gray-600 dark:text-gray-400 py-6 mt-5">
+        <p className='grid place-items-center'>© {new Date().getFullYear()} ThinkGreenly. All rights reserved.</p>
+        {/* <div className="flex gap-4">
           <Link href="/terms" className="hover:underline">
             Terms
           </Link>
           <Link href="/privacy-policy" className="hover:underline">
             Privacy
           </Link>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
