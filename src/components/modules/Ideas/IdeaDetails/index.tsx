@@ -138,7 +138,7 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
   // };
 
   return (
-    <div className="mx-auto lg:px-8 py-8 ">
+    <div className="mx-auto lg:py-8 py-8 ">
       <div className="rounded-3xl shadow-xl overflow-hidden">
         <div className="relative h-96 bg-gray-100">
           <Carousel
@@ -197,14 +197,14 @@ const IdeaDetail = ({ idea }: { idea: Idea }) => {
         </div>
 
         {/* Content Section */}
-        <div className=" p-2 md:p-8 lg:p-12 grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="space-y-4">
+            <div className="py-5 md:pt-5 md:py-0 text-center lg:text-left">
               <h1 className="text-4xl font-bold text-gray-900 dark:text-green-200">
                 {idea.title}
               </h1>
             </div>
+        <div className=" p-2 py-2 md:p-0 md:py-8 lg:py-12 grid lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
 
             {/* Content Sections */}
             <div className="space-y-8">

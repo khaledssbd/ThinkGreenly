@@ -66,7 +66,7 @@ const FilterSidebar = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-5 items-center px-10 my-10">
+    <div className="flex flex-col sm:flex-row gap-5 items-center justify-center px-10 my-10">
       <div className="relative w-full sm:max-w-xl">
         <input
           className="w-full border-2 p-3 pl-12 rounded-lg
@@ -105,7 +105,7 @@ const FilterSidebar = () => {
             className="px-8 py-6 bg-white hover:bg-green-50 
             border-2 border-green-200 hover:border-green-300 
             text-green-700 hover:text-green-900 font-semibold
-            flex items-center gap-2"
+            flex items-center gap-2 cursor-pointer"
           >
             <svg
               className="h-5 w-5"

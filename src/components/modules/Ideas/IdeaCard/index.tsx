@@ -58,50 +58,38 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
   };
 
   return (
-    <Card className="bg-white dark:bg-transparent rounded-3xl border-2 border-green-100 shadow-lg hover:shadow-xl transition-shadow relative">
+    <Card className="bg-white dark:bg-transparent rounded-3xl border-2 border-green-100   relative">
       <div className="absolute -top-3 z-10 -right-1">
         <Leaf className="w-10 h-10 text-green-500" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 px-2 ">
-        <div className="lg:h-full relative aspect-video lg:aspect-auto">
+      <div className="grid grid-cols-1  gap-2 px-3.5 ">
+        <div className="h-full relative  ">
           <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl">
             {/* image carousel part */}
             <IdeaCardCarousel idea={idea} />
 
-            <div className="flex justify-around items-center">
-              {/* author name */}
-              <div className="flex items-center gap-1 dark:text-green-400 text-green-700 mt-1">
-                <User className="w-4 h-4" />
-                <span>{idea?.author?.name}</span>
-              </div>
-
-              {/* post date */}
-              <div className="flex items-center gap-1 dark:text-green-400 text-green-700">
-                <CalendarDays className="w-4 h-4" />
-                <span>{new Date(idea?.createdAt)?.toLocaleDateString()}</span>
-              </div>
-            </div>
+            
 
             {/* comments count */}
-            <div className="absolute top-2 left-1 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
-              <MessageCircle className="w-4 h-4 text-green-900" />
+            <div className="absolute dark:text-white top-2 left-1 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+              <MessageCircle className="w-4 h-4 text-green-900 dark:text-white" />
               <span className="text-sm font-medium">
                 {idea.comments?.length || 0}
               </span>
             </div>
 
             {/* UP-Vote Badge */}
-            <div className="absolute top-2 left-16 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
-              <Heart className="w-4 h-4 text-green-900" />
+            <div className="absolute dark:text-white top-2 left-16 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
+              <Heart className="w-4 h-4 text-green-900 dark:text-white" />
               <span className="text-sm  font-medium">
                 {idea.votes?.filter(vote => vote.type === 'UP')?.length || 0}
               </span>
             </div>
 
             {/* DOWN-Vote Badge */}
-            <div className="absolute top-2 left-32 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
-              <HeartOff className="w-4 h-4 text-red-600" />
+            <div className="absolute dark:text-white top-2 left-32 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50  transition-colors">
+              <HeartOff className="w-4 h-4 text-red-600 dark:text-red-800" />
               <span className="text-sm font-medium">
                 {idea.votes?.filter(vote => vote.type === 'DOWN')?.length || 0}
               </span>
@@ -116,32 +104,32 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
           </CardHeader>
         </div>
 
-        <div className="flex flex-col justify-between lg:h-full lg:pl-4">
+        <div className="flex flex-col justify-between lg:h-full ">
           <CardContent className="p-0 space-y-4">
             <CardTitle className="space-y-2">
-              <h1 className="text-xl font-bold text-green-900 dark:text-green-100 leading-tight">
+              <h1 className="text-lg font-medium line-clamp-1 text-green-900 dark:text-green-100 leading-tight">
                 {idea.title}
               </h1>
             </CardTitle>
 
-            <div className="relative">
+            {/* <div className="relative">
               <p className="text-gray-600 text-sm dark:text-green-100 line-clamp-3">
                 {idea.description}
               </p>
-            </div>
+            </div> */}
           </CardContent>
 
           <CardFooter className="p-0 mt-4">
             <div className="w-full flex flex-col gap-4">
-              <div className="flex md:flex-col justify-around items-center gap-3">
-                <div className="flex items-center gap-2 bg-green-50 px-4 py-1 rounded-full">
+              <div className="flex  justify-between items-center  gap-3">
+                <div className="flex  items-center gap-2 bg-green-50 px-4 py-1 rounded-full">
                   <Leaf className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-green-600">
+                  <span className="text-md font-medium text-green-600">
                     {idea?.category?.name}
                   </span>
                 </div>
-                <div className="bg-green-100 px-4 py-1 rounded-full">
-                  <span className="text-lg font-medium text-green-900">
+                <div className="bg-green-100 px-4 py-1 rounded-full ">
+                  <span className="text-md font-bold text-green-900">
                     {idea.isPaid ? <>${idea.price?.toFixed(2)}</> : 'Free'}
                   </span>
                 </div>
