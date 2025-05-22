@@ -16,9 +16,9 @@ const IdeaHome = async () => {
           between.
         </p>
       </section>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-5 gap-10">
-        {ideas?.slice(0,6).map((idea: any, idx: number) => (
-          <IdeaHomeCards key={idx} idea={idea}></IdeaHomeCards>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-5 gap-10">
+        {ideas?.slice(0,8).map((idea: any, idx: number) => (
+          <IdeaHomeCards key={idx} idea={idea} idx={idx}></IdeaHomeCards>
         ))}
       </div>
     </div>

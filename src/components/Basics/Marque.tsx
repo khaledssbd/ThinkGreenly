@@ -17,7 +17,7 @@ const Marque = () => {
   }, []);
 
   return (
-    <div className="text-white w-[80%] md:w-[50%] mx-auto mt-3 font-medium text-sm">
+    <div className="container  text-white w-full mx-auto mt-3 font-medium text-sm">
       {ideas.length > 0 ? (
         <Marquee speed={30} pauseOnHover={true} autoFill={true}>
           {ideas?.slice(0,2).map((idea: Idea) => (
