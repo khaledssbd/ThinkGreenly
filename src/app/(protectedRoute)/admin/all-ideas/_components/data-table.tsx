@@ -65,7 +65,7 @@ export function DataTable({ data }: DataTableProps) {
 
   const [selectedIdeaId, setSelectedIdeaId] = useState<string | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [selectedIdea, setSelectedIdea] = useState<TIdea | null>(null);
+  // const [selectedIdea, setSelectedIdea] = useState<TIdea | null>(null);
   const router = useRouter();
 
   const handleDeleteClick = (ideaId: string) => {
@@ -78,7 +78,7 @@ export function DataTable({ data }: DataTableProps) {
       await deleteIdea(selectedIdeaId);
       toast.success('Idea deleted successfully');
       setOpenDeleteModal(false);
-      setSelectedIdea(null);
+      // setSelectedIdea(null);
       router.refresh();
     } catch (err: any) {
       toast.error(err.message || 'Failed to delete idea');

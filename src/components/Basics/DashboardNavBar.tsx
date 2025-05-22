@@ -32,7 +32,7 @@ import NavbarLoadingSkeleton from './UserNavSkeleton';
 import { LogOut, Menu, X } from 'lucide-react';
 import { InteractiveHoverButton } from '../button/hover-button';
 
-const NavBar = () => {
+const DashboardNavBar = () => {
   const router = useRouter();
   const { user, setUser, isLoading } = useUser();
   const pathname = usePathname();
@@ -56,7 +56,7 @@ const NavBar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pb-3">
+    <header className="sticky top-0 z-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:pb-3 pb-0">
       <div className="container mx-auto h-16 px-5 md:px-10">
         <div className="relative h-16 md:h-20">
           {/* <!-- Menu & Small Device for Small Device--> */}
@@ -206,4 +206,4 @@ const NavBar = () => {
     </header>
   );
 };
-export default NavBar;
+export default DashboardNavBar;

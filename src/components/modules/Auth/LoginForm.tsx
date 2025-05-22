@@ -39,10 +39,12 @@ const LoginForm = ({ redirectPath }: { redirectPath: string | undefined }) => {
         toast.success(res?.message);
         router.push(redirectPath || "/");
       } else {
-        toast.error(res?.message);
+        
+         toast.error( 'Invalid email or password');
       }
     } catch (err: any) {
       console.error(err);
+       toast.error('Something went wrong. Please try again.');
     }
   };
 
