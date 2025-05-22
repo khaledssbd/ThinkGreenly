@@ -1,20 +1,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import Image from 'next/image';
-import { CalendarDays, Tag, User } from 'lucide-react';
+import {  Tag } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
-const IdeaHomeCards = ({ idea }: { idea: any }) => {
+const IdeaHomeCards = ({ idea ,idx}: { idea: any,idx:number }) => {
   return (
-    <Link href="/ideas">
-      <Card className="max-w-md dark:bg-gradient-to-br dark:from-black dark:to-[#0a2910] dark:text-white text-black border border-green-700 shadow-xl rounded-2xl hover:scale-[1.02] transition-transform py-2">
+    <Link href="/ideas" className={cn(`${idx > 3 && 'hidden lg:block' }  `)}>
+      <Card className="max-w-md dark:bg-gradient-to-br dark:from-black dark:to-[#0a2910] dark:text-white text-black border border-green-700 shadow-xl rounded-2xl hover:scale-[1.02] transition-transform py-5">
+       <div className=' rounded-2xl overflow-hidden px-5 '>
         <Image
           src={idea?.images?.[0]}
           alt={idea?.title}
           width={600}
           height={600}
-          className="object-cover h-[300px] px-5 rounded-2xl"
+          className="object-cover h-[200] md:h-[220px]  rounded-2xl"
         />
+        </div>
         <CardHeader>
           <CardTitle className="dark:text-green-300 text-green-700 font-bold text-3xl line-clamp-2">
             {idea?.title}

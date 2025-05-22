@@ -100,7 +100,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleIdeaSubmit)}
-            className="space-y-4 w-full md:w-2/3 text-center"
+            className="space-y-4 w-full  text-center"
           >
             <FormField
               control={form.control}

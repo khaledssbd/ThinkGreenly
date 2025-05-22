@@ -7,12 +7,12 @@ import { Progress } from '../ui/progress';
 
 const OurSkillsSection = () => {
   return (
-    <div className="bg-[#F6F6EE] rounded-2xl dark:bg-black flex flex-col md:flex-row-reverse justify-around items-center my-26 px-8 lg:px-0 gap-5">
-      <div className="mt-20 space-y-4">
+    <div className="bg-[#F6F6EE] py-16 rounded-2xl dark:bg-black flex flex-col-reverse md:flex-row-reverse justify-around items-center my-26 px-2 md:px-10 gap-5">
+      <div className="space-y-4 ">
         <p className="dark:text-green-300 font-bold text-black flex gap-2">
           Our SKills <Leaf />
         </p>
-        <div className="text-5xl dark:text-green-600 text-black font-bold">
+        <div className="text-3xl dark:text-green-600 text-black font-bold">
           Getting A Greener Future <br />
           Safe Environment
         </div>
@@ -31,8 +31,10 @@ const OurSkillsSection = () => {
           <Progress value={88} />
         </div>
       </div>
-      <div>
-        <Image src={skill} height={500} width={500} alt="skill" />
+      <div className=' '>
+      <div className='max-w-[400px] '>
+        <Image src={skill} height={500} width={500} alt="skill" className='w-full h-full'/>
+      </div>
       </div>
     </div>
   );

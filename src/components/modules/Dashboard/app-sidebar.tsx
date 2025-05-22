@@ -18,15 +18,15 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
+
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
 import Link from 'next/link';
 import { useUser } from '@/context/UserContext';
-// import { Icon, Logo } from '@/assets/Logo';
-import Image from 'next/image';
+
+
 
 export function AppSidebar({
   ...props
