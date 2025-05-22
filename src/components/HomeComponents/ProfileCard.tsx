@@ -102,7 +102,7 @@ const ProfileCard = () => {
     <div className="container mx-auto min-h-screen py-10  text-foreground">
       <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Profile Section */}
-        <Card className="p-6 rounded-2xl shadow-lg border border-muted">
+        <Card className="p-6 rounded-2xl dark:bg-transparent shadow-lg border border-muted">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">👤 Profile</h2>
             {!editingProfile && (
@@ -110,7 +110,7 @@ const ProfileCard = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => setEditingProfile(true)}
-                className="hover:cursor-pointer"
+                className="hover:cursor-pointer border"
               >
                 <Pencil className="w-5 h-5 text-muted-foreground" />
               </Button>
@@ -164,7 +164,7 @@ const ProfileCard = () => {
         </Card>
 
         {/* Password Update Section */}
-        <Card className="p-6 rounded-2xl shadow-lg border border-muted">
+        <Card className="p-6 rounded-2xl dark:bg-transparent shadow-lg border border-muted">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">🔒 Update Password</h2>
             {!editingPassword && (
