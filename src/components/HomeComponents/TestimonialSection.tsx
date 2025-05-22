@@ -22,7 +22,7 @@ const TestimonialSection = async () => {
       <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         💬 3 Most Choosen Ideas
       </h2>
-      <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto mb-10">
+      <p className="text-gray-600 dark:text-gray-300 mx-auto mb-10">
         Real voices from changemakers who are building a more sustainable future
         with us.
       </p>
@@ -31,7 +31,7 @@ const TestimonialSection = async () => {
         {testimonials?.slice(0, 3).map((idea: any, idx: number) => (
           <Card
             key={idx}
-            className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-lg transition hover:shadow-xl"
+            className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-2xl shadow-lg transition hover:shadow-xl py-3 md:py-5"
           >
             <CardContent className="space-y-8">
               <div>
@@ -39,7 +39,7 @@ const TestimonialSection = async () => {
                 <h3 className="text-xl font-semibold mt-4 mb-6">
                   {idea.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p>
                   {idea.description?.slice(0, 85)}...
                 </p>
               </div>
@@ -82,9 +82,9 @@ const TestimonialSection = async () => {
                     <CardTitle className="text-lg">
                       {idea.author?.name}
                     </CardTitle>
-                    <p className="text-sm text-muted-foreground">
+                    {/* <p className="text-sm text-muted-foreground">
                       ...@{idea.author?.email.split('@')[1]}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </CardFooter>
