@@ -1,0 +1,38 @@
+.banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/greenWorld.jpg') center/cover no-repeat;
+  filter: blur(4px);
+  z-index: 0;
+}
+
+.banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(21, 11, 43, 0.8) 0%,
+    rgba(21, 11, 43, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.banner > * {
+  position: relative;
+  z-index: 2;
+}
+
+.banner {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 70vh;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 50vh;
+  }
+}
