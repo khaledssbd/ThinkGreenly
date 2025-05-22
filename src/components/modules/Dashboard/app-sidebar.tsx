@@ -103,29 +103,29 @@ export function AppSidebar({
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader >
+      <SidebarHeader className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            {/* <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                {/* <div className="grid flex-1 text-left text-sm leading-tight">
+                <div className="grid flex-1 text-left text-sm leading-tight">
                   {collapsed ? <Icon /> : <Logo />}
-                </div> */}
+                </div>
                 <div className="w-full">
-                  {/* <p className="text-black dark:text-white text-lg font-medium z-10">
+                  <p className="text-black dark:text-white text-lg font-medium z-10">
                     ThinkGreenly
-                  </p> */}
+                  </p>
                   <Image src={logo} alt="logo" className="h-12 w-12" />
                 </div>
               </Link>
-            </SidebarMenuButton>
+            </SidebarMenuButton> */}
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <NavUser />
       </SidebarFooter>
     </Sidebar>
