@@ -1,5 +1,6 @@
-import DashboardNavBar from "@/components/Basics/DashboardNavBar";
-import React from "react";
+
+import { ModeToggle } from "@/components/ModeToggle";
+
 import { AppSidebar } from "@/components/modules/Dashboard/app-sidebar";
 import {
   SidebarInset,
@@ -19,13 +20,16 @@ export default function DashboardLayout({
         <header className="flex h-16 shrink-0 overflow-hidden sticky top-0 z-50  bg-white dark:bg-gray-950  text-gray-900 dark:text-gray-100 shadow-md shadow-gray-200 dark:shadow-black items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4 w-full">
             <SidebarTrigger className="-ml-1" />
-            <div className="w-full flex items-center justify-between">
+            {/* <div className="w-full flex items-center justify-between">
               <DashboardNavBar />
+            </div> */}
+            <div className="w-full flex justify-end">
+
+            <ModeToggle />
             </div>
-            {/* <ModeToggle /> */}
           </div>
         </header>
-        <div className="p-4 pt-0 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="p-4 pt-0 min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           {children}
         </div>
       </SidebarInset>
