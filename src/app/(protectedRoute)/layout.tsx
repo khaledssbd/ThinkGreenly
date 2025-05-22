@@ -1,4 +1,4 @@
-import NavBar from "@/components/Basics/NavBar";
+import DashboardNavBar from "@/components/Basics/DashboardNavBar";
 
 import { AppSidebar } from "@/components/modules/Dashboard/app-sidebar";
 import {
@@ -20,7 +20,7 @@ export default function DashboardLayout({
           <div className="flex items-center gap-2 px-4 w-full">
             <SidebarTrigger className="-ml-1" />
             <div className="w-full flex items-center justify-between">
-              <NavBar />
+              <DashboardNavBar />
             </div>
             {/* <ModeToggle /> */}
           </div>
