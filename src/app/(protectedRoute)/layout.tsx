@@ -1,4 +1,4 @@
-import DashboardNavBar from "@/components/Basics/DashboardNavBar";
+
 import { ModeToggle } from "@/components/ModeToggle";
 
 import { AppSidebar } from "@/components/modules/Dashboard/app-sidebar";
