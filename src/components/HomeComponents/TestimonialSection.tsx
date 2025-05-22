@@ -20,7 +20,7 @@ const TestimonialSection = async () => {
   return (
     <section className="py-16 px-4 text-center mt-8">
       <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        💬 3 Most Choosen Ideas
+        💬 3 Most Chose Ideas
       </h2>
       <p className="text-gray-600 dark:text-gray-300 mx-auto mb-10">
         Real voices from changemakers who are building a more sustainable future
