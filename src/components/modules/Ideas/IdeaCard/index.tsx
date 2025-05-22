@@ -24,8 +24,7 @@ import {
   ShieldCheck,
   FileText,
   Gem,
-  User,
-  CalendarDays,
+ 
 } from 'lucide-react';
 import { useState } from 'react';
 import {
