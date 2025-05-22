@@ -67,37 +67,6 @@ const FilterSidebar = () => {
 
   return (
     <div className="flex flex-col sm:flex-row gap-5 items-center justify-center px-10 my-10">
-      <div className="relative w-full sm:max-w-xl">
-        <input
-          className="w-full border-2 p-3 pl-12 rounded-lg
-        border-gray-200 hover:border-green-300 focus:border-green-500 
-        focus:ring-1 focus:ring-green-200 dark:border-gray-700
-        dark:focus:ring-green-600/50 dark:bg-gray-900
-        text-lg font-medium transition-colors"
-          type="text"
-          onChange={e => {
-            // const searchValue = encodeURIComponent(e.target.value);
-            router.push(`${pathname}`);
-            handleSearchQuery('searchTerm', e.target.value);
-            setSearchText(e.target.value);
-          }}
-          value={searchText}
-          placeholder="Search innovative ideas..."
-        />
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      </div>
       <Sheet>
         <SheetTrigger asChild>
           <Button
@@ -132,7 +101,7 @@ const FilterSidebar = () => {
           </Button>
         </SheetTrigger>
         <SheetContent
-          side="right"
+          side="left"
           className="w-[80%] sm:w-[400px] overflow-y-auto"
         >
           <SheetHeader>
@@ -162,7 +131,9 @@ const FilterSidebar = () => {
                 {/* Price Filter Section */}
                 <div className="p-6 bg-white dark:bg-transparent rounded-xl shadow-sm hover:shadow-md transition-shadow border border-green-100">
                   <div className="flex items-center gap-2 mb-5">
-                    <div className="bg-green-100 dark:bg-transparent p-2 rounded-lg">💰</div>
+                    <div className="bg-green-100 dark:bg-transparent p-2 rounded-lg">
+                      💰
+                    </div>
                     <h3 className="text-lg font-bold text-green-900 dark:text-green-400">
                       Price Range
                     </h3>
@@ -180,7 +151,9 @@ const FilterSidebar = () => {
                   />
 
                   <div className="mt-4 flex justify-between items-center">
-                    <span className="text-sm text-green-600 dark:text-green-400">Current max:</span>
+                    <span className="text-sm text-green-600 dark:text-green-400">
+                      Current max:
+                    </span>
                     <div className="px-3 py-1 bg-green-100 dark:bg-transparent rounded-full">
                       <span className="font-bold text-green-800 dark:text-green-400">
                         ${price[0]}
@@ -192,7 +165,9 @@ const FilterSidebar = () => {
                 {/* Pricing Type Section */}
                 <div className="p-6 bg-white rounded-xl dark:bg-transparent shadow-sm hover:shadow-md transition-shadow border border-green-100">
                   <div className="flex items-center gap-2 mb-5">
-                    <div className="bg-green-100 p-2 dark:bg-transparent rounded-lg">🏷️</div>
+                    <div className="bg-green-100 p-2 dark:bg-transparent rounded-lg">
+                      🏷️
+                    </div>
                     <h3 className="text-lg font-bold text-green-900 dark:text-green-400">
                       Pricing Type
                     </h3>
@@ -281,6 +256,38 @@ const FilterSidebar = () => {
           </SheetHeader>
         </SheetContent>
       </Sheet>
+      <div className="relative w-full sm:max-w-xl">
+        <input
+          className="w-full border-2 p-3 pl-12 rounded-lg
+        border-gray-200 hover:border-green-300 focus:border-green-500 
+        focus:ring-1 focus:ring-green-200 dark:border-gray-700
+        dark:focus:ring-green-600/50 dark:bg-gray-900
+        text-lg font-medium transition-colors"
+          type="text"
+          onChange={e => {
+            // const searchValue = encodeURIComponent(e.target.value);
+            router.push(`${pathname}`);
+            handleSearchQuery('searchTerm', e.target.value);
+            setSearchText(e.target.value);
+          }}
+          value={searchText}
+          placeholder="Search innovative ideas..."
+        />
+        <svg
+          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+
       {/* Clear Filters */}
       <div>
         {searchParams.toString()?.length > 0 && (
