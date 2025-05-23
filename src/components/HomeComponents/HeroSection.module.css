@@ -1,4 +1,21 @@
-.banner::before {
+.banner {
+  border-radius: 24px;
+  background: linear-gradient(
+      0deg,
+      rgba(21, 11, 43, 0.8) 0%,
+      rgba(21, 11, 43, 0.4) 100%
+    ),
+    url('/greenWorld2.jpg') lightgray 0px -18.896px / 100% 123.31% no-repeat;
+
+  background-size: cover;
+  background-position: center;
+  height: auto;
+}
+
+
+
+
+/* .banner::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -35,4 +52,4 @@
   .banner {
     height: 50vh;
   }
-}
+} */

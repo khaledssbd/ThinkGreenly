@@ -5,7 +5,7 @@ const IdeaHome = async () => {
   const { data: ideas } = await getAllIdeas();
 
   return (
-    <div className="flex flex-col justify-center items-center my-20">
+    <div className="flex flex-col justify-center items-center my-16">
       <section className="text-center py-12">
         <h2 className="text-4xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
           Featured Sustainability Ideas
