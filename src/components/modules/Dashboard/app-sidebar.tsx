@@ -18,13 +18,14 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-
+  SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
 import Link from 'next/link';
 import { useUser } from '@/context/UserContext';
+import Image from 'next/image';
 
 
 
@@ -49,11 +50,6 @@ export function AppSidebar({
       url: '/member/payments',
       icon: DollarSign,
     },
-    // {
-    //   title: 'Edit Idea',
-    //   url: '/member/edit-idea',
-    //   icon: ClipboardList,
-    // },
   ];
 
   const adminMenu = [
@@ -102,23 +98,26 @@ export function AppSidebar({
   }
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar
+      collapsible="icon"
+      {...props}
+    >
       <SidebarHeader className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <SidebarMenu>
           <SidebarMenuItem>
-            {/* <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="grid flex-1 text-left text-sm leading-tight">
+                {/* <div className="grid flex-1 text-left text-sm leading-tight">
                   {collapsed ? <Icon /> : <Logo />}
-                </div>
+                </div> */}
                 <div className="w-full">
-                  <p className="text-black dark:text-white text-lg font-medium z-10">
+                  {/* <p className="text-black dark:text-white text-lg font-medium z-10">
                     ThinkGreenly
-                  </p>
+                  </p> */}
                   <Image src={logo} alt="logo" className="h-12 w-12" />
                 </div>
               </Link>
-            </SidebarMenuButton> */}
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
