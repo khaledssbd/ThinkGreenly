@@ -22,14 +22,14 @@ const HeroSection = () => {
         </h3>
 
         <h3 className="text-white text-center">
-          Experience the pinnacle of ancient living with ThinkGreenly!
+          Experience the pinnacle of in peace living with ThinkGreenly!
         </h3>
       </div>
 
       <Link href="/ideas">
         <Button
           size="lg"
-          className="text-black hover:text-white bg-white hover:bg-green-500 dark:text-white dark:hover:text-green-500 dark:bg-green-500 dark:hover:bg-white transition duration-300 ease-in-out"
+          className="text-black hover:text-white bg-white hover:bg-green-500 dark:text-white dark:hover:text-black dark:bg-green-500 dark:hover:bg-white transition duration-300 ease-in-out"
         >
           Get all Ideas
         </Button>
