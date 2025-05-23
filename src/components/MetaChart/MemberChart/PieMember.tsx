@@ -50,7 +50,7 @@ const MemberPie = () => {
     },
   } satisfies ChartConfig;
 
-  const memberPie = data?.data.formattedIdeaStatusDistribution;
+  const memberPie = data?.data?.formattedIdeaStatusDistribution;
   const statusColorVars = {
     UNDER_REVIEW: 'var(--color-UNDER_REVIEW)',
     DRAFT: 'var(--color-DRAFT)',
@@ -59,10 +59,10 @@ const MemberPie = () => {
   };
 
   const chartData = memberPie?.map((item: any) => ({
-    status: item.status, // or keep as is: item.status
-    count: item.count,
+    status: item?.status, 
+    count: item?.count,
     fill:
-      statusColorVars[item.status as keyof typeof statusColorVars] ||
+      statusColorVars[item?.status as keyof typeof statusColorVars] ||
       'var(--color-default)',
   }));
 
