@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const AboutUsPage = () => {
   return (
-    <div className="md:mx-20">
+    <div>
       <h1 className="text-2xl md:text-4xl font-bold text-center mb-12">
         About ThinkGreenly
       </h1>

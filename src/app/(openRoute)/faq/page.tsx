@@ -7,7 +7,7 @@ import {
 
 const FaqPage = () => {
   return (
-    <div className="md:mx-20">
+    <div>
       <h1 className="text-3xl font-bold text-center mb-6">
         Frequently Asked Questions
       </h1>
@@ -15,7 +15,9 @@ const FaqPage = () => {
       <Accordion type="single" collapsible className="w-full">
         {/* What is ThinkGreenly? */}
         <AccordionItem value="item-1">
-          <AccordionTrigger>What is ThinkGreenly?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">
+            What is ThinkGreenly?
+          </AccordionTrigger>
           <AccordionContent>
             ThinkGreenly is an online community platform where members share and
             discover innovative sustainability ideas to help protect our
@@ -26,7 +28,7 @@ const FaqPage = () => {
 
         {/* How does ThinkGreenly work? */}
         <AccordionItem value="item-2">
-          <AccordionTrigger>How does ThinkGreenly work?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">How does ThinkGreenly work?</AccordionTrigger>
           <AccordionContent>
             Members can submit their sustainability ideas which go through a
             review process by our admin team. Approved ideas become visible to
@@ -38,7 +40,7 @@ const FaqPage = () => {
 
         {/* Is ThinkGreenly free to use? */}
         <AccordionItem value="item-3">
-          <AccordionTrigger>Is ThinkGreenly free to use?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">Is ThinkGreenly free to use?</AccordionTrigger>
           <AccordionContent>
             Yes! Most features are completely free. Members can browse, submit,
             and discuss ideas at no cost. Some creators may choose to offer
@@ -49,7 +51,7 @@ const FaqPage = () => {
 
         {/* How are ideas moderated? */}
         <AccordionItem value="item-4">
-          <AccordionTrigger>How are ideas moderated?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">How are ideas moderated?</AccordionTrigger>
           <AccordionContent>
             Our admin team reviews all submissions for feasibility, originality,
             and environmental impact. Ideas may be approved, rejected with
@@ -60,7 +62,7 @@ const FaqPage = () => {
 
         {/* Can I earn from my ideas? */}
         <AccordionItem value="item-5">
-          <AccordionTrigger>Can I earn from my ideas?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">Can I earn from my ideas?</AccordionTrigger>
           <AccordionContent>
             Yes! You can mark your ideas as &quot;Paid&quot; content. Other
             members must purchase access to view these premium ideas.
@@ -71,7 +73,7 @@ const FaqPage = () => {
 
         {/* How does the voting system work? */}
         <AccordionItem value="item-6">
-          <AccordionTrigger>How does the voting system work?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">How does the voting system work?</AccordionTrigger>
           <AccordionContent>
             Members can upvote or downvote ideas (one vote per member per idea)
             to indicate which solutions they find most valuable. Top-voted ideas
@@ -82,7 +84,7 @@ const FaqPage = () => {
 
         {/* What types of ideas are accepted? */}
         <AccordionItem value="item-7">
-          <AccordionTrigger>What types of ideas are accepted?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">What types of ideas are accepted?</AccordionTrigger>
           <AccordionContent>
             We welcome all sustainability-focused ideas across categories like:
             <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -98,7 +100,7 @@ const FaqPage = () => {
 
         {/* How do I submit an idea? */}
         <AccordionItem value="item-8">
-          <AccordionTrigger>How do I submit an idea?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">How do I submit an idea?</AccordionTrigger>
           <AccordionContent>
             Log in to your account, go to your dashboard, and click &quot;Create
             New Idea.&quot; You can work on it in draft mode before submitting
@@ -109,7 +111,7 @@ const FaqPage = () => {
 
         {/* Can I collaborate on ideas? */}
         <AccordionItem value="item-9">
-          <AccordionTrigger>Can I collaborate on ideas?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">Can I collaborate on ideas?</AccordionTrigger>
           <AccordionContent>
             Absolutely! The comment section allows for rich discussion and
             collaboration. Many members form teams to implement larger projects.
@@ -119,7 +121,7 @@ const FaqPage = () => {
 
         {/* How are comments moderated? */}
         <AccordionItem value="item-10">
-          <AccordionTrigger>How are comments moderated?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">How are comments moderated?</AccordionTrigger>
           <AccordionContent>
             We encourage constructive discussion but remove spam, hate speech,
             or misinformation. Members can report inappropriate comments, and
@@ -130,7 +132,7 @@ const FaqPage = () => {
 
         {/* What if my idea gets rejected? */}
         <AccordionItem value="item-11">
-          <AccordionTrigger>What if my idea gets rejected?</AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">What if my idea gets rejected?</AccordionTrigger>
           <AccordionContent>
             Don&apos;t worry! Our admins provide specific feedback on why an
             idea was rejected and suggestions for improvement. You can revise
@@ -141,7 +143,7 @@ const FaqPage = () => {
 
         {/* How can I track an idea's implementation? */}
         <AccordionItem value="item-12">
-          <AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">
             How can I track an idea&apos;s implementation?
           </AccordionTrigger>
           <AccordionContent>
@@ -155,7 +157,7 @@ const FaqPage = () => {
 
         {/* Are there rewards for top contributors? */}
         <AccordionItem value="item-13">
-          <AccordionTrigger>
+          <AccordionTrigger className="md:text-xl">
             Are there rewards for top contributors?
           </AccordionTrigger>
           <AccordionContent>

@@ -4,7 +4,7 @@ import plasticWaste from '@/assets/plasticWaste.jpg';
 
 const CommunityPlasticReduction = () => {
   return (
-    <div className="md:mx-20">
+    <div>
       {/* Breadcrumb Navigation */}
       <nav className="flex py-4 text-sm text-gray-600 dark:text-gray-400">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
