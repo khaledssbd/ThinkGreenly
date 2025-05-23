@@ -4,13 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/sLogo.png';
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import LeafAnimation from '../HomeComponents/LeafAnimation';
 
 const Footer = () => {
   return (
-    <footer className="px-5 pt-12 bg-gray-100 dark:bg-gray-900 border-t">
+    <footer className="px-5 pt-12 bg-gray-100 relative dark:bg-gray-900 border-t">
+      <LeafAnimation/>
       <div className="container px-5 md:px-10 mx-auto flex flex-col md:flex-row gap-12 md:gap-24 justify-between">
         {/* Logo & Contact Info */}
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 font-medium space-y-4">
           <Link href="/" className="w-fit">
             <div className="relative flex items-center h-12 w-fit">
               <p className="text-black dark:text-white text-lg font-medium z-10">
@@ -64,7 +66,7 @@ const Footer = () => {
             <h3 className="mb-4 font-semibold text-gray-800 dark:text-gray-100">
               Navigation
             </h3>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <ul className="space-y-2 font-medium text-sm text-gray-600 dark:text-gray-300">
               <li>
                 <Link href="/" className="hover:text-primary">
                   Home
@@ -75,14 +77,20 @@ const Footer = () => {
                   Ideas
                 </Link>
               </li>
+              
+              <li>
+                <Link href="/blogs" className="hover:text-primary">
+                  Blog
+                </Link>
+              </li>
               <li>
                 <Link href="/about-us" className="hover:text-primary">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/blogs" className="hover:text-primary">
-                  Blog
+                <Link href="/contact-us" className="hover:text-primary">
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -91,7 +99,7 @@ const Footer = () => {
             <h3 className="mb-4 font-semibold text-gray-800 dark:text-gray-100">
               Legal
             </h3>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <ul className="space-y-2 font-medium text-sm text-gray-600 dark:text-gray-300">
               <li>
                 <Link href="/terms" className="hover:text-primary">
                   Terms & Conditions
@@ -113,7 +121,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className=" border-t text-sm   text-gray-600 dark:text-gray-400 py-6 mt-5">
+      <div className=" border-t text-sm font-medium  text-gray-600 dark:text-gray-400 py-6 mt-5">
         <p className="grid place-items-center">
           © {new Date().getFullYear()} ThinkGreenly. All rights reserved.
         </p>
@@ -126,6 +134,7 @@ const Footer = () => {
           </Link>
         </div> */}
       </div>
+
     </footer>
   );
 };

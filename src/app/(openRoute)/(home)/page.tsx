@@ -6,6 +6,7 @@ import TestimonialSection from '@/components/HomeComponents/TestimonialSection';
 import WorkingSolutins from '@/components/HomeComponents/WorkingSolutins';
 import OurSkillsSection from '@/components/HomeComponents/OurSkillsSection';
 import HeroSection from '@/components/HomeComponents/HeroSection';
+import { Newsletter } from '@/components/HomeComponents/Newsletter';
 
 // import NavBar from "@/components/Basics/NavBar";
 
@@ -22,7 +23,9 @@ const HomePage = async () => {
 
       <WorkingSolutins />
 
+
       <TestimonialSection />
+      <Newsletter/>
     </div>
   );
 };

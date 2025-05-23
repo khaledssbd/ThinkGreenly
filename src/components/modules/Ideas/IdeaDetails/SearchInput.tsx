@@ -7,7 +7,6 @@ import Image from "next/image";
 import { getAllIdeas } from "@/services/Idea";
 import { Idea } from "@/types/idea";
 import { Button } from "@/components/ui/button";
-import { Leaf } from "lucide-react";
 
 const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,7 +22,7 @@ const SearchInput = () => {
   }, [searchQuery]);
 
   return (
-    <div className="relative px-4 md:px-0 w-md mx-auto">
+    <div className="relative px-4 md:px-0 w-[340px] xl:w-sm mx-auto">
       <form
         onSubmit={(e) => e.preventDefault()}
         role="search"
@@ -31,7 +30,7 @@ const SearchInput = () => {
       >
         <Input
           type="search"
-          placeholder=" 🔍 Search Ideas..."
+          placeholder="🔍 Search Ideas..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           aria-label=" Search house"
@@ -75,12 +74,12 @@ const SearchInput = () => {
                             )}
                           </span>
                         </div>
-                        <div className="flex  items-center gap-2 bg-green-50 px-2 py-[2px] rounded-full">
+                        {/* <div className="flex  items-center gap-2 bg-green-50 px-2 py-[2px] rounded-full">
                           <Leaf className="w-4 h-4 text-green-600" />
                           <span className="text-sm font-medium text-green-600">
                             {idea?.category?.name}
                           </span>
-                        </div>
+                        </div> */}
                       </CardContent>
                     </Card>
                   </div>
