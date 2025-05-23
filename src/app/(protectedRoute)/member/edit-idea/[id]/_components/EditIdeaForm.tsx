@@ -92,8 +92,6 @@ const EditIdeaForm = ({
       images: imagePreview.filter(url => url.startsWith('http')), // old images
     };
 
-    console.log({ updatedData });
-
     formData.append('data', JSON.stringify(updatedData));
 
     // only new upload images are here
