@@ -29,7 +29,7 @@ const HeroSection = () => {
       <Link href="/ideas">
         <Button
           size="lg"
-          className="text-black hover:text-white bg-white hover:bg-green-500 dark:text-white dark:hover:text-black dark:bg-green-500 dark:hover:bg-white transition duration-300 ease-in-out"
+          className="text-black hover:text-white bg-white hover:bg-green-500 dark:text-white dark:hover:text-black dark:bg-green-500 dark:hover:bg-white transition duration-300 ease-in-out cursor-pointer"
         >
           Get all Ideas
         </Button>

@@ -1,18 +1,19 @@
-'use client';
-import { UsageStats } from '@/components/Dashboard/CommonDashboard';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+"use client";
+import { UsageStats } from "@/components/Dashboard/CommonDashboard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import { metaService } from '@/services/MetaServices';
-import React, { useEffect, useState } from 'react';
-import { LabelList, Pie, PieChart } from 'recharts';
+} from "@/components/ui/chart";
+import { metaService } from "@/services/MetaServices";
+import React, { useEffect, useState } from "react";
+import { LabelList, Pie, PieChart } from "recharts";
 
 const AdminPieChart = () => {
-  const [data, setData] = useState<UsageStats | null>();
+  const [data, setData] = useState<UsageStats | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await metaService();
@@ -22,36 +23,38 @@ const AdminPieChart = () => {
   }, []);
 
   const pieData = data?.data.pieChartData;
+
   const chartConfig = {
     count: {
-      label: 'Counts',
+      label: "Counts",
     },
     UNDER_REVIEW: {
-      label: 'UNDER_REVIEW',
-      color: '#228B22',
+      label: "Under Review",
+      color: "#228B22",
     },
     DRAFT: {
-      label: 'DRAFT',
-      color: '#006400',
+      label: "Draft",
+      color: "#006400",
     },
     APPROVED: {
-      label: 'APPROVED',
-      color: '#00FF7F',
+      label: "Approved",
+      color: "#00FF7F",
     },
     REJECTED: {
-      label: 'REJECTED',
-      color: '#98FB98',
+      label: "Rejected",
+      color: "#98FB98",
     },
     other: {
-      label: 'Other',
-      color: '#D0F0C0',
+      label: "Other",
+      color: "#D0F0C0",
     },
   } satisfies ChartConfig;
+
   const statusColorVars = {
-    UNDER_REVIEW: 'var(--color-UNDER_REVIEW)',
-    DRAFT: 'var(--color-DRAFT)',
-    APPROVED: 'var(--color-APPROVED)',
-    REJECTED: 'var(--color-REJECTED)',
+    UNDER_REVIEW: "var(--color-UNDER_REVIEW)",
+    DRAFT: "var(--color-DRAFT)",
+    APPROVED: "var(--color-APPROVED)",
+    REJECTED: "var(--color-REJECTED)",
   };
 
   const chartData = pieData?.map((item: any) => ({
@@ -59,31 +62,52 @@ const AdminPieChart = () => {
     count: item.count,
     fill:
       statusColorVars[item.status as keyof typeof statusColorVars] ||
-      'var(--color-default)',
+      (
+        chartConfig[item.status as keyof typeof chartConfig] as {
+          color: string;
+        }
+      )?.color ||
+      "#A0A0A0", // fallback grey
   }));
+
   return (
-    <div className="w-[42%]">
-      <Card className="flex flex-col bg-[#101828] border-2 border-green-600">
+    <div className="w-full h-[400px]">
+      <Card className="flex flex-col bg-white dark:bg-transparent border-2 border-green-600 h-full">
         <CardHeader className="items-center pb-0 mt-8">
-          <CardTitle>User Status Chart</CardTitle>
+          <CardTitle className="text-gray-900 dark:text-white">
+            User Status Chart
+          </CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 pb-0">
+        <CardContent className="flex-1 pb-0 overflow-hidden">
           <ChartContainer
             config={chartConfig}
-            className="mx-auto aspect-square [&_.recharts-text]:fill-background"
+            className="mx-auto"
+            style={{ width: 280, height: 280 }}
           >
-            <PieChart>
+            <PieChart width={280} height={280}>
               <ChartTooltip
-                content={<ChartTooltipContent nameKey="count" hideLabel />}
+                content={
+                  <ChartTooltipContent
+                    nameKey="count"
+                    hideLabel
+                    className="bg-gray-800 text-white"
+                  />
+                }
               />
-              <Pie data={chartData} dataKey="count">
+              <Pie
+                data={chartData}
+                dataKey="count"
+                labelLine={false}
+                outerRadius={120}
+              >
                 <LabelList
                   dataKey="status"
-                  className="fill-background"
+                  position="inside"
+                  className="fill-white dark:fill-white"
                   stroke="none"
                   fontSize={12}
                   formatter={(value: keyof typeof chartConfig) =>
-                    chartConfig[value]?.label
+                    chartConfig[value]?.label ?? value
                   }
                 />
               </Pie>
