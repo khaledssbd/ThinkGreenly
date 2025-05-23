@@ -108,7 +108,7 @@ export default function ContactPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-2">
                       <FormLabel className="text-gray-700 dark:text-gray-300">
-                        Your Name
+                        Name
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -131,7 +131,7 @@ export default function ContactPage() {
                   render={({ field }) => (
                     <FormItem className="space-y-2">
                       <FormLabel className="text-gray-700 dark:text-gray-300">
-                        Your Email
+                        Email
                       </FormLabel>
                       <FormControl>
                         <Input
