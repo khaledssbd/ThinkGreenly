@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const BlogsPage = () => {
   return (
-    <div className="md:mx-20">
+    <div>
       <h1 className="text-2xl md:text-4xl font-bold text-center mb-12">
         ThinkGreenly Blog
       </h1>

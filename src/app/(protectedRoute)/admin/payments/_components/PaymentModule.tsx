@@ -1,17 +1,22 @@
-import { getAllPayments} from '@/services/Payment'
-import React from 'react'
+import { getAllPayments } from '@/services/Payment';
+import React from 'react';
 import { TransactionDataTable } from './transaction-table';
 // import { dummyData } from '../_data/data';
 
-const PaymentModule =async () => {
-    const {data:payments} = await getAllPayments();
-  
-    return (
-    <div>
-      <TransactionDataTable data={payments} />
+const PaymentModule = async () => {
+  const { data: payments } = await getAllPayments();
+
+  return (
+    <div className="container mx-auto py-10">
+      <h1 className="text-2xl font-bold mb-6 text-center">
+        All Payments ({payments.length})
+      </h1>
+
+      <div className="overflow-x-auto">
+        <TransactionDataTable data={payments} />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default PaymentModule
-
+export default PaymentModule;

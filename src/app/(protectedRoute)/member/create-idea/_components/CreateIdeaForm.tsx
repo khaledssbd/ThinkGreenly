@@ -37,45 +37,45 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
     formState: { isSubmitting },
   } = form;
 
-  const handleIdeaSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const handleIdeaSubmit: SubmitHandler<FieldValues> = async data => {
     if (isDrafting) {
       if (!data.title || data.title.trim()?.length < 10) {
-        toast.error("Title must be at least 10 characters for a draft.");
+        toast.error('Title must be at least 10 characters for a draft.');
         return;
       }
 
       const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
+      formData.append('data', JSON.stringify(data));
 
       for (const file of imageFiles) {
-        formData.append("images", file);
+        formData.append('images', file);
       }
 
       try {
         const res = await draftAnIdea(formData);
         if (res?.success) {
-          toast.success("Idea added to draft successfully!");
+          toast.success('Idea added to draft successfully!');
           router.push(`/ideas/${res?.data?.id}`); // or to draft page
         } else {
           toast.error(res?.message);
         }
       } catch (err: any) {
         console.error(err);
-        toast.error("Failed to draft idea.");
+        toast.error('Failed to draft idea.');
       }
       return;
     }
 
     // Create Idea Mode
     if (imageFiles?.length < 0) {
-      toast.error("Please select at least 1 image!");
+      toast.error('Please select at least 1 image!');
       return;
     }
 
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
+    formData.append('data', JSON.stringify(data));
     for (const file of imageFiles) {
-      formData.append("images", file);
+      formData.append('images', file);
     }
 
     try {
@@ -88,14 +88,13 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
       }
     } catch (err: any) {
       console.error(err);
-      toast.error("Failed to create idea.");
+      toast.error('Failed to create idea.');
     }
   };
 
-
   return (
-    <div className="p-4 md:p-0">
-      <h1 className="text-3xl text-center mb-6">Create Idea</h1>
+    <div className="container mx-auto py-10">
+      <h1 className="text-2xl font-bold mb-6 text-center">Create Idea</h1>
       <div className="flex justify-center h-screen mx-auto">
         <Form {...form}>
           <form
@@ -112,7 +111,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                     <Input
                       placeholder="Enter idea title"
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -130,7 +129,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                     <Input
                       placeholder="Enter idea problem statement"
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -148,7 +147,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                     <Input
                       placeholder="Enter idea solution"
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -166,7 +165,7 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                     <Textarea
                       placeholder="Enter idea description"
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -203,14 +202,14 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                   <FormControl>
                     <select
                       {...field}
-                      value={field.value || ""}
-                      onChange={(e) => field.onChange(e.target.value)}
+                      value={field.value || ''}
+                      onChange={e => field.onChange(e.target.value)}
                       className="w-full border border-input bg-background px-3 py-2 rounded-md"
                     >
                       <option value="" disabled>
                         Select a category
                       </option>
-                      {categories?.map((category) => (
+                      {categories?.map(category => (
                         <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
@@ -232,8 +231,8 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                     <Input
                       type="number"
                       placeholder="Enter idea price"
-                      value={field.value ?? ""}
-                      onChange={(e) => field.onChange(Number(e.target.value))}
+                      value={field.value ?? ''}
+                      onChange={e => field.onChange(Number(e.target.value))}
                     />
                   </FormControl>
                   <FormMessage />
@@ -252,20 +251,16 @@ const CreateIdeaForm = ({ categories }: { categories: category[] }) => {
                 variant="outline"
               >
                 {isSubmitting && isDrafting
-                  ? "Saving Draft..."
-                  : "Add to Draft"}
+                  ? 'Saving Draft...'
+                  : 'Add to Draft'}
               </Button>
 
               <Button
                 type="submit"
                 onClick={() => setIsDrafting(false)}
-                disabled={
-                  isSubmitting ||
-                  
-                  imageFiles?.length < 1
-                }
+                disabled={isSubmitting || imageFiles?.length < 1}
               >
-                {isSubmitting && !isDrafting ? "Creating..." : "Create Idea"}
+                {isSubmitting && !isDrafting ? 'Creating...' : 'Create Idea'}
               </Button>
             </div>
 
