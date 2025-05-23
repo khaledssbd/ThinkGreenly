@@ -219,7 +219,7 @@ const ProfileCard = () => {
           </Card>
 
           {/* Password Update Section */}
-          <Card className="overflow-hidden border-0 shadow-lg bg-card/50 backdrop-blur-sm">
+          <Card className="overflow-hidden py-8 border-0 shadow-lg bg-card/50 backdrop-blur-sm">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
