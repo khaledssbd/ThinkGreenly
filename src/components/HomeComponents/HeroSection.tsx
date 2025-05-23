@@ -8,7 +8,7 @@ import BlurText from '../BlurText';
 const HeroSection = () => {
   return (
     <div
-      className={`${styles.banner} p-6 md:p-32 rounded-3xl flex flex-col justify-around items-center gap-5`}
+      className={`${styles.banner} p-6 md:p-28 rounded-3xl flex flex-col justify-around items-center gap-5`}
     >
       <div className="flex flex-col justify-around items-center gap-5">
         <h3>
