@@ -112,7 +112,7 @@ const ProfileCard = () => {
 
         <div className="grid grid-cols-1 gap-6">
           {/* Profile Section */}
-          <Card className="overflow-hidden border-0 shadow-lg bg-card/50 backdrop-blur-sm">
+          <Card className="overflow-hidden border-0 py-8 shadow-lg bg-card/50 backdrop-blur-sm">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
