@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -7,6 +6,7 @@ import logo from "@/assets/sLogo.png";
 import { ModeToggle } from "../ModeToggle";
 import { useUser } from "@/context/UserContext";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,7 +32,7 @@ import NavbarLoadingSkeleton from "./UserNavSkeleton";
 import { LogOut, Menu, Search, X } from "lucide-react";
 import { InteractiveHoverButton } from "../button/hover-button";
 import SearchInput from "../modules/Ideas/IdeaDetails/SearchInput";
-import Marque from "./Marque";
+import LeafAnimation from "../HomeComponents/LeafAnimation";
 
 const NavBar = () => {
   const router = useRouter();
@@ -52,6 +52,8 @@ const NavBar = () => {
     { name: "Ideas", path: "/ideas" },
     { name: "Blogs", path: "/blogs" },
     { name: "About Us", path: "/about-us" },
+    { name: "Contact Us", path: "/contact-us" },
+    { name: "Privacy", path: "/privacy-policy" },
     ...(user
       ? [{ name: "Dashboard", path: `/${user.role.toLowerCase()}/dashboard` }]
       : []),
@@ -59,7 +61,8 @@ const NavBar = () => {
 
   return (
     <header className="sticky top-0 z-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pb-3">
-      <Marque/>
+      {/* <Marque/> */}
+     <LeafAnimation/>
       <div className="container mx-auto h-20 px-5 md:px-10">
         <div className="relative h-16 md:h-20">
           {/* <!-- Menu & Small Device for Small Device--> */}
@@ -106,7 +109,6 @@ const NavBar = () => {
                           {name}
                         </Link>
                       ))}
-
                     </div>
                   </div>
                 </div>
@@ -135,11 +137,11 @@ const NavBar = () => {
               </Link>
             </div>
             {/* NavItems for Large Device */}
-            <div className="hidden lg:block text-black dark:text-green-500">
-              <div className="flex flex-col xl:flex-row items-center justify-between  xl:gap-10">
-                <div className="flex items-center lg:mt-3 xl:my-0 justify-between space-x-2 md:space-x-5">
+            <div className="hidden   xl:ml-24 lg:block text-black dark:text-green-500">
+              <div className="flex  flex-col xl:flex-row items-center justify-between  xl:gap-10">
+                <div className="flex flex-wrap gap-2 items-center lg:mt-3 xl:my-0 justify-between space-x-2 md:space-x-5">
                   {navLinks.map(({ name, path }) => (
-                    <div className="relative group" key={name}>
+                    <div className="relative group font-medium" key={name}>
                       <Link
                         key={name}
                         href={path}
@@ -155,15 +157,20 @@ const NavBar = () => {
                     </div>
                   ))}
                 </div>
-                <div className="flex-1 lg:my-2 xl:my-0">
+                <div className="flex-1 hidden lg:flex xl:hidden lg:my-2 xl:my-0">
                   <SearchInput />
                 </div>
               </div>
             </div>
 
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-6">
-              <div className="flex items-center gap-10">
-                <Link className="flex lg:hidden animate-pulse" href={'/ideas'}><Search/></Link>
+              <div className="flex items-center gap-5">
+                <div className="flex-1 hidden xl:flex lg:my-2 xl:my-0">
+                  <SearchInput />
+                </div>
+                <Link className="flex lg:hidden animate-pulse" href={"/ideas"}>
+                  <Search />
+                </Link>
                 <ModeToggle />
 
                 {isLoading ? (

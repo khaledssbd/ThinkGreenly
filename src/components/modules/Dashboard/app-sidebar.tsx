@@ -102,7 +102,7 @@ export function AppSidebar({
       collapsible="icon"
       {...props}
     >
-      <SidebarHeader className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
+      <SidebarHeader className="dark:bg-gradient-to-l dark:from-gray-800 dark:to-gray-800 bg-gradient-to-l from-green-300 to-green-100  text-black dark:text-white">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
@@ -121,10 +121,10 @@ export function AppSidebar({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
+      <SidebarContent className=" bg-gradient-to-l from-green-300 to-green-100 dark:bg-gradient-to-l dark:from-gray-800 dark:to-gray-800 text-black dark:text-white">
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
+      <SidebarFooter className="bg-gradient-to-l from-green-300 to-green-100 dark:bg-gradient-to-l dark:from-gray-800 dark:to-gray-800 text-black dark:text-white">
         <NavUser />
       </SidebarFooter>
     </Sidebar>
