@@ -110,7 +110,7 @@ const ProfileCard = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           {/* Profile Section */}
           <Card className="overflow-hidden border-0 shadow-lg bg-card/50 backdrop-blur-sm">
             <CardHeader className="pb-4">
