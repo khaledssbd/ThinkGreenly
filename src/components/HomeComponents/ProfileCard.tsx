@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { useState, useEffect, ChangeEvent } from "react";
-import { useUser } from "@/context/UserContext";
-import Image from "next/image";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { updatePassword, updateProfile } from "@/services/Profile";
-import { logOut } from "@/services/AuthService";
-import { useRouter } from "next/navigation";
-import { PasswordInput } from "@/components/ui/password-input";
-import { Pencil } from "lucide-react";
+import { useState, useEffect, ChangeEvent } from 'react';
+import { useUser } from '@/context/UserContext';
+import Image from 'next/image';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { updatePassword, updateProfile } from '@/services/Profile';
+import { logOut } from '@/services/AuthService';
+import { useRouter } from 'next/navigation';
+import { PasswordInput } from '@/components/ui/password-input';
+import { Pencil } from 'lucide-react';
 
 const ProfileCard = () => {
   const { user, setIsLoading } = useUser();
   const router = useRouter();
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [editingProfile, setEditingProfile] = useState(false);
@@ -26,14 +26,14 @@ const ProfileCard = () => {
   const [loading, setLoading] = useState(false);
 
   const [passwordData, setPasswordData] = useState({
-    oldPassword: "",
-    newPassword: "",
+    oldPassword: '',
+    newPassword: '',
   });
 
   useEffect(() => {
     if (user) {
-      setName(user.name || "");
-      setImagePreview(user.image || "/avatar.png");
+      setName(user.name || '');
+      setImagePreview(user.image || '/avatar.png');
     }
   }, [user]);
 
@@ -48,12 +48,12 @@ const ProfileCard = () => {
   };
 
   const handleUpdateProfile = async () => {
-    if (!name.trim()) return toast.error("Name is required");
+    if (!name.trim()) return toast.error('Name is required');
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("data", JSON.stringify({ name }));
-    if (imageFile) formData.append("image", imageFile);
+    formData.append('data', JSON.stringify({ name }));
+    if (imageFile) formData.append('image', imageFile);
 
     try {
       const res = await updateProfile(formData);
@@ -66,7 +66,7 @@ const ProfileCard = () => {
         toast.error(res?.message);
       }
     } catch (error) {
-      toast.error("Failed to update profile.");
+      toast.error('Failed to update profile.');
       console.error(error);
     } finally {
       setLoading(false);
@@ -76,9 +76,8 @@ const ProfileCard = () => {
   const handlePasswordUpdate = async () => {
     const { oldPassword, newPassword } = passwordData;
     if (!oldPassword || !newPassword) {
-      return toast.error("Both fields are required.");
+      return toast.error('Both fields are required.');
     }
-    console.log(passwordData, "passwordData");
     setLoading(true);
     try {
       const res = await updatePassword(passwordData);
@@ -86,12 +85,12 @@ const ProfileCard = () => {
         toast.success(res.message);
         await logOut();
         setIsLoading(true);
-        router.push("/login");
+        router.push('/login');
       } else {
         toast.error(res.message);
       }
     } catch (error) {
-      toast.error("Password update failed.");
+      toast.error('Password update failed.');
       console.error(error);
     } finally {
       setLoading(false);
@@ -118,7 +117,7 @@ const ProfileCard = () => {
           </div>
           <div className="flex flex-col items-center gap-4 mb-4">
             <Image
-              src={imagePreview || "/avatar.png"}
+              src={imagePreview || '/avatar.png'}
               alt="Profile"
               width={128}
               height={128}
@@ -141,7 +140,7 @@ const ProfileCard = () => {
               <Input
                 id="name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
                 disabled={!editingProfile}
               />
             </div>
@@ -149,7 +148,7 @@ const ProfileCard = () => {
             {editingProfile && (
               <div className="flex gap-3 pt-2">
                 <Button onClick={handleUpdateProfile} disabled={loading}>
-                  {loading ? "Saving..." : "Save"}
+                  {loading ? 'Saving...' : 'Save'}
                 </Button>
                 <Button
                   variant="ghost"
@@ -188,7 +187,7 @@ const ProfileCard = () => {
                 id="oldPassword"
                 placeholder="********"
                 value={passwordData.oldPassword}
-                onChange={(e) =>
+                onChange={e =>
                   setPasswordData({
                     ...passwordData,
                     oldPassword: e.target.value,
@@ -206,7 +205,7 @@ const ProfileCard = () => {
                 id="newPassword"
                 placeholder="********"
                 value={passwordData.newPassword}
-                onChange={(e) =>
+                onChange={e =>
                   setPasswordData({
                     ...passwordData,
                     newPassword: e.target.value,
@@ -219,13 +218,13 @@ const ProfileCard = () => {
             {editingPassword && (
               <div className="flex gap-3 pt-2">
                 <Button onClick={handlePasswordUpdate} disabled={loading}>
-                  {loading ? "Updating..." : "Update"}
+                  {loading ? 'Updating...' : 'Update'}
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => {
                     setEditingPassword(false);
-                    setPasswordData({ oldPassword: "", newPassword: "" }); // optional: reset
+                    setPasswordData({ oldPassword: '', newPassword: '' }); // optional: reset
                   }}
                   disabled={loading}
                 >
