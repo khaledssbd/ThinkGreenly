@@ -293,7 +293,7 @@ const ProfileCard = () => {
                   <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
                     <p className="text-sm text-orange-700 dark:text-orange-300">
                       <strong>Note:</strong> Changing your password will log you
-                      out of all devices. You'll need to sign in again.
+                      out of all devices. You will need to sign in again.
                     </p>
                   </div>
                 )}
