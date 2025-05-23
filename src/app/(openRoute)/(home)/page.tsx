@@ -23,8 +23,8 @@ const HomePage = async () => {
 
       <WorkingSolutins />
 
-
       <TestimonialSection />
+      
       <Newsletter/>
     </div>
   );
