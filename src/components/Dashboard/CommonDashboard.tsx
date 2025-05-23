@@ -44,7 +44,7 @@ const CommonDashboard = () => {
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold mb-2 flex items-center justify-center gap-2">
           <Leaf className="text-green-500" size={32} />
-          <span>Welcome back, {user?.name ? user.name : 'Eco-Champion'}!</span>
+          <span>Welcome back, {user?.name ? user.name : 'Eco-Champion'}</span>
           <Sparkles className="text-yellow-400" size={32} />
         </h2>
 
@@ -170,13 +170,12 @@ const CommonDashboard = () => {
 
       {user?.role === 'ADMIN' && (
         <div>
-          <div className="space-y-10 flex gap-10">
+          <div className="space-y-10 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 place-content-center gap-10 items-stretch ">
             <BarChartComp />
             <FreeIdeaCount />
-          </div>
-          <div>
             <AdminPieChart />
           </div>
+
         </div>
       )}
       {user?.role === 'MEMBER' && (

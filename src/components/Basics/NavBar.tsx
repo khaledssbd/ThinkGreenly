@@ -180,7 +180,7 @@ const NavBar = () => {
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Avatar>
-                          <AvatarImage src={user.image} alt="@shadcn" />
+                          <AvatarImage src={user.image} alt="@shadcn" className="cursor-pointer"/>
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                       </DropdownMenuTrigger>
@@ -188,11 +188,11 @@ const NavBar = () => {
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                          <Link href="/profile">
-                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                          <Link href="/profile" >
+                            <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
                           </Link>
-                          <Link href={`/${user.role.toLowerCase()}/dashboard`}>
-                            <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                          <Link href={`/${user.role.toLowerCase()}/dashboard`} >
+                            <DropdownMenuItem className="cursor-pointer">Dashboard</DropdownMenuItem>
                           </Link>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
