@@ -11,7 +11,7 @@ const HelperFooter = () => {
       <div className="flex flex-col w-full mt-8 gap-4 sm:flex-row sm:w-auto">
         <button
           onClick={() => router.back()}
-          className="flex items-center justify-center gap-2 px-6 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700"
+          className="cursor-pointer flex items-center justify-center gap-2 px-6 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700"
         >
           <ArrowLeft className="w-5 h-5 text-green-500" />
           <span>Go Back</span>
@@ -19,7 +19,7 @@ const HelperFooter = () => {
 
         <button
           onClick={() => router.push('/')}
-          className="flex items-center justify-center gap-2 px-6 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600 rounded-lg shadow-sm hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600"
+          className="cursor-pointer flex items-center justify-center gap-2 px-6 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600 rounded-lg shadow-sm hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600"
         >
           <Home className="w-5 h-5" />
           <span>Take Me Home</span>

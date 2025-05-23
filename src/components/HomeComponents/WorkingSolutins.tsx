@@ -9,14 +9,13 @@ import Image from 'next/image';
 
 const WorkingSolutins = () => {
   return (
-    <div className="w-full mx-auto ">
+    <div className="w-full mx-auto">
       <section className="text-center">
         <div className="font-bold text-3xl mt-16 mb-7"> Working Solutions</div>
 
-        <p className="text-center text-xl mb-18">
+        <p className="mb-18 max-w-4xl mx-auto">
           To combat rising energy costs and reduce our carbon footprint, solar
-          panels are being installed on community buildings such as schools,{' '}
-          <br />
+          panels are being installed on community buildings such as schools,
           libraries, and government offices.
         </p>
       </section>

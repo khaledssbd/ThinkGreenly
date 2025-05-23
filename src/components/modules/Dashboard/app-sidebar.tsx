@@ -25,8 +25,9 @@ import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
 import Link from 'next/link';
 import { useUser } from '@/context/UserContext';
-// import { Icon, Logo } from '@/assets/Logo';
 import Image from 'next/image';
+
+
 
 export function AppSidebar({
   ...props
@@ -49,11 +50,6 @@ export function AppSidebar({
       url: '/member/payments',
       icon: DollarSign,
     },
-    // {
-    //   title: 'Edit Idea',
-    //   url: '/member/edit-idea',
-    //   icon: ClipboardList,
-    // },
   ];
 
   const adminMenu = [
@@ -102,8 +98,11 @@ export function AppSidebar({
   }
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      {...props}
+    >
+      <SidebarHeader className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
@@ -122,10 +121,10 @@ export function AppSidebar({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="bg-green-300 dark:bg-gray-800 text-black dark:text-white">
         <NavUser />
       </SidebarFooter>
     </Sidebar>

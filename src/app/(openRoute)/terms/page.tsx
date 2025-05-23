@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const TermsPage = () => {
   return (
-    <div className="md:mx-20">
+    <div>
       <h1 className="text-3xl font-bold text-center mb-8">
         ThinkGreenly Terms of Service
       </h1>

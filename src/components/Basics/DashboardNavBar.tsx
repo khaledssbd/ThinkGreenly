@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import logo from "@/assets/sLogo.png";
-import { ModeToggle } from "../ModeToggle";
-import { useUser } from "@/context/UserContext";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import logo from '@/assets/sLogo.png';
+import { ModeToggle } from '../ModeToggle';
+import { useUser } from '@/context/UserContext';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from '../ui/dropdown-menu';
 import {
   Drawer,
   DrawerClose,
@@ -24,17 +24,15 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import { logOut } from "@/services/AuthService";
-import { protectedRoutes } from "@/constant";
-import { Button } from "../ui/button";
-import NavbarLoadingSkeleton from "./UserNavSkeleton";
-import { LogOut, Menu, Search, X } from "lucide-react";
-import { InteractiveHoverButton } from "../button/hover-button";
-import SearchInput from "../modules/Ideas/IdeaDetails/SearchInput";
-import Marque from "./Marque";
+} from '@/components/ui/drawer';
+import { logOut } from '@/services/AuthService';
+import { protectedRoutes } from '@/constant';
+import { Button } from '../ui/button';
+import NavbarLoadingSkeleton from './UserNavSkeleton';
+import { LogOut, Menu, X } from 'lucide-react';
+import { InteractiveHoverButton } from '../button/hover-button';
 
-const NavBar = () => {
+const DashboardNavBar = () => {
   const router = useRouter();
   const { user, setUser, isLoading } = useUser();
   const pathname = usePathname();
@@ -42,28 +40,27 @@ const NavBar = () => {
   const handleLogOut = async () => {
     await logOut();
     setUser(null);
-    if (protectedRoutes.some((route) => pathname.match(route))) {
-      router.push("/");
+    if (protectedRoutes.some(route => pathname.match(route))) {
+      router.push('/');
     }
   };
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Ideas", path: "/ideas" },
-    { name: "Blogs", path: "/blogs" },
-    { name: "About Us", path: "/about-us" },
+    { name: 'Home', path: '/' },
+    { name: 'Ideas', path: '/ideas' },
+    { name: 'Blogs', path: '/blogs' },
+    { name: 'About Us', path: '/about-us' },
     ...(user
-      ? [{ name: "Dashboard", path: `/${user.role.toLowerCase()}/dashboard` }]
+      ? [{ name: 'Dashboard', path: `/${user.role.toLowerCase()}/dashboard` }]
       : []),
   ];
 
   return (
-    <header className="sticky top-0 z-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pb-3">
-      <Marque/>
-      <div className="container mx-auto h-20 px-5 md:px-10">
+    <header className="sticky top-0 z-20 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:pb-3 pb-0">
+      <div className="container mx-auto h-16 px-5 md:px-10">
         <div className="relative h-16 md:h-20">
           {/* <!-- Menu & Small Device for Small Device--> */}
-          <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
+          <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
             <Drawer>
               {/* <!-- Menu for Small Device--> */}
               <DrawerTrigger asChild>
@@ -106,7 +103,6 @@ const NavBar = () => {
                           {name}
                         </Link>
                       ))}
-
                     </div>
                   </div>
                 </div>
@@ -120,7 +116,7 @@ const NavBar = () => {
             <div className="flex shrink-0 items-center">
               <Link
                 href="/"
-                className="hidden lg:flex text-2xl font-black items-center"
+                className="hidden md:flex text-2xl font-black items-center"
               >
                 <div className="relative flex items-center h-12  w-fit">
                   <p className="text-black dark:text-white text-lg font-medium z-10">
@@ -135,35 +131,29 @@ const NavBar = () => {
               </Link>
             </div>
             {/* NavItems for Large Device */}
-            <div className="hidden lg:block text-black dark:text-green-500">
-              <div className="flex flex-col xl:flex-row items-center justify-between  xl:gap-10">
-                <div className="flex items-center lg:mt-3 xl:my-0 justify-between space-x-2 md:space-x-5">
-                  {navLinks.map(({ name, path }) => (
-                    <div className="relative group" key={name}>
-                      <Link
-                        key={name}
-                        href={path}
-                        className={
-                          pathname === path
-                            ? "border-b-2 border-green-300 dark:text-white"
-                            : "border-b-0  dark:text-white hover:text-green-700 dark:hover:text-green-300"
-                        }
-                      >
-                        {name}
-                      </Link>
-                      <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-green-300 transition-all duration-300 group-hover:w-full"></span>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex-1 lg:my-2 xl:my-0">
-                  <SearchInput />
-                </div>
+            <div className="hidden md:block text-black dark:text-green-500">
+              <div className="flex space-x-2 md:space-x-5">
+                {navLinks.map(({ name, path }) => (
+                  <div className="relative group" key={name}>
+                    <Link
+                      key={name}
+                      href={path}
+                      className={
+                        pathname === path
+                          ? "border-b-2 border-green-300 dark:text-white"
+                          : "border-b-0  dark:text-white hover:text-green-700 dark:hover:text-green-300"
+                      }
+                    >
+                      {name}
+                    </Link>
+                    <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-green-300 transition-all duration-300 group-hover:w-full"></span>
+                  </div>
+                ))}
               </div>
             </div>
-
+            {/* <!-- Profile dropdown for Large Device --> */}
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-6">
-              <div className="flex items-center gap-10">
-                <Link className="flex lg:hidden animate-pulse" href={'/ideas'}><Search/></Link>
+              <div className="flex gap-10">
                 <ModeToggle />
 
                 {isLoading ? (
@@ -201,7 +191,9 @@ const NavBar = () => {
                   </>
                 ) : (
                   <Link href="/login">
-                    <InteractiveHoverButton className="bg-green-500 font-bold rounded-lg px-4 py-2">
+                    <InteractiveHoverButton
+                      className="bg-green-500 font-bold rounded-lg px-4 py-2"
+                    >
                       Log In
                     </InteractiveHoverButton>
                   </Link>
@@ -214,4 +206,4 @@ const NavBar = () => {
     </header>
   );
 };
-export default NavBar;
+export default DashboardNavBar;

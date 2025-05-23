@@ -18,10 +18,10 @@ export function Banner() {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (
-    <div className="max-w-[1250px] mx-auto my-12 flex justify-center">
+    <div className=" mx-auto my-12 flex justify-center">
       <Carousel
         plugins={[plugin.current]}
-        className="w-full max-w-7xl"
+        className="w-full "
         // onMouseEnter={plugin.current.stop}
         // onMouseLeave={plugin.current.reset}
       >
@@ -33,6 +33,7 @@ export function Banner() {
               width={2400}
               height={1000}
               alt="images"
+              className='object-cover w-full'
             />
           ))}
         </CarouselContent>
