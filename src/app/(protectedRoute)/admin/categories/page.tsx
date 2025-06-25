@@ -1,7 +1,6 @@
-import { LoaderCircle } from "lucide-react";
-import { Suspense } from "react";
-import AllCategoriesModule from "./_components/AllCategoriesModule";
-
+import AdminAllCategoriesModule from '@/components/modules/Category/AdminAllCategoriesModule';
+import { LoaderCircle } from 'lucide-react';
+import { Suspense } from 'react';
 
 const AdminAllCategoriesPage = () => {
   return (
@@ -12,7 +11,7 @@ const AdminAllCategoriesPage = () => {
         </div>
       }
     >
-      <AllCategoriesModule />
+      <AdminAllCategoriesModule />
     </Suspense>
   );
 };

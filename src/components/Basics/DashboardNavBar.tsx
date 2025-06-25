@@ -30,7 +30,7 @@ import { protectedRoutes } from '@/constants';
 import { Button } from '../ui/button';
 import NavbarLoadingSkeleton from './UserNavSkeleton';
 import { LogOut, Menu, X } from 'lucide-react';
-import { InteractiveHoverButton } from '../button/hover-button';
+import { InteractiveHoverButton } from '../Button/InteractiveHoverButton';
 
 const DashboardNavBar = () => {
   const router = useRouter();

@@ -3,6 +3,8 @@
 import { getValidToken } from '@/lib/getValidToken';
 import { cookies } from 'next/headers';
 
+
+// updatePassword
 export const updatePassword = async (payload: {
   newPassword: string;
   oldPassword: string;
@@ -28,6 +30,7 @@ export const updatePassword = async (payload: {
   }
 };
 
+// updateProfile
 export const updateProfile = async (formData: FormData) => {
   try {
     const token = await getValidToken();
@@ -45,7 +48,7 @@ export const updateProfile = async (formData: FormData) => {
 
     const result = await res.json();
 
-    if (result.success) {
+    if (result?.success) {
       (await cookies()).set('accessToken', result.data.accessToken);
       (await cookies()).set('refreshToken', result?.data?.refreshToken);
     }

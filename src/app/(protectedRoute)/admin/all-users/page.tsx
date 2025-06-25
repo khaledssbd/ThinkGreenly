@@ -1,6 +1,6 @@
-import { LoaderCircle } from "lucide-react";
-import { Suspense } from "react";
-import AllUsersModule from "./_components/AllUsersModule";
+import AdminAllUsersModule from '@/components/modules/User/AdminAllUsersModule';
+import { LoaderCircle } from 'lucide-react';
+import { Suspense } from 'react';
 
 const AdminAllUsersPage = () => {
   return (
@@ -11,7 +11,7 @@ const AdminAllUsersPage = () => {
         </div>
       }
     >
-      <AllUsersModule />
+      <AdminAllUsersModule />
     </Suspense>
   );
 };

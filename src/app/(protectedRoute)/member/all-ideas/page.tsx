@@ -1,6 +1,6 @@
+import MemberAllIdeasModule from '@/components/modules/Ideas/MemberAllIdeas/MemberAllIdeasModule';
 import { LoaderCircle } from 'lucide-react';
 import React, { Suspense } from 'react';
-import AllIdeasModule from './_components/AllIdeasModule';
 
 const AllIdeasPage = () => {
   return (
@@ -11,10 +11,9 @@ const AllIdeasPage = () => {
         </div>
       }
     >
-      <AllIdeasModule />
+      <MemberAllIdeasModule />
     </Suspense>
   );
 };
 
-// export const dynamic = 'force-dynamic';
 export default AllIdeasPage;

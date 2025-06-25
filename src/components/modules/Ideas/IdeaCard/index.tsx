@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import IdeaCardCarousel from './IdeaCardCarousel';
-import { Idea } from '@/types/idea';
+import { TIdea } from '@/types';
 import Link from 'next/link';
 import {
   Card,
@@ -24,7 +24,6 @@ import {
   ShieldCheck,
   FileText,
   Gem,
- 
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -36,7 +35,9 @@ import {
 } from '@/components/ui/dialog';
 import { createPayment } from '@/services/Payment';
 import { useRouter } from 'next/navigation';
-const IdeaCard = ({ idea }: { idea: Idea }) => {
+
+
+const IdeaCard = ({ idea }: { idea: TIdea }) => {
   const { user, isLoading } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
@@ -67,8 +68,6 @@ const IdeaCard = ({ idea }: { idea: Idea }) => {
           <CardHeader className="relative h-full w-full p-0 overflow-hidden rounded-xl">
             {/* image carousel part */}
             <IdeaCardCarousel idea={idea} />
-
-            
 
             {/* comments count */}
             <div className="absolute dark:text-white top-2 left-1 flex items-center gap-1.5  backdrop-blur-sm text-green-700 px-3 py-1 rounded-full z-10 border border-green-200 bg-green-200/50 transition-colors">
