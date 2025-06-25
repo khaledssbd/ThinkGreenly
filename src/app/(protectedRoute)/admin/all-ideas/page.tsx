@@ -1,6 +1,6 @@
+import AdminAllIdeasModule from '@/components/modules/Ideas/AdminAllIdeas/AdminAllIdeasModule';
 import { LoaderCircle } from 'lucide-react';
 import React, { Suspense } from 'react';
-import AllIdeasModule from './_components/AllIdeasModule';
 
 const AllIdeasPage = () => {
   return (
@@ -11,10 +11,9 @@ const AllIdeasPage = () => {
         </div>
       }
     >
-      <AllIdeasModule />
+      <AdminAllIdeasModule />
     </Suspense>
   );
 };
 
-// export const dynamic = 'force-dynamic';
 export default AllIdeasPage;

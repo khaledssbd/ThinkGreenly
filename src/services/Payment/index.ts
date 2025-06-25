@@ -29,10 +29,9 @@ export const createPayment = async (paymentData: FieldValues): Promise<any> => {
 };
 
 // getAllPayments for Admin
-export const getAllPayments = async (
-  // page?: string,
-  // limit?: string
-): Promise<any> => {
+export const getAllPayments = async (): // page?: string,
+// limit?: string
+Promise<any> => {
   const token = await getValidToken();
 
   try {
@@ -57,10 +56,9 @@ export const getAllPayments = async (
 };
 
 // getMemberPayments for Member
-export const getMemberPayments = async (
-  // page?: string,
-  // limit?: string
-): Promise<any> => {
+export const getMemberPayments = async (): // page?: string,
+// limit?: string
+Promise<any> => {
   const token = await getValidToken();
 
   try {

@@ -30,7 +30,7 @@ import { protectedRoutes } from '@/constants';
 import { Button } from '../ui/button';
 import NavbarLoadingSkeleton from './UserNavSkeleton';
 import { LogOut, Menu, Search, X } from 'lucide-react';
-import { InteractiveHoverButton } from '../button/hover-button';
+import { InteractiveHoverButton } from '../Button/InteractiveHoverButton';
 import SearchInput from '../modules/Ideas/IdeaDetails/SearchInput';
 import LeafAnimation from '../HomeComponents/LeafAnimation';
 

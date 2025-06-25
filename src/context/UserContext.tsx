@@ -1,7 +1,7 @@
 'use client';
 
 import { getCurrentUser } from '@/services/AuthService';
-import { IUser } from '@/types';
+import { AuthUser } from '@/types';
 import {
   createContext,
   Dispatch,
@@ -12,15 +12,15 @@ import {
 } from 'react';
 
 interface IUserProv {
-  user: IUser | null;
+  user: AuthUser | null;
   isLoading: boolean;
-  setUser: (user: IUser | null) => void;
+  setUser: (user: AuthUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 export const UserContext = createContext<IUserProv | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleUser = async () => {

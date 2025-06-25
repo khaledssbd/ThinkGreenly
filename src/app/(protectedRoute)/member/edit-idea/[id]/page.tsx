@@ -1,18 +1,20 @@
-import { getAllCategories, getIdea } from './_action';
-import EditIdeaForm from './_components/EditIdeaForm';
+import EditIdeaForm from '@/components/modules/Ideas/MemberAllIdeas/EditIdeaForm';
+import { getAllCategories } from '@/services/Category';
+import { getSingleIdeaDetails } from '@/services/Idea';
 
 const EditIdeaPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) => {
-  const { data: categories } = await getAllCategories();
   const { id } = await params;
-  const { data: idea } = await getIdea(id);
+  const { data: idea } = await getSingleIdeaDetails(id);
+
+  const { data: categories } = await getAllCategories();
 
   return (
     <div>
-      <EditIdeaForm categories={categories} idea={idea} />
+      <EditIdeaForm idea={idea} categories={categories} />
     </div>
   );
 };
