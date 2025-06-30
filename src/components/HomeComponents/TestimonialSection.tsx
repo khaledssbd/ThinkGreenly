@@ -4,6 +4,7 @@ import { getIdeasByVotes } from '@/services/Idea';
 import { Badge } from '../ui/badge';
 import u1 from '../../assets/u1.avif';
 import { Lightbulb } from 'lucide-react';
+import { TIdea } from '@/types';
 
 const TestimonialSection = async () => {
   const { data: testimonials } = await getIdeasByVotes();
@@ -20,7 +21,7 @@ const TestimonialSection = async () => {
       </p>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {testimonials?.slice(0, 3).map((idea: any, idx: number) => (
+        {testimonials?.slice(0, 3).map((idea: TIdea, idx: number) => (
           <div
             key={idx}
             className="group relative bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 border-2 border-green-100/50 dark:border-emerald-900/50 hover:border-green-300 dark:hover:border-emerald-500"
@@ -56,7 +57,7 @@ const TestimonialSection = async () => {
               </div>
 
               <div className="grid grid-cols-3 gap-2 transform group-hover:scale-105 transition-transform">
-                {idea.images?.slice(0, 3).map((img: any, index: number) => (
+                {idea.images?.slice(0, 3).map((img: string, index: number) => (
                   <div
                     key={index}
                     className="relative aspect-square overflow-hidden rounded-lg border-2 border-green-50 dark:border-emerald-900"
@@ -84,7 +85,7 @@ const TestimonialSection = async () => {
                     className="rounded-full border-2 border-green-200 dark:border-emerald-800"
                   />
                   <span className="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                    {idea.votes}★
+                    {idea?.voteStats?.total ?? ''}★
                   </span>
                 </div>
                 <div className="text-left">
