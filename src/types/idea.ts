@@ -20,6 +20,8 @@ export type TIdea = {
   category: TCategory;
   author: TUser;
   votes: TVote[];
+  _count?: { votes: number };
+  voteStats?: { upvotes: number; downvotes: number; total: number };
   comments: TComment[];
   payments: TPayment[];
   isDeleted: boolean;
